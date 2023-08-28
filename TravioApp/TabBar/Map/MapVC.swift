@@ -18,7 +18,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     }()
     
     private lazy var longPressRecognizer: UILongPressGestureRecognizer = {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         longPressGesture.minimumPressDuration = 1
         longPressGesture.delegate = self
        
@@ -52,10 +52,51 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
       
     }
     
-    @objc func longPressed(){
-        print("tapped")
-        let convertedCoordinate = mapView.convert(value.location, toCoordinateFrom: mapView)
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .ended {
+            return
+        }
+        else if gestureRecognizer.state == .began {
+            
+            let touchPoint = gestureRecognizer.location(in: self.mapView)
+            
+            let touchMapCoordinate =  self.mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            
+            let geoCoder = CLGeocoder()
+            let location = CLLocation(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+            
+            geoCoder.reverseGeocodeLocation(location) { placemarks, error in
+                if let error = error {
+                    print("Reverse geocoding error: \(error.localizedDescription)")
+                    return
+                }
+                guard let placeMark = placemarks?.first else {return}
+                let addNewPlaceVC = AddNewPlaceVC()
+                addNewPlaceVC.addNewPlaceVM.initVM(city: placeMark.locality, country: placeMark.country, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+                
+                self.present(addNewPlaceVC, animated: true, completion: nil)
+               
+            }
+            
+           
+            //yourAnnotation.subtitle = "You long pressed here"
+            //yourAnnotation.coordinate = touchMapCoordinate
+            //self._mapView.addAnnotation(yourAnnotation)
+            
+        }
+        
     }
+ 
+    
+    func addNewAnnotationVC(with city: String, country: String, latitude: Double, longitude: Double) {
+            let vc = AddNewPlaceVC()
+            vc.addNewPlaceVM.cityName = city
+            vc.addNewPlaceVM.countryName = country
+            vc.addNewPlaceVM.latitude = latitude
+            vc.addNewPlaceVM.longitude = longitude
+            vc.addNewPlaceVM.mapVCdelegate = self
+            self.present(vc, animated: true)
+        }
     
     func addPins(places: [CLLocation]) {
         places.forEach { place in

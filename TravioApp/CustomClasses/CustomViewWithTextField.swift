@@ -1,0 +1,86 @@
+//
+//  TextView.swift
+//  ContactsApp
+//
+//  Created by Kurumsal on 18.08.2023.
+//
+
+import UIKit
+import TinyConstraints
+
+class CustomViewWithTextField: UIView {
+    
+    lazy var lbl: UICustomLabel = {
+        let l = UICustomLabel()
+        l.text = "Email"
+        l.textAlignment = .left
+        l.textColor = CustomColor.TravioBlack.color
+        l.font = CustomFont.PoppinsSemiBold(14).font
+        l.height(21)
+
+        return l
+    }()
+    
+    lazy var txtField:UICustomTextField =
+    {
+        let tf = UICustomTextField()
+        let ptext = "developer@bilgeadam.com"
+        var placeHolder = NSMutableAttributedString()
+        placeHolder = NSMutableAttributedString(string: ptext, attributes: [NSAttributedString.Key.font:CustomFont.PoppinsRegular(12).font])
+        
+        placeHolder.addAttribute(NSAttributedString.Key.foregroundColor, value:CustomColor.TravioLightGray.color, range:NSRange(location:0,length:ptext.count))
+        
+        tf.attributedPlaceholder = placeHolder
+        
+        tf.textColor = CustomColor.TravioLightGray.color
+        tf.font = CustomFont.PoppinsRegular(12).font
+        tf.leftViewMode = .always
+        
+        return tf
+    }()
+    
+    override func layoutSubviews() {
+        self.roundCorners([.bottomLeft,.topRight,.topLeft], radius: 16)
+//        let width = self.frame.size.width - 48
+//        self.shadowAndRoundCorners(width: width)
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        self.backgroundColor = CustomColor.White.color
+        self.width(342)
+        self.height(74)
+        addSubviews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addSubviews() {
+        
+        self.addSubview(lbl)
+        self.addSubview(txtField)
+        
+        setLayout()
+    }
+    func setLayout(){
+        
+        lbl.topToSuperview(offset:8)
+        lbl.edgesToSuperview(excluding: [.bottom,.top,.right],insets: .left(12))
+        
+        txtField.topToBottom(of: lbl,offset: 8)
+        txtField.edges(to: lbl,excluding: [.bottom,.top,.right],insets: .left(0))
+    }
+    
+    func placeHolderConfig(placeHolderText: String = "",font : CustomFont = CustomFont.PoppinsRegular(12), color:CustomColor = CustomColor.TravioLightGray){
+        
+        var placeHolder = NSMutableAttributedString()
+        placeHolder = NSMutableAttributedString(string: placeHolderText, attributes: [NSAttributedString.Key.font:font.font])
+        
+        placeHolder.addAttribute(NSAttributedString.Key.foregroundColor, value:color.color, range:NSRange(location:0,length:placeHolderText.count))
+        
+        txtField.attributedPlaceholder = placeHolder
+    }
+    
+}

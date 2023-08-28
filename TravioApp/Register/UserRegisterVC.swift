@@ -29,7 +29,7 @@ class UserRegisterVC: UIViewController {
     
     private lazy var secondView: UIView = {
         let v = UIView()
-        v.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
+        v.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
         return v
     }()
     

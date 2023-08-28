@@ -44,6 +44,15 @@
 		7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */; };
 		7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */; };
 		7A84AE3F2A9CCB9F00397420 /* AddNewPlaceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */; };
+		865F627C2A9D326900B84578 /* CustomViewWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomViewWithTextField.swift */; };
+		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
+		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
+		865F627F2A9D326900B84578 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62782A9D326900B84578 /* CustomFonts.swift */; };
+		865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62792A9D326900B84578 /* UICustomLabel.swift */; };
+		865F62812A9D326900B84578 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F627A2A9D326900B84578 /* BackgroundView.swift */; };
+		865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F627B2A9D326900B84578 /* UICustomTextField.swift */; };
+		865F62842A9D463300B84578 /* CustomViewWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62832A9D463300B84578 /* CustomViewWithTextView.swift */; };
+		865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +91,15 @@
 		7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+UIImage.swift"; sourceTree = "<group>"; };
 		7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVM.swift; sourceTree = "<group>"; };
 		7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVC.swift; sourceTree = "<group>"; };
+		865F62752A9D326900B84578 /* CustomViewWithTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewWithTextField.swift; sourceTree = "<group>"; };
+		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
+		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
+		865F62782A9D326900B84578 /* CustomFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		865F62792A9D326900B84578 /* UICustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomLabel.swift; sourceTree = "<group>"; };
+		865F627A2A9D326900B84578 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		865F627B2A9D326900B84578 /* UICustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
+		865F62832A9D463300B84578 /* CustomViewWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewWithTextView.swift; sourceTree = "<group>"; };
+		865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryToUploadCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +136,8 @@
 		7A7A8EBB2A9C9B78000681F6 /* TravioApp */ = {
 			isa = PBXGroup;
 			children = (
+				865F62742A9D324600B84578 /* CustomClasses */,
+				865F62732A9D321D00B84578 /* New Group */,
 				7A7A8EBC2A9C9B78000681F6 /* AppDelegate.swift */,
 				7A7A8EBE2A9C9B78000681F6 /* SceneDelegate.swift */,
 				7A7A8F242A9C9F4B000681F6 /* Helper */,
@@ -264,8 +284,31 @@
 			children = (
 				7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */,
 				7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */,
+				865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */,
 			);
 			path = AddNewPlace;
+			sourceTree = "<group>";
+		};
+		865F62732A9D321D00B84578 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		865F62742A9D324600B84578 /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				865F627A2A9D326900B84578 /* BackgroundView.swift */,
+				865F62762A9D326900B84578 /* CustomColors.swift */,
+				865F62782A9D326900B84578 /* CustomFonts.swift */,
+				865F62752A9D326900B84578 /* CustomViewWithTextField.swift */,
+				865F62832A9D463300B84578 /* CustomViewWithTextView.swift */,
+				865F62772A9D326900B84578 /* UICustomButton.swift */,
+				865F62792A9D326900B84578 /* UICustomLabel.swift */,
+				865F627B2A9D326900B84578 /* UICustomTextField.swift */,
+			);
+			path = CustomClasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,26 +397,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */,
 				7A7A8F192A9C9F00000681F6 /* HomePageVM.swift in Sources */,
 				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,
 				7A7A8F1D2A9C9F18000681F6 /* MapKit.swift in Sources */,
 				7A7A8F002A9C9E5F000681F6 /* VisitsVCViewModel.swift in Sources */,
+				865F627D2A9D326900B84578 /* CustomColors.swift in Sources */,
+				865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */,
 				7A7A8F0C2A9C9EAB000681F6 /* DetailVisitsCell.swift in Sources */,
 				7A7A8F172A9C9F00000681F6 /* UserLoginVM.swift in Sources */,
 				7A7A8F062A9C9E5F000681F6 /* MainTabbarController.swift in Sources */,
 				7A7A8F052A9C9E5F000681F6 /* MapVCViewModel.swift in Sources */,
 				7A7A8F072A9C9E5F000681F6 /* HomeVC.swift in Sources */,
 				7A7A8F092A9C9E92000681F6 /* DetailVisitsVC.swift in Sources */,
+				865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */,
 				7A7A8F1E2A9C9F18000681F6 /* User.swift in Sources */,
 				7A7A8F042A9C9E5F000681F6 /* DetailVisitsViewModel.swift in Sources */,
 				7A7A8EBD2A9C9B78000681F6 /* AppDelegate.swift in Sources */,
 				7A7A8EF62A9C9DD4000681F6 /* UserLoginVC.swift in Sources */,
 				7A7A8F032A9C9E5F000681F6 /* MenuVC.swift in Sources */,
 				7A7A8F232A9C9F39000681F6 /* Router.swift in Sources */,
+				865F627C2A9D326900B84578 /* CustomViewWithTextField.swift in Sources */,
 				7A7A8F182A9C9F00000681F6 /* UserRegisterVM.swift in Sources */,
 				7A7A8F0F2A9C9EC9000681F6 /* MapCollectionCell.swift in Sources */,
+				865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */,
 				7A7A8F222A9C9F39000681F6 /* APIService.swift in Sources */,
+				865F62842A9D463300B84578 /* CustomViewWithTextView.swift in Sources */,
+				865F62812A9D326900B84578 /* BackgroundView.swift in Sources */,
+				865F627F2A9D326900B84578 /* CustomFonts.swift in Sources */,
 				7A7A8F022A9C9E5F000681F6 /* MapVC.swift in Sources */,
 				7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */,
 				7A7A8F262A9C9F52000681F6 /* KeyChainHelper.swift in Sources */,
