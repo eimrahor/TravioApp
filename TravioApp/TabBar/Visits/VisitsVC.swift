@@ -31,6 +31,7 @@ class VisitsVC: UIViewController {
         tv.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
         tv.delegate = self
         tv.dataSource = self
+        tv.showsVerticalScrollIndicator = false
         tv.register(VisitsVCTableViewCell.self, forCellReuseIdentifier: "VisitsCell")
         return tv
     }()
@@ -58,6 +59,8 @@ class VisitsVC: UIViewController {
     }
     
     func setupViews() {
+        navigationController?.navigationBar.isHidden = true
+        
         view.addSubview(titleVisits)
         view.addSubview(secondView)
         view.addSubview(tableView)
@@ -73,22 +76,22 @@ class VisitsVC: UIViewController {
         
         secondView.snp.makeConstraints { make in
             make.height.equalTo(view.snp.height).multipliedBy(0.82)
-            make.width.equalTo(view.snp.width)
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
 
         tableView.snp.makeConstraints { make in
             make.top.equalTo(secondView.snp.top).offset(29)
             make.bottom.equalToSuperview()
-            make.leading.equalTo(secondView.snp.leading).offset(23)
-            make.trailing.equalTo(secondView.snp.trailing).offset(-23)
+            make.centerX.equalTo(view.snp.centerX)
+            make.width.equalTo(354)
         }
     }
 }
 
 extension VisitsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 280
+        return 260
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

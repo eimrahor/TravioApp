@@ -36,7 +36,7 @@ class UserLoginVC: UIViewController {
     private lazy var emailView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -59,7 +59,7 @@ class UserLoginVC: UIViewController {
     private lazy var passwordView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     

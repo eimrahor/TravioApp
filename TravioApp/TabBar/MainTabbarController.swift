@@ -34,7 +34,7 @@ class MainTabbarController: UITabBarController {
         vc1.tabBarItem = UITabBarItem(title: "Home", image: image, selectedImage: selectedImage)
         
         let vc2 = VisitsVC()
-        //let nav2 = UINavigationController(rootViewController: vc2)
+        let nav2 = UINavigationController(rootViewController: vc2)
         let image2 = UIImage(named: "location")
         
         let newSize2 = CGSize(width: 30, height: 30)
@@ -43,8 +43,8 @@ class MainTabbarController: UITabBarController {
         let selectedImage2 = UIImage(named: "map")
         let selectedNewSize2 = CGSize(width: 30, height: 30)
         let selectedresizedImage2 = selectedImage2!.resized(to: selectedNewSize2)
-        vc2.tabBarItem = UITabBarItem(title: "Visits", image: resizedImage2, selectedImage: selectedresizedImage2)
-        vc2.tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: 3, right: 0)
+        nav2.tabBarItem = UITabBarItem(title: "Visits", image: resizedImage2, selectedImage: selectedresizedImage2)
+        nav2.tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: 3, right: 0)
         
         
         let vc3 = MapVC()
@@ -64,7 +64,7 @@ class MainTabbarController: UITabBarController {
         vc4.tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: 3, right: 0)
         
         
-        self.viewControllers = [vc1,vc2,vc3,vc4]
+        self.viewControllers = [vc1,nav2,vc3,vc4]
         self.selectedIndex = 1
     }
     

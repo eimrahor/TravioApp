@@ -36,7 +36,7 @@ class UserRegisterVC: UIViewController {
     private lazy var userNameView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -58,7 +58,7 @@ class UserRegisterVC: UIViewController {
     private lazy var emailView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -80,7 +80,7 @@ class UserRegisterVC: UIViewController {
     private lazy var passwordView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -103,7 +103,7 @@ class UserRegisterVC: UIViewController {
     private lazy var passwordConfirmView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     

@@ -10,7 +10,7 @@ import SnapKit
 import Kingfisher
 
 class VisitsVCTableViewCell: UITableViewCell {
-
+    
     private lazy var img: UIImageView = {
        let img = UIImageView()
         img.contentMode = .scaleToFill
@@ -34,8 +34,7 @@ class VisitsVCTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         layoutIfNeeded()
-        img.roundCorners([.topLeft], radius: 16)
-    }
+        img.roundCorners([.topLeft,.topRight,.bottomLeft], radius: 16)
     }
     
     required init?(coder: NSCoder) {
@@ -55,6 +54,7 @@ class VisitsVCTableViewCell: UITableViewCell {
     
     func setupViews() {
         contentView.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
+        
         contentView.addSubview(img)
         contentView.addSubview(locationImg)
         contentView.addSubview(labelCity)
@@ -65,7 +65,7 @@ class VisitsVCTableViewCell: UITableViewCell {
     func makeConsts() {
         img.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
-            make.leading.trailing.equalToSuperview()
+            make.centerX.equalTo(contentView.snp.centerX)
             make.height.equalTo(219)
             make.width.equalTo(344)
         }

@@ -46,7 +46,14 @@ class DetailVisitsVC: UIViewController {
         return control
     }()
     
-    private lazy var collectionandPageController: UIView = {
+    private lazy var gradientRectangle: UIImageView = {
+       let img = UIImageView()
+        img.image = UIImage(named: "gradientRectangle")
+        img.contentMode = .scaleAspectFill
+        return img
+    }()
+    
+    private lazy var topView: UIView = {
         let content = UIView()
         return content
     }()
@@ -130,14 +137,6 @@ class DetailVisitsVC: UIViewController {
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        navigationController?.isNavigationBarHidden = true
-//    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        pageController.roundCorners([.allCorners], radius: 20)
-    }
-    
     @objc func backVisitVC() {
         navigationController?.popViewController(animated: true)
     }
@@ -200,10 +199,11 @@ class DetailVisitsVC: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
         navigationController?.isNavigationBarHidden = true
         
-        collectionandPageController.addSubview(collectionView)
-        collectionandPageController.addSubview(pageController)
-        collectionandPageController.addSubview(backButton)
-        view.addSubview(collectionandPageController)
+        topView.addSubview(collectionView)
+        topView.addSubview(gradientRectangle)
+        topView.addSubview(backButton)
+        view.addSubview(topView)
+        view.addSubview(pageController)
         
         content.addSubview(titleLabel)
         content.addSubview(dateLabel)
@@ -219,7 +219,7 @@ class DetailVisitsVC: UIViewController {
     }
 
     func makeConst() {
-        collectionandPageController.snp.makeConstraints { make in
+        topView.snp.makeConstraints { make in
             make.top.trailing.leading.equalToSuperview()
             make.height.equalTo(249)
         }
@@ -227,6 +227,12 @@ class DetailVisitsVC: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(249)
+        }
+        
+        gradientRectangle.snp.makeConstraints { make in
+            make.bottom.equalTo(collectionView.snp.bottom)
+            make.trailing.leading.equalToSuperview()
+            make.height.equalTo(110)
         }
         
         backButton.snp.makeConstraints { make in
@@ -237,8 +243,8 @@ class DetailVisitsVC: UIViewController {
         }
         
         pageController.snp.makeConstraints { make in
-            make.leading.equalTo(162)
-            make.bottom.equalTo(collectionandPageController.snp.bottom).offset(-20)
+            make.centerX.equalTo(collectionView.snp.centerX)
+            make.bottom.equalTo(topView.snp.bottom).offset(-20)
         }
         
         titleLabel.snp.makeConstraints { make in
