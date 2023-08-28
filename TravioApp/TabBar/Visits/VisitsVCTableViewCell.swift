@@ -33,6 +33,9 @@ class VisitsVCTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        layoutIfNeeded()
+        img.roundCorners([.topLeft], radius: 16)
+    }
     }
     
     required init?(coder: NSCoder) {
