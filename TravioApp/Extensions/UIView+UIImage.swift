@@ -31,7 +31,6 @@ extension UIView {
 
         self.layer.insertSublayer(shadowLayer, at: 0)
     }
-
 }
 
 extension UIImage {

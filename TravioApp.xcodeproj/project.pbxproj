@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7A7A8EBD2A9C9B78000681F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EBC2A9C9B78000681F6 /* AppDelegate.swift */; };
 		7A7A8EBF2A9C9B78000681F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EBE2A9C9B78000681F6 /* SceneDelegate.swift */; };
-		7A7A8EC12A9C9B78000681F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EC02A9C9B78000681F6 /* ViewController.swift */; };
 		7A7A8EC62A9C9B79000681F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7A8EC52A9C9B79000681F6 /* Assets.xcassets */; };
 		7A7A8EC92A9C9B79000681F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A7A8EC72A9C9B79000681F6 /* LaunchScreen.storyboard */; };
 		7A7A8EE22A9C9BF1000681F6 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A7A8EDE2A9C9BF0000681F6 /* Poppins-SemiBold.ttf */; };
@@ -49,7 +48,6 @@
 		7A7A8EB92A9C9B78000681F6 /* TravioApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravioApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7A8EBC2A9C9B78000681F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A7A8EBE2A9C9B78000681F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7A7A8EC02A9C9B78000681F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7A7A8EC52A9C9B79000681F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A7A8EC82A9C9B79000681F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A7A8ECA2A9C9B79000681F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,16 +114,16 @@
 		7A7A8EBB2A9C9B78000681F6 /* TravioApp */ = {
 			isa = PBXGroup;
 			children = (
-				7A7A8EF72A9C9E05000681F6 /* TabBar */,
-				7A7A8EF22A9C9DB8000681F6 /* View */,
-				7A7A8F132A9C9EF5000681F6 /* ViewModel */,
-				7A7A8F1A2A9C9F0F000681F6 /* Model */,
-				7A7A8F1F2A9C9F31000681F6 /* Service */,
-				7A7A8F242A9C9F4B000681F6 /* Helper */,
-				7A7A8F272A9C9F61000681F6 /* Extensions */,
 				7A7A8EBC2A9C9B78000681F6 /* AppDelegate.swift */,
 				7A7A8EBE2A9C9B78000681F6 /* SceneDelegate.swift */,
-				7A7A8EC02A9C9B78000681F6 /* ViewController.swift */,
+				7A7A8F242A9C9F4B000681F6 /* Helper */,
+				7A7A8F272A9C9F61000681F6 /* Extensions */,
+				7A7A8F1F2A9C9F31000681F6 /* Service */,
+				7A7A8EF72A9C9E05000681F6 /* TabBar */,
+				7A7A8EF22A9C9DB8000681F6 /* Login */,
+				7A84AE3A2A9CB4EF00397420 /* Register */,
+				7A7A8F132A9C9EF5000681F6 /* UserData */,
+				7A7A8F1A2A9C9F0F000681F6 /* Model */,
 				7A7A8EC52A9C9B79000681F6 /* Assets.xcassets */,
 				7A7A8EC72A9C9B79000681F6 /* LaunchScreen.storyboard */,
 				7A7A8ECA2A9C9B79000681F6 /* Info.plist */,
@@ -137,66 +135,33 @@
 			path = TravioApp;
 			sourceTree = "<group>";
 		};
-		7A7A8EF22A9C9DB8000681F6 /* View */ = {
+		7A7A8EF22A9C9DB8000681F6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				7A7A8EF42A9C9DD4000681F6 /* UserLoginVC.swift */,
-				7A7A8EF32A9C9DD4000681F6 /* UserRegisterVC.swift */,
+				7A7A8F142A9C9F00000681F6 /* UserLoginVM.swift */,
 			);
-			path = View;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		7A7A8EF72A9C9E05000681F6 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				7A7A8F102A9C9ED6000681F6 /* TableViewForVisitsVC */,
-				7A7A8F0D2A9C9EB9000681F6 /* CollectionViewForMapVC */,
-				7A7A8F0A2A9C9E9F000681F6 /* CollectionViewDetailsVC */,
-				7A7A8F082A9C9E92000681F6 /* DetailVisitsVC.swift */,
-				7A7A8EFC2A9C9E5F000681F6 /* DetailVisitsViewModel.swift */,
-				7A7A8EFF2A9C9E5F000681F6 /* HomeVC.swift */,
 				7A7A8EFE2A9C9E5F000681F6 /* MainTabbarController.swift */,
-				7A7A8EFA2A9C9E5F000681F6 /* MapVC.swift */,
-				7A7A8EFD2A9C9E5F000681F6 /* MapVCViewModel.swift */,
-				7A7A8EFB2A9C9E5F000681F6 /* MenuVC.swift */,
-				7A7A8EF92A9C9E5F000681F6 /* VisitsVC.swift */,
-				7A7A8EF82A9C9E5F000681F6 /* VisitsVCViewModel.swift */,
+				7A84AE372A9CB3EC00397420 /* Map */,
+				7A84AE352A9CB33900397420 /* Home */,
+				7A84AE362A9CB34E00397420 /* Visits */,
+				7A84AE392A9CB4B400397420 /* Menu */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		7A7A8F0A2A9C9E9F000681F6 /* CollectionViewDetailsVC */ = {
-			isa = PBXGroup;
-			children = (
-				7A7A8F0B2A9C9EAB000681F6 /* DetailVisitsCell.swift */,
-			);
-			path = CollectionViewDetailsVC;
-			sourceTree = "<group>";
-		};
-		7A7A8F0D2A9C9EB9000681F6 /* CollectionViewForMapVC */ = {
-			isa = PBXGroup;
-			children = (
-				7A7A8F0E2A9C9EC9000681F6 /* MapCollectionCell.swift */,
-			);
-			path = CollectionViewForMapVC;
-			sourceTree = "<group>";
-		};
-		7A7A8F102A9C9ED6000681F6 /* TableViewForVisitsVC */ = {
-			isa = PBXGroup;
-			children = (
-				7A7A8F112A9C9EDE000681F6 /* VisitsVCTableViewCell.swift */,
-			);
-			path = TableViewForVisitsVC;
-			sourceTree = "<group>";
-		};
-		7A7A8F132A9C9EF5000681F6 /* ViewModel */ = {
+		7A7A8F132A9C9EF5000681F6 /* UserData */ = {
 			isa = PBXGroup;
 			children = (
 				7A7A8F162A9C9F00000681F6 /* HomePageVM.swift */,
-				7A7A8F142A9C9F00000681F6 /* UserLoginVM.swift */,
-				7A7A8F152A9C9F00000681F6 /* UserRegisterVM.swift */,
 			);
-			path = ViewModel;
+			path = UserData;
 			sourceTree = "<group>";
 		};
 		7A7A8F1A2A9C9F0F000681F6 /* Model */ = {
@@ -231,6 +196,62 @@
 				7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7A84AE352A9CB33900397420 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7A7A8EFF2A9C9E5F000681F6 /* HomeVC.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7A84AE362A9CB34E00397420 /* Visits */ = {
+			isa = PBXGroup;
+			children = (
+				7A84AE382A9CB42100397420 /* DetailVisits */,
+				7A7A8F112A9C9EDE000681F6 /* VisitsVCTableViewCell.swift */,
+				7A7A8EF92A9C9E5F000681F6 /* VisitsVC.swift */,
+				7A7A8EF82A9C9E5F000681F6 /* VisitsVCViewModel.swift */,
+			);
+			path = Visits;
+			sourceTree = "<group>";
+		};
+		7A84AE372A9CB3EC00397420 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				7A7A8F0E2A9C9EC9000681F6 /* MapCollectionCell.swift */,
+				7A7A8EFA2A9C9E5F000681F6 /* MapVC.swift */,
+				7A7A8EFD2A9C9E5F000681F6 /* MapVCViewModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		7A84AE382A9CB42100397420 /* DetailVisits */ = {
+			isa = PBXGroup;
+			children = (
+				7A7A8F0B2A9C9EAB000681F6 /* DetailVisitsCell.swift */,
+				7A7A8F082A9C9E92000681F6 /* DetailVisitsVC.swift */,
+				7A7A8EFC2A9C9E5F000681F6 /* DetailVisitsViewModel.swift */,
+			);
+			path = DetailVisits;
+			sourceTree = "<group>";
+		};
+		7A84AE392A9CB4B400397420 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				7A7A8EFB2A9C9E5F000681F6 /* MenuVC.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		7A84AE3A2A9CB4EF00397420 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				7A7A8EF32A9C9DD4000681F6 /* UserRegisterVC.swift */,
+				7A7A8F152A9C9F00000681F6 /* UserRegisterVM.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,7 +352,6 @@
 				7A7A8F072A9C9E5F000681F6 /* HomeVC.swift in Sources */,
 				7A7A8F092A9C9E92000681F6 /* DetailVisitsVC.swift in Sources */,
 				7A7A8F1E2A9C9F18000681F6 /* User.swift in Sources */,
-				7A7A8EC12A9C9B78000681F6 /* ViewController.swift in Sources */,
 				7A7A8F042A9C9E5F000681F6 /* DetailVisitsViewModel.swift in Sources */,
 				7A7A8EBD2A9C9B78000681F6 /* AppDelegate.swift in Sources */,
 				7A7A8EF62A9C9DD4000681F6 /* UserLoginVC.swift in Sources */,
