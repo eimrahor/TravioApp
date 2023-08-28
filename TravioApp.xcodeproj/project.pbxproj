@@ -42,6 +42,8 @@
 		7A7A8F232A9C9F39000681F6 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F212A9C9F39000681F6 /* Router.swift */; };
 		7A7A8F262A9C9F52000681F6 /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F252A9C9F52000681F6 /* KeyChainHelper.swift */; };
 		7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */; };
+		7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */; };
+		7A84AE3F2A9CCB9F00397420 /* AddNewPlaceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		7A7A8F212A9C9F39000681F6 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		7A7A8F252A9C9F52000681F6 /* KeyChainHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
 		7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+UIImage.swift"; sourceTree = "<group>"; };
+		7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVM.swift; sourceTree = "<group>"; };
+		7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +224,7 @@
 		7A84AE372A9CB3EC00397420 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				7A84AE3B2A9CCB3B00397420 /* AddNewPlace */,
 				7A7A8F0E2A9C9EC9000681F6 /* MapCollectionCell.swift */,
 				7A7A8EFA2A9C9E5F000681F6 /* MapVC.swift */,
 				7A7A8EFD2A9C9E5F000681F6 /* MapVCViewModel.swift */,
@@ -252,6 +257,15 @@
 				7A7A8F152A9C9F00000681F6 /* UserRegisterVM.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		7A84AE3B2A9CCB3B00397420 /* AddNewPlace */ = {
+			isa = PBXGroup;
+			children = (
+				7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */,
+				7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */,
+			);
+			path = AddNewPlace;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,9 +375,11 @@
 				7A7A8F0F2A9C9EC9000681F6 /* MapCollectionCell.swift in Sources */,
 				7A7A8F222A9C9F39000681F6 /* APIService.swift in Sources */,
 				7A7A8F022A9C9E5F000681F6 /* MapVC.swift in Sources */,
+				7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */,
 				7A7A8F262A9C9F52000681F6 /* KeyChainHelper.swift in Sources */,
 				7A7A8F012A9C9E5F000681F6 /* VisitsVC.swift in Sources */,
 				7A7A8EBF2A9C9B78000681F6 /* SceneDelegate.swift in Sources */,
+				7A84AE3F2A9CCB9F00397420 /* AddNewPlaceVC.swift in Sources */,
 				7A7A8F122A9C9EDE000681F6 /* VisitsVCTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

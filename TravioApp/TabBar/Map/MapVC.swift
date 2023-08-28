@@ -8,12 +8,21 @@
 import UIKit
 import MapKit
 import SnapKit
+import SwiftUI
 
-class MapVC: UIViewController {
+class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
     private lazy var mapView: MKMapView = {
         let mp = MKMapView()
         return mp
+    }()
+    
+    private lazy var longPressRecognizer: UILongPressGestureRecognizer = {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        longPressGesture.minimumPressDuration = 1
+        longPressGesture.delegate = self
+       
+        return longPressGesture
     }()
     
     private lazy var collectionView: UICollectionView = {
@@ -40,6 +49,12 @@ class MapVC: UIViewController {
         
         setupViews()
         initVM()
+      
+    }
+    
+    @objc func longPressed(){
+        print("tapped")
+        let convertedCoordinate = mapView.convert(value.location, toCoordinateFrom: mapView)
     }
     
     func addPins(places: [CLLocation]) {
@@ -60,6 +75,8 @@ class MapVC: UIViewController {
             self.locationsOrdering = allPlaces
             self.addPins(places: allPlaces)
         }
+        self.mapView.addGestureRecognizer(longPressRecognizer)
+        
     }
     
     func setupViews() {
@@ -81,6 +98,23 @@ class MapVC: UIViewController {
             make.height.equalTo(178)
         }
     }
+    
+//    func longPressDrag() -> some Gesture {
+//           LongPressGesture(minimumDuration: 0.25)
+//               .sequenced(before: DragGesture(coordinateSpace: .local)
+//               .onEnded { value in
+//                   let convertedCoordinate = mapView.convert(value.location, toCoordinateFrom: mapView)
+//                   let pinLocation = convertedCoordinate
+//                   let offset = .zero
+//                   print("New Coordinate: \(pinLocation)")
+//                   let dragAmountw
+//               }
+//               .updating($dragAmount) { value, state, transaction in
+//                   state = value.translation
+//
+//                   offset = value.translation
+//               })
+//       }
 
 }
 
@@ -128,4 +162,8 @@ extension MapVC: MKMapViewDelegate {
         
         return annotationView
     }
+    
+    
+    
+    
 }
