@@ -31,6 +31,7 @@ class MapVCViewModel {
                 self.delegate?.reloadData()
             case .failure(let err):
                 print(err)
+                print(err)
             }
         }
     }
