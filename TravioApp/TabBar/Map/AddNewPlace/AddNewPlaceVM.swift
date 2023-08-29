@@ -22,4 +22,5 @@ class AddNewPlaceVM{
         if let latitudeUnWrap = latitude { self.latitude = latitudeUnWrap}
         if let longitudeUnWrap = longitude { self.longitude = longitudeUnWrap}
     }
+    
 }

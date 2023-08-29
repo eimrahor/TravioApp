@@ -7,13 +7,23 @@
 
 import UIKit
 import SnapKit
+import TinyConstraints
 
 class GalleryToUploadCell: UICollectionViewCell {
+    
+    var img = UIImageView()
     
     private lazy var image: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        let defaultImg = UIImage(systemName: "camera.fill")
+       // img.backgroundColor = .clear
+        return img
+    }()
+    
+    private lazy var imgCameraLogo: UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        let defaultImg = UIImage(named: "cameraLogo.png")
         img.image = defaultImg
         return img
     }()
@@ -27,13 +37,23 @@ class GalleryToUploadCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setImage(){
+        print("setImage")
+        self.image = img
+     }
+   func configureImage(image:UIImage){
+       self.image.image = image
+    }
     func setupViews() {
         self.contentView.backgroundColor = CustomColor.White.color
+        contentView.addSubview(imgCameraLogo)
         contentView.addSubview(image)
         makeConst()
     }
     
     func makeConst() {
+        
+        imgCameraLogo.edgesToSuperview(insets: .left(70) + .right(70) + .bottom(70) + .top(70))
         image.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

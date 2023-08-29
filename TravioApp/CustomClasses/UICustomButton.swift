@@ -22,7 +22,7 @@ class UICustomButton: UIButton {
         super.layoutSubviews()
        // self.setTitle("Login", for: .normal)
         self.setTitleColor(CustomColor.White.color, for: .normal)
-       // self.roundCorners(corners: [.bottomLeft,.topRight,.topLeft], radius: 16)
+        self.roundCorners( [.bottomLeft,.topRight,.topLeft], radius: 16)
     }
     init(title: String = "Button")
     {

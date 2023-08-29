@@ -137,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				865F62742A9D324600B84578 /* CustomClasses */,
-				865F62732A9D321D00B84578 /* New Group */,
 				7A7A8EBC2A9C9B78000681F6 /* AppDelegate.swift */,
 				7A7A8EBE2A9C9B78000681F6 /* SceneDelegate.swift */,
 				7A7A8F242A9C9F4B000681F6 /* Helper */,
@@ -287,13 +286,6 @@
 				865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */,
 			);
 			path = AddNewPlace;
-			sourceTree = "<group>";
-		};
-		865F62732A9D321D00B84578 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		865F62742A9D324600B84578 /* CustomClasses */ = {

@@ -8,9 +8,10 @@
 import UIKit
 import TinyConstraints
 
-class AddNewPlaceVC: UIViewController {
+class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
 
     let addNewPlaceVM = AddNewPlaceVM()
+    var selectedCellIndex:IndexPath?
     
     private lazy var tvPlaceName: UITextView = {
         let tv = UITextView()
@@ -62,6 +63,15 @@ class AddNewPlaceVC: UIViewController {
         
     }()
     
+    private lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        return picker
+    }()
+   let btnAddPlace = UICustomButton(title: "Add New Place")
+ 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +79,7 @@ class AddNewPlaceVC: UIViewController {
         print(addNewPlaceVM.countryName)
         print(addNewPlaceVM.latitude)
         print(addNewPlaceVM.longitude)
+    
         setupLayout()
     }
     
@@ -92,6 +103,12 @@ class AddNewPlaceVC: UIViewController {
         collectionViewGallery.topToBottom(of: countryView,offset: 16)
         collectionViewGallery.height(215)
         collectionViewGallery.edgesToSuperview(excluding: [.bottom , .top] , insets: .left(24) + .right(24))
+        
+        btnAddPlace.topToBottom(of:collectionViewGallery,offset:16)
+        btnAddPlace.edgesToSuperview(excluding: [.top,.bottom] , insets: .left(24) + .right(24))
+        btnAddPlace.height(54)
+        
+        fillLocationDatas()
     }
     
     func addSubviews(){
@@ -99,24 +116,55 @@ class AddNewPlaceVC: UIViewController {
         self.view.addSubview(visitDescriptionView)
         self.view.addSubview(countryView)
         self.view.addSubview(collectionViewGallery)
+        self.view.addSubview(btnAddPlace)
+    }
+    func fillLocationDatas(){
+        
+        guard let country = addNewPlaceVM.countryName, let city = addNewPlaceVM.cityName else {return}
+
+        let countryCityText = "\(country), \(city)"
+        countryView.txtField.text = countryCityText
+        countryView.txtField.textColor = CustomColor.TravioBlack.color
+    }
+    
+    func reloadData(){
+        DispatchQueue.main.async {
+            self.collectionViewGallery.reloadData()
+        }
     }
 
 }
 extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        let size = CGSize(width: collectionView.frame.height, height: collectionView.frame.height)
         return size
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCellIndex = indexPath
+        self.present(imagePicker,animated: true)
     }
 }
 extension AddNewPlaceVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadCell", for: indexPath) as? GalleryToUploadCell else { return UICollectionViewCell() }
         return cell
     }
+}
+
+extension AddNewPlaceVC: UIImagePickerControllerDelegate {
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as! UIImage
+        
+       let cell = collectionViewGallery.cellForItem(at: selectedCellIndex!) as! GalleryToUploadCell
+        cell.configureImage(image: image )
+        
+        reloadData()
+        self.dismiss(animated: true)
+    }
     
 }
