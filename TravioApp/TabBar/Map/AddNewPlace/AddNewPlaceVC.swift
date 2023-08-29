@@ -168,3 +168,46 @@ extension AddNewPlaceVC: UIImagePickerControllerDelegate {
     }
     
 }
+
+
+//import UIKit
+//import Alamofire
+//
+//class ImageUploadViewController: UIViewController {
+//
+//    @IBAction func uploadButtonTapped(_ sender: UIButton) {
+//        let image = UIImage(named: "your_image_name")
+//        let parameters: [String: String] = ["key1": "value1", "key2": "value2"]
+//        uploadImage(image: image, parameters: parameters)
+//    }
+//
+//    func uploadImage(image: UIImage?, parameters: [String: String]) {
+//        guard let image = image else {
+//            return
+//        }
+//
+//        let url = "your_upload_url"
+//        let imageData = image.jpegData(compressionQuality: 0.6)
+//
+//        Alamofire.upload(multipartFormData: { multipartFormData in
+//            for (key, value) in parameters {
+//                multipartFormData.append(value.data(using: .utf8)!, withName: key)
+//            }
+//
+//            if let imageData = imageData {
+//                multipartFormData.append(imageData, withName: "image", fileName: "image.jpg", mimeType: "image/jpeg")
+//            }
+//        }, to: url, method: .post, headers: nil) { result in
+//            switch result {
+//            case .success(let upload, _, _):
+//                upload.responseJSON { response in
+//                    // Handle the response
+//                    // ...
+//                }
+//            case .failure(let encodingError):
+//                print(encodingError)
+//            }
+//        }
+//    }
+//}
+
