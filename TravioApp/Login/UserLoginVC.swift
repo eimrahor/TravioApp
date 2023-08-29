@@ -36,7 +36,7 @@ class UserLoginVC: UIViewController {
     private lazy var emailView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -59,7 +59,7 @@ class UserLoginVC: UIViewController {
     private lazy var passwordView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -143,7 +143,7 @@ class UserLoginVC: UIViewController {
             "password": pass
         ]
         viewModel.postForUserLogin(params: param)
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.6) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.7) {
             let vc = MainTabbarController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -177,14 +177,15 @@ class UserLoginVC: UIViewController {
     func makeConst() {
         
         logoImage.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.leading.equalTo(120)
+            make.top.equalToSuperview().offset(64)
+            make.centerX.equalTo(view.snp.centerX)
             make.width.equalTo(149)
             make.height.equalTo(178)
+            make.bottom.equalTo(secondView.snp.top).offset(-24)
         }
         
         secondView.snp.makeConstraints { make in
-            make.height.equalTo(view.snp.height).multipliedBy(0.65)
+            make.height.equalTo(view.snp.height).multipliedBy(0.7085)
             make.width.equalTo(view.snp.width)
             make.bottom.equalToSuperview()
         }

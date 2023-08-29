@@ -12,16 +12,10 @@ class UserRegisterVC: UIViewController {
     
     private lazy var backButton: UIButton = {
         let bt = UIButton()
-//        bt.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-//        bt.imageView?.contentMode = .scaleToFill
-//        bt.tintColor = .purple
-//        bt.frame = CGRect(x: 0, y: 0, width: 100, height: 22)
-//        let barButton = UIBarButtonItem(customView: bt)
-//        navigationItem.leftBarButtonItem = barButton
-//        navigationItem.leftBarButtonItem?.tintColor = .white
-        let largeConfig = UIImage.SymbolConfiguration(scale: .large)
-        let largeSymbolImage = UIImage(systemName: "arrow.left", withConfiguration: largeConfig)
-        let barButton = UIBarButtonItem(image: largeSymbolImage, style: .plain, target: self, action: nil)
+//        let largeConfig = UIImage.SymbolConfiguration(scale: .large)
+//        let largeSymbolImage = UIImage(systemName: "arrow.left", withConfiguration: largeConfig)
+        let image = UIImage(named: "backArrow")
+        let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(actBack))
         navigationItem.leftBarButtonItem = barButton
         navigationItem.leftBarButtonItem?.tintColor = .white
         return bt
@@ -36,7 +30,7 @@ class UserRegisterVC: UIViewController {
     private lazy var userNameView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -58,7 +52,7 @@ class UserRegisterVC: UIViewController {
     private lazy var emailView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -80,7 +74,7 @@ class UserRegisterVC: UIViewController {
     private lazy var passwordView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -103,7 +97,7 @@ class UserRegisterVC: UIViewController {
     private lazy var passwordConfirmView: UIView = {
         let v = UIView()
         let width = view.frame.size.width - 48
-        v.shadowAndRoundCorners(width: width)
+        v.shadowAndRoundCorners(width: width, height: 74)
         return v
     }()
     
@@ -140,7 +134,6 @@ class UserRegisterVC: UIViewController {
     
         override func viewDidLoad() {
             super.viewDidLoad()
-            initVM()
             setupViews()
         }
     
@@ -149,9 +142,8 @@ class UserRegisterVC: UIViewController {
         registerButton.roundCorners([.topLeft,.bottomLeft,.topRight], radius: 12)
     }
     
-    
-    func initVM() {
-        
+    @objc func actBack() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func actButton() {
@@ -225,6 +217,7 @@ class UserRegisterVC: UIViewController {
             fullNameText.snp.makeConstraints { make in
                 make.bottom.equalTo(userNameView.snp.bottom).offset(-19)
                 make.leading.equalTo(userNameView.snp.leading).offset(12)
+                make.trailing.equalTo(userNameView.snp.trailing).offset(-12)
             }
             
             emailView.snp.makeConstraints { make in
@@ -242,6 +235,7 @@ class UserRegisterVC: UIViewController {
             emailText.snp.makeConstraints { make in
                 make.bottom.equalTo(emailView.snp.bottom).offset(-19)
                 make.leading.equalTo(emailView.snp.leading).offset(12)
+                make.trailing.equalTo(emailView.snp.trailing).offset(-12)
             }
 //
             passwordView.snp.makeConstraints { make in
@@ -259,6 +253,7 @@ class UserRegisterVC: UIViewController {
             passwordText.snp.makeConstraints { make in
                 make.bottom.equalTo(passwordView.snp.bottom).offset(-19)
                 make.leading.equalTo(passwordView.snp.leading).offset(12)
+                make.trailing.equalTo(passwordView.snp.trailing).offset(-12)
             }
 
             passwordConfirmView.snp.makeConstraints { make in
@@ -276,6 +271,7 @@ class UserRegisterVC: UIViewController {
             passwordConfirmText.snp.makeConstraints { make in
                 make.bottom.equalTo(passwordConfirmView.snp.bottom).offset(-19)
                 make.leading.equalTo(passwordConfirmView.snp.leading).offset(12)
+                make.trailing.equalTo(passwordConfirmView.snp.trailing).offset(-12)
             }
             
             registerButton.snp.makeConstraints { make in

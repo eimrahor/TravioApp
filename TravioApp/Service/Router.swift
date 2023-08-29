@@ -10,7 +10,7 @@ import Alamofire
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listPlaces, getPlaceWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -26,12 +26,12 @@ public enum Router: URLRequestConvertible {
             return "/v1/auth/refresh"
         case .getUserProfile:
             return "/v1/me"
-        case .listPlaces:
-            return "/v1/places/user"
+        case .listVisits:
+            return "/v1/visits"
         case .getAllPlaces:
             return "/v1/places"
-        case .getPlaceWithID(let id):
-            return "/v1/places/\(id)"
+        case .getVisitWithID(let id):
+            return "/v1/visits/\(id)"
         case .getAllGalleryImagesWithID(let id):
             return "/v1/galleries/\(id)"
         }
@@ -39,14 +39,14 @@ public enum Router: URLRequestConvertible {
     
     var method: HTTPMethod {
         switch self {
-        case .getUserProfile, .listPlaces, .getPlaceWithID, .getAllGalleryImagesWithID, .getAllPlaces: return .get
+        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces: return .get
         case .register, .userLogin, .refreshToken: return .post
         }
     }
      
     var headers: HTTPHeaders {
         switch self {
-        case .listPlaces, .getUserProfile, .getPlaceWithID, .getAllGalleryImagesWithID : return headersAllcases ?? [:]
+        case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID : return headersAllcases ?? [:]
         default:
             return [:]
         }

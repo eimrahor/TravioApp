@@ -37,16 +37,22 @@ struct GetUserInfoResponse: Codable {
     var role: String
 }
 
-// MARK: Get All Places for User Response Data Model
+// MARK: Get All Visits Response Data Model
 
-struct ListUserPlacesResponse: Codable {
+struct ListUserVisitsResponse: Codable {
    var data: DataClass
    var status: String
 }
 
 struct DataClass: Codable {
     var count: Int
-    var places: [Place]
+    var visits: [Visit]
+}
+
+struct Visit: Codable {
+    let id, place_id, visited_at, created_at: String
+    let updated_at: String
+    let place: Place
 }
 
 struct Place: Codable {
@@ -76,15 +82,15 @@ struct Image: Codable {
     var updated_at: String
 }
 
-// MARK: Get a Place by ID Response Data Model
+// MARK: Get A Visit By ID Response Data Model
 
-struct GetPlace: Codable {
+struct GetVisit: Codable {
     var data: GetData
     var status: String
 }
 
 struct GetData: Codable {
-    var place: Place
+    var visit: Visit
 }
 
 // MARK: Get All Places Response Data Model

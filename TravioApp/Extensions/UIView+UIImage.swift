@@ -9,15 +9,24 @@ import UIKit
 
 extension UIView {
 
-    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+    func roundCorners(_ corners: UIRectCorner, radius: CGFloat, shadow: Bool? = false) {
          let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
          let mask = CAShapeLayer()
          mask.path = path.cgPath
          self.layer.mask = mask
+        
+        guard let shadow = shadow else { return }
+        if shadow {
+            self.layer.shadowPath = path.cgPath
+            self.layer.shadowColor = UIColor.black.cgColor
+            self.layer.shadowOpacity = 2
+            self.layer.shadowOffset = CGSize(width: 0, height: 0)
+            self.layer.shadowRadius = 20
+        }
     }
     
-    func shadowAndRoundCorners(width: CGFloat) {
-        let demoPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: 74), byRoundingCorners:[.topLeft, .topRight, .bottomLeft], cornerRadii: CGSize(width: 16.0, height: 16.0)).cgPath
+    func shadowAndRoundCorners(width: CGFloat, height: CGFloat) {
+        let demoPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: height), byRoundingCorners:[.topLeft, .topRight, .bottomLeft], cornerRadii: CGSize(width: 16.0, height: 16.0)).cgPath
         
         let shadowLayer = CAShapeLayer()
         shadowLayer.path = demoPath

@@ -10,7 +10,7 @@ import SnapKit
 import Kingfisher
 
 class VisitsVCTableViewCell: UITableViewCell {
-
+    
     private lazy var img: UIImageView = {
        let img = UIImageView()
         img.contentMode = .scaleToFill
@@ -33,25 +33,28 @@ class VisitsVCTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        layoutIfNeeded()
+        img.roundCorners([.topLeft,.topRight,.bottomLeft], radius: 16)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(object: Place) {
-        let url = URL(string: object.cover_image_url)
+    func configure(object: Visit) {
+        let url = URL(string: object.place.cover_image_url)
         img.kf.setImage(with: url)
         
         locationImg.image = UIImage(named: "map")
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         locationImg.tintColor = .white
         
-        labelCity.text = object.place
+        labelCity.text = object.place.place
     }
     
     func setupViews() {
         contentView.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
+        
         contentView.addSubview(img)
         contentView.addSubview(locationImg)
         contentView.addSubview(labelCity)
@@ -62,7 +65,7 @@ class VisitsVCTableViewCell: UITableViewCell {
     func makeConsts() {
         img.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
-            make.leading.trailing.equalToSuperview()
+            make.centerX.equalTo(contentView.snp.centerX)
             make.height.equalTo(219)
             make.width.equalTo(344)
         }
