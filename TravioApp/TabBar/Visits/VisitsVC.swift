@@ -49,7 +49,7 @@ class VisitsVC: UIViewController {
             self.viewModel.callListTravels()
         //}
         self.viewModel.keyChainReadClosure = { [unowned self ] in
-            print(viewModel.placesArr)
+            print(viewModel.visitsArr)
             DispatchQueue.main.async() {
                 self.tableView.reloadData()
             }
@@ -96,7 +96,7 @@ extension VisitsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = DetailVisitsVC()
-        vc.viewModel = DetailVisitsViewModel(travelId: viewModel.placesArr[indexPath.row].id)
+        vc.viewModel = DetailVisitsViewModel(visitId: viewModel.visitsArr[indexPath.row].id, placeId: viewModel.visitsArr[indexPath.row].place_id)
         navigationController?.pushViewController(vc, animated: false)
     }
 }
@@ -104,12 +104,12 @@ extension VisitsVC: UITableViewDelegate {
 extension VisitsVC: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.placesArr.count
+        return viewModel.visitsArr.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "VisitsCell", for: indexPath) as? VisitsVCTableViewCell else { return UITableViewCell() }
-        let object = viewModel.placesArr[indexPath.row]
+        let object = viewModel.visitsArr[indexPath.row]
         cell.configure(object: object)
         return cell
     }

@@ -11,7 +11,7 @@ import Alamofire
 class VisitsVCViewModel {
     
     var keyChainReadClosure: (()->Void)?
-    var placesArr = [Place]()
+    var visitsArr = [Visit]()
     
     init(){
         //guard let headers = self.headers else { return }
@@ -20,11 +20,11 @@ class VisitsVCViewModel {
     
     func callListTravels() {
         
-        APIService.call.objectRequestJSON(request: Router.listPlaces) { (result:Result<ListUserPlacesResponse,Error>) in
+        APIService.call.objectRequestJSON(request: Router.listVisits) { (result:Result<ListUserVisitsResponse,Error>) in
             
             switch result {
             case .success(let data):
-                self.placesArr = data.data.places
+                self.visitsArr = data.data.visits
                 self.keyChainReadClosure?()
             case .failure(let err):
                 print(err)
@@ -33,8 +33,8 @@ class VisitsVCViewModel {
         }
     }
     
-    func getCellViewModel( at indexPath: IndexPath ) -> Place {
-        return placesArr[indexPath.row]
+    func getCellViewModel( at indexPath: IndexPath ) -> Visit {
+        return visitsArr[indexPath.row]
     }
     
     

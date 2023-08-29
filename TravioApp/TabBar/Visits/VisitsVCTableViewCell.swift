@@ -41,15 +41,15 @@ class VisitsVCTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(object: Place) {
-        let url = URL(string: object.cover_image_url)
+    func configure(object: Visit) {
+        let url = URL(string: object.place.cover_image_url)
         img.kf.setImage(with: url)
         
         locationImg.image = UIImage(named: "map")
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         locationImg.tintColor = .white
         
-        labelCity.text = object.place
+        labelCity.text = object.place.place
     }
     
     func setupViews() {

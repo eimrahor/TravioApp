@@ -14,9 +14,8 @@ class DetailVisitsVC: UIViewController {
     
     private lazy var backButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "left-arrow")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        bt.setImage(UIImage(named: "placeDetailBackButton"),for: .normal)  //?.withRenderingMode(.alwaysTemplate), for: .normal)
         bt.imageView?.contentMode = .scaleAspectFit
-        bt.imageView?.tintColor = .white
         bt.addTarget(self, action: #selector(backVisitVC), for: .touchUpInside)
         return bt
     }()
@@ -121,7 +120,7 @@ class DetailVisitsVC: UIViewController {
     
     var viewModel: DetailVisitsViewModel?
     var imagesData: GetGalleryImages?
-    var travelData: GetPlace?
+    var travelData: GetVisit?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,20 +167,19 @@ class DetailVisitsVC: UIViewController {
         viewModel?.backDataTravelClosure = { [weak self] data in
             DispatchQueue.main.async { [self] in
                 self?.travelData = data
-                
-                let cllocation = CLLocation(latitude: data.data.place.latitude, longitude: data.data.place.longitude)
+                let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
                 self?.addPinandZoomPlace(place: cllocation)
                 
-                let titleText = self!.travelData?.data.place.place
+                let titleText = self!.travelData?.data.visit.place.place
                 self!.titleLabel.text = self!.returnSpecialStringText(text: titleText ?? "")
                 
-                let changeDate = self!.travelData?.data.place.created_at
+                let changeDate = self!.travelData?.data.visit.place.created_at
                 let date = self!.changeDateFormat(date: changeDate!)
                 self!.dateLabel.text = date
                 
-                self!.addedUserLabel.text = "added by @\(self!.travelData!.data.place.creator)"
+                self!.addedUserLabel.text = "added by @\(self!.travelData!.data.visit.place.creator)"
                 
-                self!.informationLabel.text = self!.travelData?.data.place.description
+                self!.informationLabel.text = self!.travelData?.data.visit.place.description
                  }
         }
         
@@ -202,13 +200,13 @@ class DetailVisitsVC: UIViewController {
         topView.addSubview(collectionView)
         topView.addSubview(gradientRectangle)
         topView.addSubview(backButton)
+        topView.addSubview(addButton)
         view.addSubview(topView)
         view.addSubview(pageController)
         
         content.addSubview(titleLabel)
         content.addSubview(dateLabel)
         content.addSubview(addedUserLabel)
-        content.addSubview(addButton)
         content.addSubview(mpKit)
         content.addSubview(informationLabel)
         
@@ -238,7 +236,7 @@ class DetailVisitsVC: UIViewController {
         backButton.snp.makeConstraints { make in
             make.width.equalTo(40)
             make.height.equalTo(40)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(22)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
             make.leading.equalToSuperview().offset(24)
         }
         
@@ -254,19 +252,19 @@ class DetailVisitsVC: UIViewController {
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(69)
+            make.top.equalTo(content.snp.top).offset(69)
             make.leading.equalToSuperview().offset(26)
             make.height.equalTo(30)
         }
         
         addedUserLabel.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(94)
+            make.top.equalTo(content.snp.top).offset(92)
             make.leading.equalToSuperview().offset(26)
             make.height.equalTo(15)
         }
         
         addButton.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(44)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(27)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(50)
             make.width.equalTo(50)
@@ -295,7 +293,7 @@ class DetailVisitsVC: UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
             make.width.equalTo(view.snp.width)
         }
-       // content.layoutSubviews()
+       //content.layoutSubviews()
     }
 }
 

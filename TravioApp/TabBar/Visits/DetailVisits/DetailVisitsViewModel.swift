@@ -10,33 +10,25 @@ import Alamofire
 
 class DetailVisitsViewModel {
     
-    var travelId: String?
+    var visitId: String?
+    var placeId: String?
     var backDataGalleryImagesClosure: ((GetGalleryImages)->())?
-    var backDataTravelClosure: ((GetPlace)->())?
+    var backDataTravelClosure: ((GetVisit)->())?
     
-    init(travelId: String) {
-        self.travelId = travelId
+    init(visitId: String, placeId: String) {
+        self.visitId = visitId
+        self.placeId = placeId
         getTravelByID()
         getAllGalleryImages()
     }
     
-    var headers: HTTPHeaders? {
-        guard let data = KeyChainHelper.shared.readKey(service: "access-token-0", account: "ios") else {  return nil }
-        guard let tokenObject = String(data: data, encoding: .utf8) else { return nil}
-        let header:HTTPHeaders = [
-            "Authorization": "Bearer \(tokenObject)",
-            "Accept": "application/json"
-        ]
-        return header
-    }
-    
     func getTravelByID() {
-        guard let placeId = travelId else { return }
+        guard let visitId = visitId else { return }
 
-        APIService.call.objectRequestJSON(request: Router.getPlaceWithID(id: placeId)) { [self] (result:Result<GetPlace,Error>) in
+        APIService.call.objectRequestJSON(request: Router.getVisitWithID(id: visitId)) { [self] (result:Result<GetVisit,Error>) in
             switch result {
             case .success(let data):
-                print(data)
+                print("TRAVELDATA:   \(data)")
                 self.backDataTravelClosure?(data)
             case .failure(let err):
                 print(err)
@@ -46,12 +38,11 @@ class DetailVisitsViewModel {
     
     
     func getAllGalleryImages() {
-        guard let travelId = travelId else { return }
+        guard let placeId = placeId else { return }
         
-        APIService.call.objectRequestJSON(request: Router.getAllGalleryImagesWithID(id: travelId) ) { (result:Result<GetGalleryImages,Error>) in
+        APIService.call.objectRequestJSON(request: Router.getAllGalleryImagesWithID(id: placeId) ) { (result:Result<GetGalleryImages,Error>) in
             switch result {
             case .success(let data):
-                print(data)
                 self.backDataGalleryImagesClosure?(data)
             case .failure(let err):
                 print(err)
