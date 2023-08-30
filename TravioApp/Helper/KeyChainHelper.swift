@@ -17,7 +17,7 @@ final class KeyChainHelper {
             kSecValueData:data,
             kSecAttrService:service,
             kSecAttrAccount:account,
-        kSecClass: kSecClassGenericPassword] as CFDictionary
+            kSecClass: kSecClassGenericPassword] as [CFString : Any] as CFDictionary
         
         let status = SecItemAdd(query, nil)
         
@@ -27,7 +27,7 @@ final class KeyChainHelper {
                 kSecAttrService:service,
                 kSecAttrAccount:account,
                 kSecClass: kSecClassGenericPassword
-            ] as CFDictionary
+            ] as [CFString : Any] as CFDictionary
             
             let updateAttr = [kSecValueData: data] as CFDictionary
             
@@ -41,7 +41,7 @@ final class KeyChainHelper {
             kSecAttrAccount: account,
             kSecClass: kSecClassGenericPassword,
             kSecReturnData: true
-        ] as CFDictionary
+        ] as [CFString : Any] as CFDictionary
         
         var result: AnyObject?
         SecItemCopyMatching(query, &result)

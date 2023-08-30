@@ -236,7 +236,7 @@ class DetailVisitsVC: UIViewController {
         backButton.snp.makeConstraints { make in
             make.width.equalTo(40)
             make.height.equalTo(40)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
+            make.top.equalToSuperview().offset(47)
             make.leading.equalToSuperview().offset(24)
         }
         
@@ -264,7 +264,7 @@ class DetailVisitsVC: UIViewController {
         }
         
         addButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(27)
+            make.top.equalToSuperview().offset(42)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(50)
             make.width.equalTo(50)

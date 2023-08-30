@@ -10,13 +10,8 @@ import Alamofire
 
 class VisitsVCViewModel {
     
-    var keyChainReadClosure: (()->Void)?
+    var reloadTableView: (()->Void)?
     var visitsArr = [Visit]()
-    
-    init(){
-        //guard let headers = self.headers else { return }
-        //callListTravels(headers: headers)
-    }
     
     func callListTravels() {
         
@@ -25,7 +20,7 @@ class VisitsVCViewModel {
             switch result {
             case .success(let data):
                 self.visitsArr = data.data.visits
-                self.keyChainReadClosure?()
+                self.reloadTableView?()
             case .failure(let err):
                 print(err)
             }

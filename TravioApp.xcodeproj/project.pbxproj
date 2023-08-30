@@ -53,6 +53,9 @@
 		865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F627B2A9D326900B84578 /* UICustomTextField.swift */; };
 		865F62842A9D463300B84578 /* CustomViewWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62832A9D463300B84578 /* CustomViewWithTextView.swift */; };
 		865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */; };
+		E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */; };
+		E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */; };
+		E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +103,9 @@
 		865F627B2A9D326900B84578 /* UICustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
 		865F62832A9D463300B84578 /* CustomViewWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewWithTextView.swift; sourceTree = "<group>"; };
 		865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryToUploadCell.swift; sourceTree = "<group>"; };
+		E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +231,9 @@
 			isa = PBXGroup;
 			children = (
 				7A7A8EFF2A9C9E5F000681F6 /* HomeVC.swift */,
+				E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */,
+				E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */,
+				E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -394,11 +403,14 @@
 				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,
 				7A7A8F1D2A9C9F18000681F6 /* MapKit.swift in Sources */,
+				E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */,
 				7A7A8F002A9C9E5F000681F6 /* VisitsVCViewModel.swift in Sources */,
+				E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */,
 				865F627D2A9D326900B84578 /* CustomColors.swift in Sources */,
 				865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */,
 				7A7A8F0C2A9C9EAB000681F6 /* DetailVisitsCell.swift in Sources */,
 				7A7A8F172A9C9F00000681F6 /* UserLoginVM.swift in Sources */,
+				E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */,
 				7A7A8F062A9C9E5F000681F6 /* MainTabbarController.swift in Sources */,
 				7A7A8F052A9C9E5F000681F6 /* MapVCViewModel.swift in Sources */,
 				7A7A8F072A9C9E5F000681F6 /* HomeVC.swift in Sources */,

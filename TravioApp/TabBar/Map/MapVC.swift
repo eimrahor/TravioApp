@@ -133,7 +133,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         }
         
         collectionView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-60)
+            make.bottom.equalToSuperview().offset( ((tabBarController?.tabBar.frame.size.height)! * -1) - 18)
             make.leading.equalToSuperview().offset(18)
             make.trailing.equalToSuperview().offset(-18)
             make.height.equalTo(178)
