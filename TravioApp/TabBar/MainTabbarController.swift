@@ -55,17 +55,11 @@ class MainTabbarController: UITabBarController {
         nav3.tabBarItem = UITabBarItem(title: "Map", image: image3, selectedImage: selectedImage3)
         
         
-        let vc4 = MenuVC()
+        let vc4 = SettingsVC()
         let nav4 = UINavigationController(rootViewController: vc4)
-        let image4 = UIImage(named: "menuemp")
-        let newSize4 = CGSize(width: 30, height: 30)
-        let resizedImage4 = image4!.resized(to: newSize4)
-        let selectedImage4 = UIImage(named: "menu")
-        let selectedNewSize4 = CGSize(width: 30, height: 30)
-        let selectedresizedImage4 = selectedImage4!.resized(to: selectedNewSize4)
-        nav4.tabBarItem = UITabBarItem(title: "Menu", image: resizedImage4, selectedImage: selectedresizedImage4)
-        nav4.tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: 3, right: 0)
-        
+        let image4 = UIImage(systemName: "gearshape")
+        let selectedImage4 = UIImage(systemName: "gearshape.fill")
+        nav4.tabBarItem = UITabBarItem(title: "Settings", image: image4, selectedImage: selectedImage4)
         
         self.viewControllers = [nav1,nav2,nav3,nav4]
         self.selectedIndex = 1
