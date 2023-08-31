@@ -38,7 +38,7 @@ class VisitsVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         secondView.roundCorners([.topLeft], radius: 80)
-        tableView.roundCorners([.topLeft], radius: 16)
+        //tableView.roundCorners([.topLeft], radius: 16)
     }
     
     var detailsViewModel: DetailVisitsViewModel?

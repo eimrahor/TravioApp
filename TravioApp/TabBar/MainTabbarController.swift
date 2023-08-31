@@ -29,9 +29,10 @@ class MainTabbarController: UITabBarController {
         appearance.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         let vc1 = HomeVC()
+        let nav1 = UINavigationController(rootViewController: vc1)
         let image = UIImage(systemName: "house")
         let selectedImage = UIImage(systemName: "house.fill")
-        vc1.tabBarItem = UITabBarItem(title: "Home", image: image, selectedImage: selectedImage)
+        nav1.tabBarItem = UITabBarItem(title: "Home", image: image, selectedImage: selectedImage)
         
         let vc2 = VisitsVC()
         let nav2 = UINavigationController(rootViewController: vc2)
@@ -48,23 +49,25 @@ class MainTabbarController: UITabBarController {
         
         
         let vc3 = MapVC()
+        let nav3 = UINavigationController(rootViewController: vc3)
         let image3 = UIImage(systemName: "map")
         let selectedImage3 = UIImage(systemName: "map.fill")
-        vc3.tabBarItem = UITabBarItem(title: "Map", image: image3, selectedImage: selectedImage3)
+        nav3.tabBarItem = UITabBarItem(title: "Map", image: image3, selectedImage: selectedImage3)
         
         
         let vc4 = MenuVC()
+        let nav4 = UINavigationController(rootViewController: vc4)
         let image4 = UIImage(named: "menuemp")
         let newSize4 = CGSize(width: 30, height: 30)
         let resizedImage4 = image4!.resized(to: newSize4)
         let selectedImage4 = UIImage(named: "menu")
         let selectedNewSize4 = CGSize(width: 30, height: 30)
         let selectedresizedImage4 = selectedImage4!.resized(to: selectedNewSize4)
-        vc4.tabBarItem = UITabBarItem(title: "Menu", image: resizedImage4, selectedImage: selectedresizedImage4)
-        vc4.tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: 3, right: 0)
+        nav4.tabBarItem = UITabBarItem(title: "Menu", image: resizedImage4, selectedImage: selectedresizedImage4)
+        nav4.tabBarItem.imageInsets = UIEdgeInsets(top: 2, left: 0, bottom: 3, right: 0)
         
         
-        self.viewControllers = [vc1,nav2,vc3,vc4]
+        self.viewControllers = [nav1,nav2,nav3,nav4]
         self.selectedIndex = 1
     }
     
