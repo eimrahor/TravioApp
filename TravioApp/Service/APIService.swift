@@ -104,11 +104,11 @@ class APIService {
                 
                 for image in images {
                     if let imageData = image.jpegData(compressionQuality: 0.5) {
-                        multipartFormData.append(imageData, withName: "image", fileName: "image.jpg", mimeType: "image/jpeg")
+                        multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpeg")
                     }
                 }
             },
-            to: url
+            to: url , method: .post
         ).responseJSON{ response in
             switch response.result {
             case .success(let value):

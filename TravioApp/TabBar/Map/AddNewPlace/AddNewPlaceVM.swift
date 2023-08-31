@@ -53,23 +53,23 @@ class AddNewPlaceVM{
         place?.place = placeCountryCity
     }
     
-    func addNewPlaceToServer(){
-        
-        guard let placeUnWrapped = place else { return }
-        guard let placeCountryCity = placeUnWrapped.place, let title = placeUnWrapped.title, let description = placeUnWrapped.description,let over_image_url = selectedImageUrls?[0],let latitude = placeUnWrapped.latitude,let longitude = placeUnWrapped.longitude) else { return }
-        
-        let params:[String:Any] = ["place":]
-        
-        APIService.call.objectRequestJSON(request: Router.addNewPlace(params: )) { (result:Result<UserLoginResponse,Error>) in
-            switch result {
-            case .success(let data):
-                self.user.accessToken = data.accessToken
-                self.createKeyChain?()
-            case .failure(let err):
-                print(err)
-            }
-        }
-    }
+//    func addNewPlaceToServer(){
+//
+//        guard let placeUnWrapped = place else { return }
+//        guard let placeCountryCity = placeUnWrapped.place, let title = placeUnWrapped.title, let description = placeUnWrapped.description,let over_image_url = selectedImageUrls?[0],let latitude = placeUnWrapped.latitude,let longitude = placeUnWrapped.longitude) else { return }
+//
+//        let params:[String:Any] = ["place":]
+//
+//        APIService.call.objectRequestJSON(request: Router.addNewPlace(params: )) { (result:Result<UserLoginResponse,Error>) in
+//            switch result {
+//            case .success(let data):
+//                self.user.accessToken = data.accessToken
+//                self.createKeyChain?()
+//            case .failure(let err):
+//                print(err)
+//            }
+//        }
+//    }
     
     
 }
