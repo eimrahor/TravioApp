@@ -72,7 +72,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
                 }
                 guard let placeMark = placemarks?.first else {return}
                 let addNewPlaceVC = AddNewPlaceVC()
-                addNewPlaceVC.addNewPlaceVM.initVM(city: placeMark.locality, country: placeMark.country, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+                let countryCity = "\(placeMark.locality), \(placeMark.country)"
+                let place = PlaceToMap(place: countryCity, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+                addNewPlaceVC.addNewPlaceVM.initVM(place: place)
                 
                 self.present(addNewPlaceVC, animated: true, completion: nil)
                
@@ -88,15 +90,15 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     }
  
     
-    func addNewAnnotationVC(with city: String, country: String, latitude: Double, longitude: Double) {
-            let vc = AddNewPlaceVC()
-            vc.addNewPlaceVM.cityName = city
-            vc.addNewPlaceVM.countryName = country
-            vc.addNewPlaceVM.latitude = latitude
-            vc.addNewPlaceVM.longitude = longitude
-            vc.addNewPlaceVM.mapVCdelegate = self
-            self.present(vc, animated: true)
-        }
+//    func addNewAnnotationVC(with city: String, country: String, latitude: Double, longitude: Double) {
+//            let vc = AddNewPlaceVC()
+//            vc.addNewPlaceVM.cityName = city
+//            vc.addNewPlaceVM.countryName = country
+//            vc.addNewPlaceVM.latitude = latitude
+//            vc.addNewPlaceVM.longitude = longitude
+//            vc.addNewPlaceVM.mapVCdelegate = self
+//            self.present(vc, animated: true)
+//        }
     
     func addPins(places: [CLLocation]) {
         places.forEach { place in

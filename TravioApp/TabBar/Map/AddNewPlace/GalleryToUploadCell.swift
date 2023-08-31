@@ -11,9 +11,7 @@ import TinyConstraints
 
 class GalleryToUploadCell: UICollectionViewCell {
     
-    var img = UIImageView()
-    
-    private lazy var image: UIImageView = {
+    lazy var image: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
        // img.backgroundColor = .clear
@@ -36,13 +34,10 @@ class GalleryToUploadCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setImage(){
-        print("setImage")
-        self.image = img
-     }
-   func configureImage(image:UIImage){
-       self.image.image = image
+
+    func configureImage(image:UIImage?){
+        guard let imageUW = image else {return}
+        self.image.image = imageUW
     }
     func setupViews() {
         self.contentView.backgroundColor = CustomColor.White.color

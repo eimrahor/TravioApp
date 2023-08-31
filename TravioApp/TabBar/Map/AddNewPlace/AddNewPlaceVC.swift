@@ -69,18 +69,46 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         picker.delegate = self
         return picker
     }()
-   let btnAddPlace = UICustomButton(title: "Add New Place")
+    
+    private lazy var btnAddPlace: UICustomButton = {
+        let btn = UICustomButton(title: "Add New Place")
+        btn.addTarget(self, action: #selector(addNewPlace), for: .touchUpInside)
+        
+        return btn
+    }()
  
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(addNewPlaceVM.cityName)
-        print(addNewPlaceVM.countryName)
-        print(addNewPlaceVM.latitude)
-        print(addNewPlaceVM.longitude)
-    
+        print(addNewPlaceVM.place?.place)
+        print(addNewPlaceVM.place?.latitude)
+        print(addNewPlaceVM.place?.longitude)
+        
         setupLayout()
+        
+        addNewPlaceVM.requesVMToUpdatePlace = { [weak self] () in
+            guard let placeName = self!.placeNameView.txtField.text
+                ,let desc = self!.visitDescriptionView.txtView.text, let countryCity = self!.countryView.txtField.text else {return}
+            self!.addNewPlaceVM.updateVMPlaceData(placeName: placeName, placeDescription: desc, placeCountryCity: countryCity)
+        }
+    }
+    
+    @objc func addNewPlace()
+    {
+        var imagesToSend:[UIImage] = []
+        var currentIndexPath:IndexPath?
+        var currentCell:GalleryToUploadCell?
+        
+        for index in 0..<collectionViewGallery.numberOfItems(inSection: 0){
+            currentIndexPath = [0,index]
+            currentCell = collectionViewGallery.cellForItem(at: currentIndexPath!) as! GalleryToUploadCell
+            
+            if let cellImage = currentCell?.image.image {
+                imagesToSend.append(cellImage)
+            }
+        }
+        addNewPlaceVM.sendImagesToServer(selectedImages: imagesToSend)
     }
     
     func setupLayout(){
@@ -120,18 +148,12 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     }
     func fillLocationDatas(){
         
-        guard let country = addNewPlaceVM.countryName, let city = addNewPlaceVM.cityName else {return}
+        guard let countryCity = addNewPlaceVM.place?.place else {return}
 
-        let countryCityText = "\(country), \(city)"
-        countryView.txtField.text = countryCityText
+        countryView.txtField.text = countryCity
         countryView.txtField.textColor = CustomColor.TravioBlack.color
     }
     
-    func reloadData(){
-        DispatchQueue.main.async {
-            self.collectionViewGallery.reloadData()
-        }
-    }
 
 }
 extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
@@ -150,7 +172,8 @@ extension AddNewPlaceVC: UICollectionViewDataSource {
         3
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadCell", for: indexPath) as? GalleryToUploadCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadCell", for: indexPath) as? GalleryToUploadCell else {return UICollectionViewCell() }
+        
         return cell
     }
 }
@@ -159,55 +182,10 @@ extension AddNewPlaceVC: UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as! UIImage
-        
-       let cell = collectionViewGallery.cellForItem(at: selectedCellIndex!) as! GalleryToUploadCell
+        let cell = collectionViewGallery.cellForItem(at: selectedCellIndex!) as! GalleryToUploadCell
         cell.configureImage(image: image )
-        
-        reloadData()
         self.dismiss(animated: true)
     }
     
 }
-
-
-//import UIKit
-//import Alamofire
-//
-//class ImageUploadViewController: UIViewController {
-//
-//    @IBAction func uploadButtonTapped(_ sender: UIButton) {
-//        let image = UIImage(named: "your_image_name")
-//        let parameters: [String: String] = ["key1": "value1", "key2": "value2"]
-//        uploadImage(image: image, parameters: parameters)
-//    }
-//
-//    func uploadImage(image: UIImage?, parameters: [String: String]) {
-//        guard let image = image else {
-//            return
-//        }
-//
-//        let url = "your_upload_url"
-//        let imageData = image.jpegData(compressionQuality: 0.6)
-//
-//        Alamofire.upload(multipartFormData: { multipartFormData in
-//            for (key, value) in parameters {
-//                multipartFormData.append(value.data(using: .utf8)!, withName: key)
-//            }
-//
-//            if let imageData = imageData {
-//                multipartFormData.append(imageData, withName: "image", fileName: "image.jpg", mimeType: "image/jpeg")
-//            }
-//        }, to: url, method: .post, headers: nil) { result in
-//            switch result {
-//            case .success(let upload, _, _):
-//                upload.responseJSON { response in
-//                    // Handle the response
-//                    // ...
-//                }
-//            case .failure(let encodingError):
-//                print(encodingError)
-//            }
-//        }
-//    }
-//}
 

@@ -7,10 +7,11 @@
 //
 import Foundation
 import Alamofire
+import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,addNewPlace(params:Parameters)
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -28,7 +29,7 @@ public enum Router: URLRequestConvertible {
             return "/v1/me"
         case .listVisits:
             return "/v1/visits"
-        case .getAllPlaces:
+        case .getAllPlaces, .addNewPlace:
             return "/v1/places"
         case .getVisitWithID(let id):
             return "/v1/visits/\(id)"
@@ -40,13 +41,13 @@ public enum Router: URLRequestConvertible {
     var method: HTTPMethod {
         switch self {
         case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces: return .get
-        case .register, .userLogin, .refreshToken: return .post
+        case .register, .userLogin, .refreshToken,.addNewPlace: return .post
         }
     }
      
     var headers: HTTPHeaders {
         switch self {
-        case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID : return headersAllcases ?? [:]
+        case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID, .addNewPlace : return headersAllcases ?? [:]
         default:
             return [:]
         }
@@ -64,7 +65,7 @@ public enum Router: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-        case .register(let params), .userLogin(let params), .refreshToken(let params): return params
+        case .register(let params), .userLogin(let params), .refreshToken(let params), .addNewPlace(let params): return params
         default: return [:]
         }
     }
@@ -86,7 +87,6 @@ public enum Router: URLRequestConvertible {
         request.headers = headers
         request = try (encoding?.encode(request, with: params))!
         
-    
         return request
     }
 }

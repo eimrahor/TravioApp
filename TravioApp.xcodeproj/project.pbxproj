@@ -53,6 +53,8 @@
 		865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F627B2A9D326900B84578 /* UICustomTextField.swift */; };
 		865F62842A9D463300B84578 /* CustomViewWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62832A9D463300B84578 /* CustomViewWithTextView.swift */; };
 		865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */; };
+		865F62892A9F8E3E00B84578 /* UploadImageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62882A9F8E3E00B84578 /* UploadImageResponseModel.swift */; };
+		865F628B2A9FF03300B84578 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F628A2A9FF03300B84578 /* PlacesModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		865F627B2A9D326900B84578 /* UICustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
 		865F62832A9D463300B84578 /* CustomViewWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewWithTextView.swift; sourceTree = "<group>"; };
 		865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryToUploadCell.swift; sourceTree = "<group>"; };
+		865F62882A9F8E3E00B84578 /* UploadImageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageResponseModel.swift; sourceTree = "<group>"; };
+		865F628A2A9FF03300B84578 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +288,8 @@
 				7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */,
 				7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */,
 				865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */,
+				865F62882A9F8E3E00B84578 /* UploadImageResponseModel.swift */,
+				865F628A2A9FF03300B84578 /* PlacesModel.swift */,
 			);
 			path = AddNewPlace;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,
 				7A7A8F1D2A9C9F18000681F6 /* MapKit.swift in Sources */,
 				7A7A8F002A9C9E5F000681F6 /* VisitsVCViewModel.swift in Sources */,
+				865F62892A9F8E3E00B84578 /* UploadImageResponseModel.swift in Sources */,
 				865F627D2A9D326900B84578 /* CustomColors.swift in Sources */,
 				865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */,
 				7A7A8F0C2A9C9EAB000681F6 /* DetailVisitsCell.swift in Sources */,
@@ -405,6 +412,7 @@
 				7A7A8F092A9C9E92000681F6 /* DetailVisitsVC.swift in Sources */,
 				865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */,
 				7A7A8F1E2A9C9F18000681F6 /* User.swift in Sources */,
+				865F628B2A9FF03300B84578 /* PlacesModel.swift in Sources */,
 				7A7A8F042A9C9E5F000681F6 /* DetailVisitsViewModel.swift in Sources */,
 				7A7A8EBD2A9C9B78000681F6 /* AppDelegate.swift in Sources */,
 				7A7A8EF62A9C9DD4000681F6 /* UserLoginVC.swift in Sources */,
