@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: Post request
-struct PlaceToMap{
+struct PlaceToMap:Codable{
     
   var  place: String?
   var  title: String?
@@ -20,7 +20,7 @@ struct PlaceToMap{
 }
 
 // MARK: Post response
-struct PostPlacesResponse{
+struct PostPlacesResponse:Codable{
     
     var message: String
     var status: String
