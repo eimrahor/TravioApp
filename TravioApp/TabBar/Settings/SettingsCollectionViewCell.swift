@@ -1,14 +1,18 @@
 //
-//  SettingsTableViewCell.swift
+//  SettingsCollectionViewCell.swift
 //  TravioApp
 //
-//  Created by Kurumsal on 31.08.2023.
+//  Created by imrahor on 31.08.2023.
 //
 
 import UIKit
-import SnapKit
 
-class SettingsTableViewCell: UITableViewCell {
+class SettingsCollectionViewCell: UICollectionViewCell {
+    
+    private lazy var view: UIView = {
+        let v = UIView()
+        return v
+    }()
     
     private lazy var symbolImage: UIImageView = {
         let img = UIImageView()
@@ -30,28 +34,46 @@ class SettingsTableViewCell: UITableViewCell {
         return img
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
     }
-    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0))
-//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureRoundedCorners()
+    }
+    
+    private func configureRoundedCorners() {
+           let cornerRadius: CGFloat = 16.0
+           let corners: UIRectCorner = [.topLeft, .topRight, .bottomLeft]
+           let maskPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+           
+           let shapeLayer = CAShapeLayer()
+           shapeLayer.path = maskPath.cgPath
+           layer.mask = shapeLayer
+       }
+    
+    func configure(item: Settings) {
+        symbolImage.image = UIImage(named: item.icon)
+        label.text = item.label
+    }
+    
     func setupViews() {
-        contentView.addSubview(symbolImage)
-        contentView.addSubview(label)
-        contentView.addSubview(forwardImage)
+        
+        view.addSubview(symbolImage)
+        view.addSubview(label)
+        view.addSubview(forwardImage)
+        contentView.addSubview(view)
         makeConst()
     }
     
     func makeConst() {
+        
         symbolImage.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(17)
             make.leading.equalToSuperview().offset(16.51)
@@ -70,5 +92,10 @@ class SettingsTableViewCell: UITableViewCell {
             make.width.equalTo(10.41)
             make.height.equalTo(15.63)
         }
+        
+        view.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
+

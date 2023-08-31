@@ -12,7 +12,7 @@ class SettingsVC: UIViewController {
 
     private lazy var secondView: UIView = {
        let v = UIView()
-        v.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
+        v.backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9725490196, blue: 0.9725490196, alpha: 1)
         return v
     }()
     
@@ -45,15 +45,21 @@ class SettingsVC: UIViewController {
         return bt
     }()
     
-    private lazy var tableView: UITableView = {
-       let tv = UITableView()
-        tv.delegate = self
-        tv.dataSource = self
-        tv.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsCell")
-        return tv
+    private lazy var collectionView: UICollectionView = {
+       let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.scrollDirection = .vertical
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.showsVerticalScrollIndicator = false
+        cv.delegate = self
+        cv.dataSource = self
+        cv.backgroundColor = .clear
+        cv.register(SettingsCollectionViewCell.self, forCellWithReuseIdentifier: "SettingsCell")
+        return cv
     }()
     
-    
+    let viewModel = SettingsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +77,7 @@ class SettingsVC: UIViewController {
         view.addSubview(image)
         view.addSubview(nameLabel)
         view.addSubview(editButton)
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         makeConst()
     }
     
@@ -105,40 +111,32 @@ class SettingsVC: UIViewController {
             make.centerX.equalTo(view.snp.centerX)
         }
         
-        tableView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(editButton.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalToSuperview().offset(137)
+            make.bottom.equalToSuperview()
         }
     }
 }
 
-extension SettingsVC: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 54
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+extension SettingsVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 54)
     }
 }
 
-extension SettingsVC: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+extension SettingsVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.countofArr()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        return cell
-    }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SettingsCell", for: indexPath) as? SettingsCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure(item: viewModel.arr[indexPath.row])
+        cell.backgroundColor = .white
+            return cell
+        }
 }
+
