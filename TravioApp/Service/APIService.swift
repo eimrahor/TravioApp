@@ -97,19 +97,12 @@ class APIService {
         }
     }
     
-    
-    func uploadImagesToServer<T:Codable>(images: [UIImage], url: String, completionHandler: @escaping (Result<T, Error>) -> Void) {
-        AF.upload(
-            multipartFormData: { multipartFormData in
-                
-                for image in images {
-                    if let imageData = image.jpegData(compressionQuality: 0.5) {
-                        multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpeg")
-                    }
-                }
-            },
-            to: url , method: .post
-        ).responseJSON{ response in
+    func uploadImagesToServer<T:Codable>(route:Router, completionHandler: @escaping (Result<T, Error>) -> Void) {
+        
+        let urlRequest:URLRequestConvertible = route
+        
+        AF.upload(multipartFormData: route.multiPartFormData, with: urlRequest)
+        .responseJSON{ response in
             switch response.result {
             case .success(let value):
                 do {
@@ -119,11 +112,39 @@ class APIService {
                 } catch {
                     
                 }
-              
             case .failure(let error):
                 completionHandler(.failure(error))
             }
         }
     }
+    
+//    func uploadImagesToServer<T:Codable>(images: [UIImage], url: String, completionHandler: @escaping (Result<T, Error>) -> Void) {
+//        AF.upload(
+//            multipartFormData: { multipartFormData in
+//
+//                for image in images {
+//                    if let imageData = image.jpegData(compressionQuality: 0.5) {
+//                        multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpeg")
+//                    }
+//                }
+//            },
+//            to: url , method: .post
+//        ).responseJSON{ response in
+//            switch response.result {
+//            case .success(let value):
+//                do {
+//                   let jsonData = try JSONSerialization.data(withJSONObject: value)
+//                   let decodedData = try JSONDecoder().decode(T.self,from: jsonData)
+//                    completionHandler(.success(decodedData))
+//                } catch {
+//
+//                }
+//
+//            case .failure(let error):
+//                completionHandler(.failure(error))
+//            }
+//        }
+//    }
+    
 }
 

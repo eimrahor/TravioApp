@@ -11,7 +11,7 @@ import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,addNewPlace(params:Parameters)
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters)
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -35,19 +35,22 @@ public enum Router: URLRequestConvertible {
             return "/v1/visits/\(id)"
         case .getAllGalleryImagesWithID(let id):
             return "/v1/galleries/\(id)"
+        case .upload(imageDatas: let imageDatas):
+            return "/upload"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces: return .get
-        case .register, .userLogin, .refreshToken,.addNewPlace: return .post
+        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID,.getAllPlaces: return .get
+        case .register, .userLogin, .refreshToken,.upload,.addNewPlace: return .post
         }
     }
      
     var headers: HTTPHeaders {
         switch self {
         case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID, .addNewPlace : return headersAllcases ?? [:]
+        case .upload : return ["Content-Type":"multipart/form-data"]
         default:
             return [:]
         }
@@ -70,6 +73,21 @@ public enum Router: URLRequestConvertible {
         }
     }
     
+    var multiPartFormData:MultipartFormData{
+        
+        var multipartFormData = MultipartFormData()
+        
+        switch self{
+        case .upload(imageDatas: let data):
+            for imageData in data {
+                multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpeg")
+            }
+        default:
+            break
+        }
+        return multipartFormData
+    }
+    
     var encoding: ParameterEncoding? {
         switch self.method {
         case .get: return URLEncoding.default
@@ -78,7 +96,6 @@ public enum Router: URLRequestConvertible {
             return nil
         }
     }
-    
     
     public func asURLRequest() throws -> URLRequest {
         let url = baseURL.appendingPathComponent(path)

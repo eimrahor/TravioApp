@@ -27,31 +27,38 @@ class AddNewPlaceVM{
     
     func sendImagesToServer(selectedImages:[UIImage]?){
         
-            if let images = selectedImages{
-            let serverURL = "https://api.iosclass.live/upload"
-            
-                APIService.call.uploadImagesToServer(images: images, url: serverURL) { (result:Result<UploadImageResponse,Error>) in
-                switch result {
-                case .success(let response):
-                    print("Response: \(response)")
-                    print("Response: \(response.urls.first)")
-                    // url leri alınca bu diziye at selectedimgurls
-                    guard let requestToUpdatePlace = self.requesVMToUpdatePlace else{return}
-                    requestToUpdatePlace()
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
+        var imageDatas = [Data]()
+        
+        guard let selectedImages = selectedImages else {return}
+        
+        for image in selectedImages {
+            if let data = image.jpegData(compressionQuality: 0.5) {
+                imageDatas.append(data)
             }
         }
+            
+        APIService.call.uploadImagesToServer(route: .upload(imageDatas: imageDatas)) { (result:Result<UploadImageResponse,Error>) in
+            switch result {
+            case .success(let response):
+                print("Response: \(response)")
+                // url leri alınca bu diziye at selectedimgurls
+                guard let requestToUpdatePlace = self.requesVMToUpdatePlace else{return}
+                requestToUpdatePlace()
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+            }
+        }
+    
+     func updateVMPlaceData(placeName:String,placeDescription:String,placeCountryCity:String)
+     {
+         place?.title = placeName
+         place?.description = placeDescription
+         place?.place = placeCountryCity
+     }
     }
 
    
-    func updateVMPlaceData(placeName:String,placeDescription:String,placeCountryCity:String)
-    {
-        place?.title = placeName
-        place?.description = placeDescription
-        place?.place = placeCountryCity
-    }
     
 //    func addNewPlaceToServer(){
 //
@@ -70,6 +77,4 @@ class AddNewPlaceVM{
 //            }
 //        }
 //    }
-    
-    
-}
+//}
