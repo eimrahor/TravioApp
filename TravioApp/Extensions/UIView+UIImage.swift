@@ -53,3 +53,9 @@ extension UIImage {
         return resizedImage
     }
 }
+
+extension UITextView {
+    func changeColor() {
+        
+    }
+}

@@ -10,9 +10,7 @@ import Alamofire
 
 class HomePageVM {
     
-    func getUserProfile(headers: HTTPHeaders) {
-        let endpoint = Endpoint.getUserProfile.apiurl
-        print(headers)
+    func getUserProfile() {
         APIService.call.objectRequestJSON(request: Router.getUserProfile) { (result:Result<GetUserInfoResponse,Error>) in
             switch result {
             case .success(let data):

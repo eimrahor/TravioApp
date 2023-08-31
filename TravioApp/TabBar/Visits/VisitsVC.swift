@@ -38,6 +38,7 @@ class VisitsVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         secondView.roundCorners([.topLeft], radius: 80)
+        //tableView.roundCorners([.topLeft], radius: 16)
     }
     
     var detailsViewModel: DetailVisitsViewModel?
@@ -45,16 +46,15 @@ class VisitsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.viewModel.callListTravels()
-        //}
-        self.viewModel.keyChainReadClosure = { [unowned self ] in
+        
+        self.viewModel.reloadTableView = { [unowned self ] in
             print(viewModel.visitsArr)
             DispatchQueue.main.async() {
                 self.tableView.reloadData()
             }
-            
         }
+        
+        self.viewModel.callListTravels()
 
     }
     
@@ -91,7 +91,7 @@ class VisitsVC: UIViewController {
 
 extension VisitsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 260
+        return 235
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

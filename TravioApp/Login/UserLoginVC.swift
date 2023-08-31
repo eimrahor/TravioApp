@@ -143,10 +143,10 @@ class UserLoginVC: UIViewController {
             "password": pass
         ]
         viewModel.postForUserLogin(params: param)
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.7) {
+        //DispatchQueue.main.asyncAfter(deadline: .now()+0.7) {
             let vc = MainTabbarController()
             self.navigationController?.pushViewController(vc, animated: true)
-        }
+       // }
     }
     
     @objc func actRegisterButton() {
