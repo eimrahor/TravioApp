@@ -28,7 +28,7 @@ class AddNewPlaceVM{
     }
     
     // MARK: get name,description,place from AddNewPlaceVC.
-    func updateVMPlaceData(placeName:String,placeDescription:String,placeCountryCity:String)
+    func updateVMPlaceData(placeName:String,placeDescription:String?,placeCountryCity:String)
     {
         place?.title = placeName
         place?.description = placeDescription
@@ -41,13 +41,13 @@ class AddNewPlaceVM{
         guard let selectedImages = selectedImages else {return}
         
         let imageDatas = convertUIImagesToData(images: selectedImages)
-            
+        
         APIService.call.uploadImagesToServer(route: .upload(imageDatas: imageDatas)) { (result:Result<UploadImageResponse,Error>) in
             switch result {
             case .success(let response):
                 
                 print("Response: \(response)")
-                
+                self.extractImageURLsToArray(response: response)
                 guard let requestToUpdatePlace = self.requesVMToUpdatePlace else{return}
                 requestToUpdatePlace()
                 
@@ -82,25 +82,26 @@ class AddNewPlaceVM{
         }
     }
     
-
     func addNewPlaceToServer(){
 
         guard let place = place else { return }
         guard let placeCountryCity = place.place,
               let title = place.title,
-              let description = place.description,
               let cover_image_url = imageUrls?[0],
               let latitude = place.latitude,
               let longitude = place.longitude
         else { return }
-
-        let params:[String:Any] = ["place":"\(placeCountryCity)","title":"\(title)","description":"\(description)","cover_image_url":"\(cover_image_url)","latitude":"\(latitude)","longitude":"\(longitude)"]
+        
+        let description = place.description
+        
+        let params:Parameters = ["place":placeCountryCity,"title":title,"description":description,"cover_image_url":cover_image_url,"latitude":latitude,"longitude":longitude]
 
         APIService.call.objectRequestJSON(request: Router.addNewPlace(params: params )) { (result:Result<PostPlacesResponse,Error>) in
             switch result {
             case .success(let response):
                 self.placeID = response.message
-                print(self.placeID)
+                guard let placeID = self.placeID else { return }
+                print(placeID)
             case .failure(let err):
                 print(err)
             }

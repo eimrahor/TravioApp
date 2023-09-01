@@ -102,7 +102,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         
         for index in 0..<collectionViewGallery.numberOfItems(inSection: 0){
             currentIndexPath = [0,index]
-            currentCell = collectionViewGallery.cellForItem(at: currentIndexPath!) as! GalleryToUploadCell
+            currentCell = collectionViewGallery.cellForItem(at: currentIndexPath!) as? GalleryToUploadCell
             
             if let cellImage = currentCell?.image.image {
                 imagesToSend.append(cellImage)
