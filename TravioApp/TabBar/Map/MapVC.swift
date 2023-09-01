@@ -82,25 +82,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
                
             }
             
-           
-            //yourAnnotation.subtitle = "You long pressed here"
-            //yourAnnotation.coordinate = touchMapCoordinate
-            //self._mapView.addAnnotation(yourAnnotation)
-            
         }
         
     }
- 
-    
-//    func addNewAnnotationVC(with city: String, country: String, latitude: Double, longitude: Double) {
-//            let vc = AddNewPlaceVC()
-//            vc.addNewPlaceVM.cityName = city
-//            vc.addNewPlaceVM.countryName = country
-//            vc.addNewPlaceVM.latitude = latitude
-//            vc.addNewPlaceVM.longitude = longitude
-//            vc.addNewPlaceVM.mapVCdelegate = self
-//            self.present(vc, animated: true)
-//        }
     
     func addPins(places: [CLLocation]) {
         places.forEach { place in
@@ -143,24 +127,6 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
             make.height.equalTo(178)
         }
     }
-    
-//    func longPressDrag() -> some Gesture {
-//           LongPressGesture(minimumDuration: 0.25)
-//               .sequenced(before: DragGesture(coordinateSpace: .local)
-//               .onEnded { value in
-//                   let convertedCoordinate = mapView.convert(value.location, toCoordinateFrom: mapView)
-//                   let pinLocation = convertedCoordinate
-//                   let offset = .zero
-//                   print("New Coordinate: \(pinLocation)")
-//                   let dragAmountw
-//               }
-//               .updating($dragAmount) { value, state, transaction in
-//                   state = value.translation
-//
-//                   offset = value.translation
-//               })
-//       }
-
 }
 
 extension MapVC: UICollectionViewDelegateFlowLayout {
@@ -207,8 +173,4 @@ extension MapVC: MKMapViewDelegate {
         
         return annotationView
     }
-    
-    
-    
-    
 }

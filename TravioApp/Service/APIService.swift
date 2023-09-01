@@ -99,9 +99,9 @@ class APIService {
     
     func uploadImagesToServer<T:Codable>(route:Router, completionHandler: @escaping (Result<T, Error>) -> Void) {
         
-        let urlRequest:URLRequestConvertible = route
+       
         
-        AF.upload(multipartFormData: route.multiPartFormData, with: urlRequest)
+        AF.upload(multipartFormData: route.multiPartFormData, with: route)
         .responseJSON{ response in
             switch response.result {
             case .success(let value):

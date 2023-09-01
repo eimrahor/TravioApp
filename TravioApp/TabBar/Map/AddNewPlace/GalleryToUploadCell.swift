@@ -39,6 +39,7 @@ class GalleryToUploadCell: UICollectionViewCell {
         guard let imageUW = image else {return}
         self.image.image = imageUW
     }
+    
     func setupViews() {
         self.contentView.backgroundColor = CustomColor.White.color
         contentView.addSubview(imgCameraLogo)

@@ -11,7 +11,7 @@ import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters)
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters)
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -35,21 +35,23 @@ public enum Router: URLRequestConvertible {
             return "/v1/visits/\(id)"
         case .getAllGalleryImagesWithID(let id):
             return "/v1/galleries/\(id)"
-        case .upload(imageDatas: let imageDatas):
+        case .upload:
             return "/upload"
+        case .postGalleryImage:
+            return "/v1/galleries"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID,.getAllPlaces: return .get
-        case .register, .userLogin, .refreshToken,.upload,.addNewPlace: return .post
+        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces: return .get
+        case .register, .userLogin, .refreshToken, .upload, .addNewPlace, .postGalleryImage: return .post
         }
     }
      
     var headers: HTTPHeaders {
         switch self {
-        case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID, .addNewPlace : return headersAllcases ?? [:]
+        case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID, .addNewPlace, .postGalleryImage : return headersAllcases ?? [:]
         case .upload : return ["Content-Type":"multipart/form-data"]
         default:
             return [:]
@@ -68,14 +70,14 @@ public enum Router: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-        case .register(let params), .userLogin(let params), .refreshToken(let params), .addNewPlace(let params): return params
+        case .register(let params), .userLogin(let params), .refreshToken(let params), .addNewPlace(let params), .postGalleryImage(let params): return params
         default: return [:]
         }
     }
     
     var multiPartFormData:MultipartFormData{
         
-        var multipartFormData = MultipartFormData()
+        let multipartFormData = MultipartFormData()
         
         switch self{
         case .upload(imageDatas: let data):

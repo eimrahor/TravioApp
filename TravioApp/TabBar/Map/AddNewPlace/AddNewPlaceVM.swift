@@ -102,10 +102,38 @@ class AddNewPlaceVM{
                 self.placeID = response.message
                 guard let placeID = self.placeID else { return }
                 print(placeID)
+                self.addGalleryImagesNewAddedPlace()
             case .failure(let err):
                 print(err)
             }
         }
+    }
+    
+    func addGalleryImagesNewAddedPlace() {
+        
+        guard let placeID = placeID else { return }
+        guard let imageUrls = imageUrls else { return }
+        
+        var params = [
+            "place_id" : placeID,
+            "image_url" : ""
+        ]
+        
+        for image in imageUrls {
+            params["image_url"] = image
+            postGalleryImageToServer(params: params)
+        }
+    }
+    
+    func postGalleryImageToServer(params: Parameters) {
+        APIService.call.objectRequestJSON(request: Router.postGalleryImage(params: params), complete: { (result:Result<PostGalleryImageResponseModel,Error>) in
+                switch result {
+                case .success(let response):
+                    print(response)
+                case .failure(let err):
+                    print(err)
+            }
+        })
     }
 }
 
