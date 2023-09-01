@@ -120,7 +120,6 @@ class UserLoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initVM()
         setupViews()
     }
     
@@ -131,22 +130,16 @@ class UserLoginVC: UIViewController {
         loginButton.roundCorners([.topLeft, .topRight, .bottomLeft], radius: 12)
     }
     
-    func initVM() {
-        
-        viewModel.prepareKeyChain()
-    }
-    
     @objc func actLoginButton() {
         guard let email = emailText.text, let pass = passText.text else { return }
         let param = [
             "email": email,
             "password": pass
         ]
-        viewModel.postForUserLogin(params: param)
-        //DispatchQueue.main.asyncAfter(deadline: .now()+0.7) {
-            let vc = MainTabbarController()
-            self.navigationController?.pushViewController(vc, animated: true)
-       // }
+        viewModel.postForUserLogin(params: param) {
+                let vc = MainTabbarController()
+                self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc func actRegisterButton() {
