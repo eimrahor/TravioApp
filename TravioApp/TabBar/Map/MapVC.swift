@@ -72,7 +72,9 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
                 }
                 guard let placeMark = placemarks?.first else {return}
                 let addNewPlaceVC = AddNewPlaceVC()
-                let countryCity = "\(placeMark.locality), \(placeMark.country)"
+                guard let locality = placeMark.locality, let country = placeMark.country  else {return}
+                
+                let countryCity = "\(locality), \(country)"
                 let place = PlaceToMap(place: countryCity, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
                 addNewPlaceVC.addNewPlaceVM.initVM(place: place)
                 

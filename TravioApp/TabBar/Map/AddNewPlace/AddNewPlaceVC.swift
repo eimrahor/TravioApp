@@ -13,18 +13,19 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     let addNewPlaceVM = AddNewPlaceVM()
     var selectedCellIndex:IndexPath?
     
-    private lazy var tvPlaceName: UITextView = {
-        let tv = UITextView()
-        //tv.shadowAndRoundCorners(width: 342)
-        tv.text = "blabla"
-        return tv
-    }()
+//    private lazy var tvPlaceName: UITextView = {
+//        let tv = UITextView()
+//        //tv.shadowAndRoundCorners(width: 342)
+//        tv.text = "blabla"
+//        return tv
+//    }()
     private lazy var placeNameView: CustomViewWithTextField = {
        let tv = CustomViewWithTextField()
         tv.lbl.text = "Place Name"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
       // tv.lbl.font = CustomFont.PoppindMedium(14).font
         tv.placeHolderConfig(placeHolderText: "Please write a place name")
+        tv.txtField.addTarget(self, action: #selector(buttonCheckActivate), for: UIControl.Event.editingChanged)
         return tv
     }()
     
@@ -34,6 +35,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
         tv.placeHolderText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
       // tv.lbl.font = CustomFont.PoppindMedium(14).font
+       // tv.txtView.addTarget(self, action: #selector(buttonCheckActivate), for: UIControl.Event.editingChanged)
         return tv
     }()
     
@@ -43,6 +45,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
       // tv.lbl.font = CustomFont.PoppindMedium(14).font
         tv.placeHolderConfig(placeHolderText: "France,Paris")
+        tv.txtField.addTarget(self, action: #selector(buttonCheckActivate), for: UIControl.Event.editingChanged)
         return tv
     }()
     
@@ -81,9 +84,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(addNewPlaceVM.place?.place)
-        print(addNewPlaceVM.place?.latitude)
-        print(addNewPlaceVM.place?.longitude)
         
         setupLayout()
         
@@ -102,7 +102,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         
         for index in 0..<collectionViewGallery.numberOfItems(inSection: 0){
             currentIndexPath = [0,index]
-            currentCell = collectionViewGallery.cellForItem(at: currentIndexPath!) as! GalleryToUploadCell
+            currentCell = collectionViewGallery.cellForItem(at: currentIndexPath!) as? GalleryToUploadCell
             
             if let cellImage = currentCell?.image.image {
                 imagesToSend.append(cellImage)
@@ -148,10 +148,20 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     }
     func fillLocationDatas(){
         
-        guard let countryCity = addNewPlaceVM.place?.place else {return}
+        guard let place = addNewPlaceVM.place else {return}
+        guard let countryCity = place.place else {return}
 
         countryView.txtField.text = countryCity
         countryView.txtField.textColor = CustomColor.TravioBlack.color
+    }
+    
+    @objc func buttonCheckActivate() {
+        
+        guard let name = placeNameView.txtField.text, let countryCity = countryView.txtField.text else {
+            btnAddPlace.isEnabled = false
+            return
+        }
+        btnAddPlace.isEnabled = true
     }
     
 
