@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7A1A22C22AA202C0000265B7 /* PostGalleryImageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A22C12AA202C0000265B7 /* PostGalleryImageResponseModel.swift */; };
+		7A32C5E82AA2002400C85F55 /* SecuritySettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A32C5E72AA2002400C85F55 /* SecuritySettingsVM.swift */; };
+		7A32C5EA2AA2004B00C85F55 /* SecuritySettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */; };
 		7A7A8EBD2A9C9B78000681F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EBC2A9C9B78000681F6 /* AppDelegate.swift */; };
 		7A7A8EBF2A9C9B78000681F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EBE2A9C9B78000681F6 /* SceneDelegate.swift */; };
 		7A7A8EC62A9C9B79000681F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A7A8EC52A9C9B79000681F6 /* Assets.xcassets */; };
@@ -65,6 +67,8 @@
 
 /* Begin PBXFileReference section */
 		7A1A22C12AA202C0000265B7 /* PostGalleryImageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGalleryImageResponseModel.swift; sourceTree = "<group>"; };
+		7A32C5E72AA2002400C85F55 /* SecuritySettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsVM.swift; sourceTree = "<group>"; };
+		7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsVC.swift; sourceTree = "<group>"; };
 		7A7A8EB92A9C9B78000681F6 /* TravioApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravioApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7A8EBC2A9C9B78000681F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A7A8EBE2A9C9B78000681F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +137,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A32C5E62AA1FFED00C85F55 /* SecuritySettings */ = {
+			isa = PBXGroup;
+			children = (
+				7A32C5E72AA2002400C85F55 /* SecuritySettingsVM.swift */,
+				7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */,
+			);
+			path = SecuritySettings;
+			sourceTree = "<group>";
+		};
 		7A7A8EB02A9C9B78000681F6 = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +296,7 @@
 		7A84AE392A9CB4B400397420 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				7A32C5E62AA1FFED00C85F55 /* SecuritySettings */,
 				7A7A8EFB2A9C9E5F000681F6 /* SettingsVC.swift */,
 				E5C0ED982AA110DF00CFEEBC /* SettingsCollectionViewCell.swift */,
 				E5C0ED962AA106BF00CFEEBC /* SettingsViewModel.swift */,
@@ -302,6 +316,7 @@
 		7A84AE3B2A9CCB3B00397420 /* AddNewPlace */ = {
 			isa = PBXGroup;
 			children = (
+				7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */,
 				7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */,
 				7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */,
 				865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */,
@@ -424,6 +439,7 @@
 				E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */,
 				865F627D2A9D326900B84578 /* CustomColors.swift in Sources */,
 				865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */,
+				7A32C5E82AA2002400C85F55 /* SecuritySettingsVM.swift in Sources */,
 				7A7A8F0C2A9C9EAB000681F6 /* DetailVisitsCell.swift in Sources */,
 				7A7A8F172A9C9F00000681F6 /* UserLoginVM.swift in Sources */,
 				E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */,
@@ -442,6 +458,7 @@
 				7A7A8F032A9C9E5F000681F6 /* SettingsVC.swift in Sources */,
 				7A7A8F232A9C9F39000681F6 /* Router.swift in Sources */,
 				865F627C2A9D326900B84578 /* CustomViewWithTextField.swift in Sources */,
+				7A32C5EA2AA2004B00C85F55 /* SecuritySettingsVC.swift in Sources */,
 				7A7A8F182A9C9F00000681F6 /* UserRegisterVM.swift in Sources */,
 				7A7A8F0F2A9C9EC9000681F6 /* MapCollectionCell.swift in Sources */,
 				865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */,

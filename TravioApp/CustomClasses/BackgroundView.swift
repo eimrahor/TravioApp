@@ -11,12 +11,17 @@ class BackgroundView: UIView {
 
     init() {
         super.init(frame: .zero)
-        self.layer.cornerRadius = 80
         self.backgroundColor = CustomColor.TravioWhite.color
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.roundCorners( [.topLeft], radius: 80)
     }
     
 }
