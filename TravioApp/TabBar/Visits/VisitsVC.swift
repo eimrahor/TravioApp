@@ -47,14 +47,11 @@ class VisitsVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         
-        self.viewModel.reloadTableView = { [unowned self ] in
-            print(viewModel.visitsArr)
+        self.viewModel.callListTravels() { [weak self] in
             DispatchQueue.main.async() {
-                self.tableView.reloadData()
+                self!.tableView.reloadData()
             }
         }
-        
-        self.viewModel.callListTravels()
 
     }
     

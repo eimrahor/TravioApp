@@ -142,7 +142,10 @@ class DetailVisitsVC: UIViewController {
     
     func returnSpecialStringText(text: String) -> String {
         let array = text.components(separatedBy: ", ")
-        return array[1]
+        if array.count >= 2 {
+            return array[array.count - 2]
+        }
+        return ""
     }
     
     func changeDateFormat(date: String) -> String {
