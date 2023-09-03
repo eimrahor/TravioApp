@@ -42,6 +42,8 @@ class HomeVC: UIViewController {
         return tv
     }()
     
+    let viewModel = HomeViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,7 +75,7 @@ class HomeVC: UIViewController {
         logoImage.snp.makeConstraints { make in
             make.height.equalTo(62)
             make.width.equalTo(66)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            make.bottom.equalTo(secondView.snp.top).offset(-35)
             make.leading.equalToSuperview().offset(16)
         }
         
@@ -113,6 +115,18 @@ extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         
+        switch indexPath.section {
+        case 0:
+            viewModel.callPopularPlaces() { () in
+                let place = self.viewModel.returnpPlace(row: indexPath.row)
+                cell.configure(title: "Popular Places",place: place)
+            }
+        default:
+            viewModel.callPopularPlaces() { () in
+                let place = self.viewModel.returnpPlace(row: indexPath.row)
+                cell.configure(title: "Popular Places",place: place)
+            }
+        }
         return cell
     }
 }

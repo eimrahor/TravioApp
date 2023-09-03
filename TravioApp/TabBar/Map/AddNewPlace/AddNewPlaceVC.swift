@@ -10,6 +10,7 @@ import TinyConstraints
 
 class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
 
+    var reloadClosureWhenAddNewData: (()->())?
     let addNewPlaceVM = AddNewPlaceVM()
     var selectedCellIndex:IndexPath?
     
@@ -78,12 +79,16 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         super.viewDidLoad()
         
         setupLayout()
-        
         addNewPlaceVM.requesVMToUpdatePlace = { [weak self] () in
             guard let placeName = self!.placeNameView.txtField.text
                 ,let desc = self!.visitDescriptionView.txtView.text, let countryCity = self!.countryView.txtField.text else {return}
             self!.addNewPlaceVM.updateVMPlaceData(placeName: placeName, placeDescription: desc, placeCountryCity: countryCity)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fillLocationDatas()
     }
     
     @objc func addNewPlace()
@@ -100,7 +105,50 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
                 imagesToSend.append(cellImage)
             }
         }
-        addNewPlaceVM.sendImagesToServer(selectedImages: imagesToSend)
+        addNewPlaceVM.sendImagesToServer(selectedImages: imagesToSend) { result in
+            switch result {
+            case .failure(let error):
+                self.showAlert(title: "Error: While upload images to server", err: error.localizedDescription)
+            case .success(_):
+                self.addNewPlaceToServerResult()
+            }
+            
+        }
+    }
+    
+    func addNewPlaceToServerResult() {
+        addNewPlaceVM.addNewPlaceToServer() { result in
+            switch result {
+            case .failure(let err):
+                self.showAlert(title: "Error: While add new place to server", err: err.localizedDescription)
+            case .success(_):
+                self.addGalleryImagesServerResult()
+                
+            }
+        }
+    }
+    
+    func addGalleryImagesServerResult() {
+        addNewPlaceVM.addGalleryImagesNewAddedPlace() { result in
+            switch result {
+            case .failure(let err):
+                self.showAlert(title: "Error: While add images to gallery", err: err.localizedDescription)
+            case .success(_):
+                self.reloadClosureWhenAddNewData?()
+                self.dismiss(animated: true)
+            }
+        }
+    }
+    
+    func showAlert(title: String, err: String) {
+        let alert = UIAlertController(title: title, message: err, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Try again", style: .default)
+        let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true)
+        }
+        alert.addAction(alertAction)
+        alert.addAction(alertActionCancel)
+        alert.present(self, animated: true)
     }
     
     func setupLayout(){
@@ -127,8 +175,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         btnAddPlace.topToBottom(of:collectionViewGallery,offset:16)
         btnAddPlace.edgesToSuperview(excluding: [.top,.bottom] , insets: .left(24) + .right(24))
         btnAddPlace.height(54)
-        
-        fillLocationDatas()
     }
     
     func addSubviews(){

@@ -40,16 +40,22 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         return cv
     }()
     
-    
+    let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
     var locationsOrdering = [CLLocation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addNewPlaceVC.reloadClosureWhenAddNewData = { () in
+            self.initVM()
+        }
         setupViews()
         initVM()
-      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initVM()
     }
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -71,14 +77,12 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
                     return
                 }
                 guard let placeMark = placemarks?.first else {return}
-                let addNewPlaceVC = AddNewPlaceVC()
-                guard let locality = placeMark.locality, let country = placeMark.country  else {return}
-                
-                let countryCity = "\(locality), \(country)"
+                guard let state = placeMark.administrativeArea, let country = placeMark.country  else {return}
+                let countryCity = "\(country), \(state)"
                 let place = PlaceToMap(place: countryCity, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
-                addNewPlaceVC.addNewPlaceVM.initVM(place: place)
+                self.addNewPlaceVC.addNewPlaceVM.initVM(place: place)
                 
-                self.present(addNewPlaceVC, animated: true, completion: nil)
+                self.present(self.addNewPlaceVC, animated: true, completion: nil)
                
             }
             

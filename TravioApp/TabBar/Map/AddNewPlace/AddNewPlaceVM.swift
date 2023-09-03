@@ -36,7 +36,7 @@ class AddNewPlaceVM{
     }
     
     // MARK: send imagesData to server.
-    func sendImagesToServer(selectedImages:[UIImage]?){
+    func sendImagesToServer(selectedImages:[UIImage]?, complete: @escaping (Result<String, Error>) -> ()){
         
         guard let selectedImages = selectedImages else {return}
         
@@ -50,11 +50,11 @@ class AddNewPlaceVM{
                 self.extractImageURLsToArray(response: response)
                 guard let requestToUpdatePlace = self.requesVMToUpdatePlace else{return}
                 requestToUpdatePlace()
-                
-                self.addNewPlaceToServer()
+
+                complete(.success("true"))
                 
             case .failure(let error):
-                print("Error: \(error)")
+                complete(.failure(error))
             }
         }
     }
@@ -82,7 +82,7 @@ class AddNewPlaceVM{
         }
     }
     
-    func addNewPlaceToServer(){
+    func addNewPlaceToServer(complete: @escaping (Result<String,Error>)->()){
 
         guard let place = place else { return }
         guard let placeCountryCity = place.place,
@@ -100,16 +100,14 @@ class AddNewPlaceVM{
             switch result {
             case .success(let response):
                 self.placeID = response.message
-                guard let placeID = self.placeID else { return }
-                print(placeID)
-                self.addGalleryImagesNewAddedPlace()
+                complete(.success("true"))
             case .failure(let err):
-                print(err)
+                complete(.failure(err))
             }
         }
     }
     
-    func addGalleryImagesNewAddedPlace() {
+    func addGalleryImagesNewAddedPlace(complete: @escaping (Result<String,Error>)->()) {
         
         guard let placeID = placeID else { return }
         guard let imageUrls = imageUrls else { return }
@@ -121,19 +119,16 @@ class AddNewPlaceVM{
         
         for image in imageUrls {
             params["image_url"] = image
-            postGalleryImageToServer(params: params)
+            
+            APIService.call.objectRequestJSON(request: Router.postGalleryImage(params: params), complete: { (result:Result<PostGalleryImageResponseModel,Error>) in
+                    switch result {
+                    case .success(_):
+                        complete(.success("true"))
+                    case .failure(let err):
+                        complete(.failure(err))
+                }
+            })
         }
-    }
-    
-    func postGalleryImageToServer(params: Parameters) {
-        APIService.call.objectRequestJSON(request: Router.postGalleryImage(params: params), complete: { (result:Result<PostGalleryImageResponseModel,Error>) in
-                switch result {
-                case .success(let response):
-                    print(response)
-                case .failure(let err):
-                    print(err)
-            }
-        })
     }
 }
 

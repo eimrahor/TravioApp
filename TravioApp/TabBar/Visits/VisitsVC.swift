@@ -46,13 +46,20 @@ class VisitsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
+        initVM()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initVM()
+    }
+    
+    func initVM() {
         self.viewModel.callListTravels() { [weak self] in
             DispatchQueue.main.async() {
                 self!.tableView.reloadData()
             }
         }
-
     }
     
     func setupViews() {

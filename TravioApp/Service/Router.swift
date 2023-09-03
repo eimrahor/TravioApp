@@ -11,7 +11,7 @@ import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters)
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -39,12 +39,14 @@ public enum Router: URLRequestConvertible {
             return "/upload"
         case .postGalleryImage:
             return "/v1/galleries"
+        case .getPopularPlaces:
+            return "/v1/places/popular"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces: return .get
+        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces, .getPopularPlaces: return .get
         case .register, .userLogin, .refreshToken, .upload, .addNewPlace, .postGalleryImage: return .post
         }
     }
