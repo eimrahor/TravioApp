@@ -41,6 +41,12 @@ extension UIView {
         self.layer.insertSublayer(shadowLayer, at: 0)
     }
     
+    func addSubviews(_ view: UIView...) {
+        view.forEach({ v in
+            self.addSubview(v)
+        })
+    }
+    
 }
 
 extension UIImage {

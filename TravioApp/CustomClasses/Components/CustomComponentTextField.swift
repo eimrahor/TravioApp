@@ -8,14 +8,10 @@
 import UIKit
 import TinyConstraints
 
-class CustomViewWithTextField: UIView {
+class CustomComponentTextField: UIView {
     
     lazy var lbl: UICustomLabel = {
-        let l = UICustomLabel()
-        l.text = "Email"
-        l.textAlignment = .left
-        l.textColor = CustomColor.TravioBlack.color
-        l.font = CustomFont.PoppinsSemiBold(14).font
+        let l = UICustomLabel(labelType: .customTextFieldHeader())
         l.height(21)
 
         return l
