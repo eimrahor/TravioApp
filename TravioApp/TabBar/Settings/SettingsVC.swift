@@ -124,6 +124,10 @@ extension SettingsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 54)
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let targetVC = viewModel.arr[indexPath.row].targetVC
+        self.navigationController?.pushViewController(targetVC, animated: true)
+    }
 }
 
 extension SettingsVC: UICollectionViewDataSource {

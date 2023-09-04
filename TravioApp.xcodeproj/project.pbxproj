@@ -46,17 +46,21 @@
 		7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */; };
 		7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */; };
 		7A84AE3F2A9CCB9F00397420 /* AddNewPlaceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */; };
-		865F627C2A9D326900B84578 /* CustomViewWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomViewWithTextField.swift */; };
+		865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomComponentTextField.swift */; };
 		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
 		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
 		865F627F2A9D326900B84578 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62782A9D326900B84578 /* CustomFonts.swift */; };
 		865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62792A9D326900B84578 /* UICustomLabel.swift */; };
 		865F62812A9D326900B84578 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F627A2A9D326900B84578 /* BackgroundView.swift */; };
 		865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F627B2A9D326900B84578 /* UICustomTextField.swift */; };
-		865F62842A9D463300B84578 /* CustomViewWithTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62832A9D463300B84578 /* CustomViewWithTextView.swift */; };
+		865F62842A9D463300B84578 /* CustomComponentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62832A9D463300B84578 /* CustomComponentTextView.swift */; };
 		865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */; };
 		865F62892A9F8E3E00B84578 /* UploadImageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62882A9F8E3E00B84578 /* UploadImageResponseModel.swift */; };
 		865F628B2A9FF03300B84578 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F628A2A9FF03300B84578 /* PlacesModel.swift */; };
+		86C477592AA3CEB300566549 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C477582AA3CEB300566549 /* MainViewController.swift */; };
+		86C4775B2AA467C600566549 /* ChangePasswordSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */; };
+		86C4775D2AA494AF00566549 /* CustomComponentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */; };
+		86C477602AA4980900566549 /* PrivacySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */; };
 		E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */; };
 		E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */; };
 		E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */; };
@@ -102,17 +106,21 @@
 		7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+UIImage.swift"; sourceTree = "<group>"; };
 		7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVM.swift; sourceTree = "<group>"; };
 		7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVC.swift; sourceTree = "<group>"; };
-		865F62752A9D326900B84578 /* CustomViewWithTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewWithTextField.swift; sourceTree = "<group>"; };
+		865F62752A9D326900B84578 /* CustomComponentTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentTextField.swift; sourceTree = "<group>"; };
 		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
 		865F62782A9D326900B84578 /* CustomFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
 		865F62792A9D326900B84578 /* UICustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomLabel.swift; sourceTree = "<group>"; };
 		865F627A2A9D326900B84578 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		865F627B2A9D326900B84578 /* UICustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
-		865F62832A9D463300B84578 /* CustomViewWithTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewWithTextView.swift; sourceTree = "<group>"; };
+		865F62832A9D463300B84578 /* CustomComponentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomComponentTextView.swift; sourceTree = "<group>"; };
 		865F62852A9D586D00B84578 /* GalleryToUploadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryToUploadCell.swift; sourceTree = "<group>"; };
 		865F62882A9F8E3E00B84578 /* UploadImageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageResponseModel.swift; sourceTree = "<group>"; };
 		865F628A2A9FF03300B84578 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
+		86C477582AA3CEB300566549 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordSettingsCell.swift; sourceTree = "<group>"; };
+		86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomComponentSwitch.swift; sourceTree = "<group>"; };
+		86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsCell.swift; sourceTree = "<group>"; };
 		E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -140,6 +148,8 @@
 			children = (
 				7A32C5E72AA2002400C85F55 /* SecuritySettingsVM.swift */,
 				7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */,
+				86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */,
+				86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */,
 			);
 			path = SecuritySettings;
 			sourceTree = "<group>";
@@ -326,16 +336,26 @@
 		865F62742A9D324600B84578 /* CustomClasses */ = {
 			isa = PBXGroup;
 			children = (
-				865F627A2A9D326900B84578 /* BackgroundView.swift */,
+				86C4775E2AA494E700566549 /* Components */,
 				865F62762A9D326900B84578 /* CustomColors.swift */,
 				865F62782A9D326900B84578 /* CustomFonts.swift */,
-				865F62752A9D326900B84578 /* CustomViewWithTextField.swift */,
-				865F62832A9D463300B84578 /* CustomViewWithTextView.swift */,
 				865F62772A9D326900B84578 /* UICustomButton.swift */,
 				865F62792A9D326900B84578 /* UICustomLabel.swift */,
 				865F627B2A9D326900B84578 /* UICustomTextField.swift */,
 			);
 			path = CustomClasses;
+			sourceTree = "<group>";
+		};
+		86C4775E2AA494E700566549 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				865F62752A9D326900B84578 /* CustomComponentTextField.swift */,
+				865F62832A9D463300B84578 /* CustomComponentTextView.swift */,
+				86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */,
+				865F627A2A9D326900B84578 /* BackgroundView.swift */,
+				86C477582AA3CEB300566549 /* MainViewController.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -429,6 +449,7 @@
 				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,
 				7A7A8F1D2A9C9F18000681F6 /* MapKit.swift in Sources */,
+				86C477592AA3CEB300566549 /* MainViewController.swift in Sources */,
 				E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */,
 				7A7A8F002A9C9E5F000681F6 /* VisitsVCViewModel.swift in Sources */,
 				865F62892A9F8E3E00B84578 /* UploadImageResponseModel.swift in Sources */,
@@ -444,7 +465,9 @@
 				7A7A8F052A9C9E5F000681F6 /* MapVCViewModel.swift in Sources */,
 				7A7A8F072A9C9E5F000681F6 /* HomeVC.swift in Sources */,
 				7A7A8F092A9C9E92000681F6 /* DetailVisitsVC.swift in Sources */,
+				86C477602AA4980900566549 /* PrivacySettingsCell.swift in Sources */,
 				865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */,
+				86C4775B2AA467C600566549 /* ChangePasswordSettingsCell.swift in Sources */,
 				7A7A8F1E2A9C9F18000681F6 /* User.swift in Sources */,
 				865F628B2A9FF03300B84578 /* PlacesModel.swift in Sources */,
 				7A7A8F042A9C9E5F000681F6 /* DetailVisitsViewModel.swift in Sources */,
@@ -452,14 +475,15 @@
 				7A7A8EF62A9C9DD4000681F6 /* UserLoginVC.swift in Sources */,
 				7A7A8F032A9C9E5F000681F6 /* SettingsVC.swift in Sources */,
 				7A7A8F232A9C9F39000681F6 /* Router.swift in Sources */,
-				865F627C2A9D326900B84578 /* CustomViewWithTextField.swift in Sources */,
+				865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */,
 				7A32C5EA2AA2004B00C85F55 /* SecuritySettingsVC.swift in Sources */,
 				7A7A8F182A9C9F00000681F6 /* UserRegisterVM.swift in Sources */,
 				7A7A8F0F2A9C9EC9000681F6 /* MapCollectionCell.swift in Sources */,
 				865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */,
 				7A7A8F222A9C9F39000681F6 /* APIService.swift in Sources */,
-				865F62842A9D463300B84578 /* CustomViewWithTextView.swift in Sources */,
+				865F62842A9D463300B84578 /* CustomComponentTextView.swift in Sources */,
 				865F62812A9D326900B84578 /* BackgroundView.swift in Sources */,
+				86C4775D2AA494AF00566549 /* CustomComponentSwitch.swift in Sources */,
 				865F627F2A9D326900B84578 /* CustomFonts.swift in Sources */,
 				7A7A8F022A9C9E5F000681F6 /* MapVC.swift in Sources */,
 				7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */,

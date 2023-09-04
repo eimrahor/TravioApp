@@ -8,7 +8,7 @@
 import UIKit
 import TinyConstraints
 
-class CustomViewWithTextView: UIView {
+class CustomComponentTextView: UIView {
 
     var placeHolderText:String? {
         didSet{
@@ -17,13 +17,8 @@ class CustomViewWithTextView: UIView {
     }
     
     lazy var lbl: UICustomLabel = {
-        let l = UICustomLabel()
-        l.text = "Email"
-        l.textAlignment = .left
-        l.textColor = CustomColor.TravioBlack.color
-        l.font = CustomFont.PoppinsSemiBold(14).font
+        let l = UICustomLabel(labelType: .customTextViewHeader())
         l.height(21)
-
         return l
     }()
     
@@ -75,7 +70,7 @@ class CustomViewWithTextView: UIView {
     }
     
 }
-extension CustomViewWithTextView:UITextViewDelegate {
+extension CustomComponentTextView:UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == CustomColor.TravioLightGray.color {

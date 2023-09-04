@@ -19,8 +19,8 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
 //        tv.text = "blabla"
 //        return tv
 //    }()
-    private lazy var placeNameView: CustomViewWithTextField = {
-       let tv = CustomViewWithTextField()
+    private lazy var placeNameView: CustomComponentTextField = {
+       let tv = CustomComponentTextField()
         tv.lbl.text = "Place Name"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
       // tv.lbl.font = CustomFont.PoppindMedium(14).font
@@ -29,8 +29,8 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         return tv
     }()
     
-    private lazy var visitDescriptionView: CustomViewWithTextView = {
-       let tv = CustomViewWithTextView()
+    private lazy var visitDescriptionView: CustomComponentTextView = {
+       let tv = CustomComponentTextView()
         tv.lbl.text = "Visit Description"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
         tv.placeHolderText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
@@ -39,8 +39,8 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         return tv
     }()
     
-    private lazy var countryView: CustomViewWithTextField = {
-       let tv = CustomViewWithTextField()
+    private lazy var countryView: CustomComponentTextField = {
+       let tv = CustomComponentTextField()
         tv.lbl.text = "Country, City"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
       // tv.lbl.font = CustomFont.PoppindMedium(14).font

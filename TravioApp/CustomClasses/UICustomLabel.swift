@@ -6,16 +6,59 @@
 //
 
 import UIKit
+enum CustomLabelTypes{
+    case pageNameHeader(text:String = "")
+    case customTextViewHeader(text:String = "")
+    case customTextFieldHeader(text:String = "")
+    case standardBlackHeader(text:String = "")
+    case standardGreenHeader(text:String = "")
+}
 
 class UICustomLabel: UILabel {
 
-    init()
+    init(labelType:CustomLabelTypes)
     {
         super.init(frame: .zero)
-        self.textColor = CustomColor.Black.color
-        self.text = "Temp Text"
-        self.textAlignment = .center
-        self.font = CustomFont.PoppindMedium(24).font
+        
+        switch labelType {
+            
+        case .pageNameHeader(let text):
+            self.textColor = CustomColor.White.color
+            self.text = text
+            self.textAlignment = .center
+            self.font = CustomFont.PoppinsSemiBold(32).font
+            
+        case .customTextViewHeader(let text):
+            self.textColor = CustomColor.TravioBlack.color
+            self.text = text
+            self.textAlignment = .left
+            self.font = CustomFont.PoppindMedium(14).font
+            
+        case .customTextFieldHeader(let text):
+            self.textColor = CustomColor.TravioBlack.color
+            self.text = text
+            self.textAlignment = .left
+            self.font = CustomFont.PoppindMedium(14).font
+            
+        case .standardBlackHeader(let text):
+            self.textColor = CustomColor.Black.color
+            self.text = text
+            self.textAlignment = .center
+            self.font = CustomFont.PoppinsSemiBold(24).font
+        
+        case .standardGreenHeader(let text):
+            self.textColor = CustomColor.TravioGreen.color
+            self.text = text
+            self.textAlignment = .left
+            self.font = CustomFont.PoppinsSemiBold(16).font
+            
+        default:
+            self.textColor = CustomColor.Black.color
+            self.text = text
+            self.textAlignment = .center
+            self.font = CustomFont.PoppinsBold(24).font
+        }
+       
     }
     
     required init?(coder: NSCoder) {
