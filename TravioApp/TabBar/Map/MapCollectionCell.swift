@@ -54,6 +54,8 @@ class MapCollectionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        layoutIfNeeded()
+        image.roundCorners([.topLeft,.topRight,.bottomLeft], radius: 16)
     }
     
     required init?(coder: NSCoder) {
@@ -64,7 +66,7 @@ class MapCollectionCell: UICollectionViewCell {
         let url = URL(string: place.cover_image_url)
         image.kf.setImage(with: url)
         labelTitle.text = place.title
-        labelDesc.text = place.place
+        labelDesc.text = place.place.returnSpecialStringText()
     }
     
     func setupViews() {

@@ -38,6 +38,8 @@ class HomeTableViewCell: UITableViewCell {
         return c
     }()
     
+    var place: Place?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -45,6 +47,11 @@ class HomeTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(title: String, place: Place) {
+        titleLabel.text = title
+        self.place = place
     }
     
     func setupViews() {
@@ -92,7 +99,8 @@ extension HomeTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvCell", for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
-        
+        //guard let place = self.place else { return UICollectionViewCell() }
+        //cell.configure(place: place)
         return cell
     }
 }

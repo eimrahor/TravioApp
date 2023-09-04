@@ -140,11 +140,6 @@ class DetailVisitsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func returnSpecialStringText(text: String) -> String {
-        let array = text.components(separatedBy: ", ")
-        return array[1]
-    }
-    
     func changeDateFormat(date: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
@@ -171,7 +166,7 @@ class DetailVisitsVC: UIViewController {
                 self?.addPinandZoomPlace(place: cllocation)
                 
                 let titleText = self!.travelData?.data.visit.place.place
-                self!.titleLabel.text = self!.returnSpecialStringText(text: titleText ?? "")
+                self!.titleLabel.text! = titleText?.returnSpecialStringText() ?? ""
                 
                 let changeDate = self!.travelData?.data.visit.place.created_at
                 let date = self!.changeDateFormat(date: changeDate!)
@@ -252,13 +247,13 @@ class DetailVisitsVC: UIViewController {
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(content.snp.top).offset(69)
+            make.top.equalTo(titleLabel.snp.bottom).offset(2)
             make.leading.equalToSuperview().offset(26)
             make.height.equalTo(30)
         }
         
         addedUserLabel.snp.makeConstraints { make in
-            make.top.equalTo(content.snp.top).offset(92)
+            make.top.equalTo(dateLabel.snp.bottom)
             make.leading.equalToSuperview().offset(26)
             make.height.equalTo(15)
         }

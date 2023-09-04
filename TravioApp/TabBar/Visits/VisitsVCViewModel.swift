@@ -10,17 +10,16 @@ import Alamofire
 
 class VisitsVCViewModel {
     
-    var reloadTableView: (()->Void)?
     var visitsArr = [Visit]()
     
-    func callListTravels() {
+    func callListTravels(complete: @escaping ()->Void) {
         
         APIService.call.objectRequestJSON(request: Router.listVisits) { (result:Result<ListUserVisitsResponse,Error>) in
             
             switch result {
             case .success(let data):
                 self.visitsArr = data.data.visits
-                self.reloadTableView?()
+                complete()
             case .failure(let err):
                 print(err)
             }

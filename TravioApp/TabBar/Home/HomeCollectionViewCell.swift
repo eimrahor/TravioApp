@@ -52,6 +52,11 @@ class HomeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(place: Place) {
+        labelTitle.text = place.title
+        labelDesc.text = place.place.returnSpecialStringText()
+    }
+    
     func setupViews() {
         
         contentView.addSubview(image)
