@@ -62,6 +62,7 @@
 		86C4775B2AA467C600566549 /* ChangePasswordSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */; };
 		86C4775D2AA494AF00566549 /* CustomComponentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */; };
 		86C477602AA4980900566549 /* PrivacySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */; };
+		86C477622AA6141A00566549 /* SecuritySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C477612AA6141A00566549 /* SecuritySettingsCell.swift */; };
 		E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */; };
 		E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */; };
 		E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */; };
@@ -125,6 +126,7 @@
 		86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordSettingsCell.swift; sourceTree = "<group>"; };
 		86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomComponentSwitch.swift; sourceTree = "<group>"; };
 		86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsCell.swift; sourceTree = "<group>"; };
+		86C477612AA6141A00566549 /* SecuritySettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsCell.swift; sourceTree = "<group>"; };
 		E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */,
 				86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */,
 				86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */,
+				86C477612AA6141A00566549 /* SecuritySettingsCell.swift */,
 			);
 			path = SecuritySettings;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				86C4775D2AA494AF00566549 /* CustomComponentSwitch.swift in Sources */,
 				865F627F2A9D326900B84578 /* CustomFonts.swift in Sources */,
 				7A7A8F022A9C9E5F000681F6 /* MapVC.swift in Sources */,
+				86C477622AA6141A00566549 /* SecuritySettingsCell.swift in Sources */,
 				7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */,
 				E5C0ED992AA110DF00CFEEBC /* SettingsCollectionViewCell.swift in Sources */,
 				7A7A8F262A9C9F52000681F6 /* KeyChainHelper.swift in Sources */,

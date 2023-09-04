@@ -6,10 +6,9 @@
 //
 
 import UIKit
-struct PrivacySettingsData{
-    var titleText:String
-    var switchState:Bool
-}
+
+
+
 class PrivacySettingsCell: UICollectionViewCell {
     
     private lazy var switchComponent: CustomComponentSwitch = {

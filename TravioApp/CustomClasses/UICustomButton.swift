@@ -20,7 +20,6 @@ class UICustomButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-       // self.setTitle("Login", for: .normal)
         self.setTitleColor(CustomColor.White.color, for: .normal)
         self.roundCorners( [.bottomLeft,.topRight,.topLeft], radius: 16)
     }

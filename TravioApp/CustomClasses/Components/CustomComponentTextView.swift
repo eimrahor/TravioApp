@@ -35,12 +35,6 @@ class CustomComponentTextView: UIView {
         return tv
     }()
     
-    override func layoutSubviews() {
-        self.roundCorners([.bottomLeft,.topRight,.topLeft], radius: 16)
-//        let width = self.frame.size.width - 48
-//        self.shadowAndRoundCorners(width: width)
-    }
-    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = CustomColor.White.color
@@ -51,6 +45,10 @@ class CustomComponentTextView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        self.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
     }
     
     func addSubviews() {

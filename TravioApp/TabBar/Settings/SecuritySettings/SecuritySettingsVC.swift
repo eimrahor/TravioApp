@@ -24,7 +24,7 @@ class SecuritySettingsVC: MainViewController {
         return lbl
     }()
     
-    private lazy var cvPasswordSettings: UICollectionView = {
+    private lazy var cvSecuritySettings: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
          layout.minimumLineSpacing = 8
          layout.minimumInteritemSpacing = 8
@@ -35,6 +35,7 @@ class SecuritySettingsVC: MainViewController {
          cv.dataSource = self
          cv.backgroundColor = .clear
          cv.register(ChangePasswordSettingsCell.self, forCellWithReuseIdentifier: "PasswordSettings")
+        cv.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellWithReuseIdentifier: <#T##String#>)
          return cv
     }()
     
@@ -42,22 +43,7 @@ class SecuritySettingsVC: MainViewController {
         let lbl = UICustomLabel(labelType: .standardGreenHeader(text: "Privacy"))
         return lbl
     }()
-    
-    private lazy var cvPrivacySettings: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-         layout.minimumLineSpacing = 8
-         layout.minimumInteritemSpacing = 8
-         layout.scrollDirection = .vertical
-         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-         cv.showsVerticalScrollIndicator = false
-         cv.delegate = self
-         cv.dataSource = self
-         cv.backgroundColor = .clear
-         cv.register(PrivacySettingsCell.self, forCellWithReuseIdentifier: "PrivacySettings")
-         return cv
-    }()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()

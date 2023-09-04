@@ -47,7 +47,6 @@ class UICustomTextField: UITextField {
         self.backgroundColor = CustomColor.White.color
         self.layer.borderWidth = 0.7
         self.layer.borderColor = #colorLiteral(red: 0.9999999404, green: 0.9999999404, blue: 1, alpha: 0.6464891245)
-       // self.layer.cornerRadius = 20
         
     }
     

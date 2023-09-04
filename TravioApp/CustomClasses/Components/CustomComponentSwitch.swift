@@ -34,7 +34,7 @@ class CustomComponentSwitch: UIView {
     }()
     
     override func layoutSubviews() {
-        self.roundCorners([.bottomLeft,.topRight,.topLeft], radius: 16)
+        self.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
     }
     
     init() {

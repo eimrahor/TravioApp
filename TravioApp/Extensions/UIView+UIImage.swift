@@ -21,7 +21,7 @@ extension UIView {
             self.layer.shadowColor = UIColor.black.cgColor
             self.layer.shadowOpacity = 2
             self.layer.shadowOffset = CGSize(width: 0, height: 0)
-            self.layer.shadowRadius = 20
+            self.layer.shadowRadius = 2
         }
     }
     
@@ -36,7 +36,7 @@ extension UIView {
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
         shadowLayer.shadowOpacity = 0.16
-        shadowLayer.shadowRadius = 12
+        shadowLayer.shadowRadius = 5
 
         self.layer.insertSublayer(shadowLayer, at: 0)
     }
