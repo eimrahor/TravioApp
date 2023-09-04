@@ -38,7 +38,7 @@ class HomeTableViewCell: UITableViewCell {
         return c
     }()
     
-    var place: Place?
+    var places = [Place]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,9 +49,12 @@ class HomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String, place: Place) {
+    func configure(title: String, places: [Place]) {
         titleLabel.text = title
-        self.place = place
+        self.places = places
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func setupViews() {
@@ -94,13 +97,13 @@ extension HomeTableViewCell: UICollectionViewDelegateFlowLayout {
 
 extension HomeTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return places.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvCell", for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
-        //guard let place = self.place else { return UICollectionViewCell() }
-        //cell.configure(place: place)
+        let place = self.places[indexPath.row]
+        cell.configure(place: place)
         return cell
     }
 }

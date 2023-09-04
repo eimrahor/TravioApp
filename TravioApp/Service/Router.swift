@@ -11,7 +11,7 @@ import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters)
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -41,12 +41,14 @@ public enum Router: URLRequestConvertible {
             return "/v1/galleries"
         case .getPopularPlaces:
             return "/v1/places/popular"
+        case .getLastPlaces:
+            return "/v1/places/last"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces, .getPopularPlaces: return .get
+        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces, .getPopularPlaces, .getLastPlaces: return .get
         case .register, .userLogin, .refreshToken, .upload, .addNewPlace, .postGalleryImage: return .post
         }
     }
@@ -72,7 +74,7 @@ public enum Router: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-        case .register(let params), .userLogin(let params), .refreshToken(let params), .addNewPlace(let params), .postGalleryImage(let params): return params
+        case .register(let params), .userLogin(let params), .refreshToken(let params), .addNewPlace(let params), .postGalleryImage(let params), .getPopularPlaces(let params), .getLastPlaces(let params): return params
         default: return [:]
         }
     }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HomeCollectionViewCell: UICollectionViewCell {
     
@@ -53,6 +54,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(place: Place) {
+        let url = URL(string: place.cover_image_url)
+        image.kf.setImage(with: url)
         labelTitle.text = place.title
         labelDesc.text = place.place.returnSpecialStringText()
     }
