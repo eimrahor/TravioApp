@@ -90,7 +90,7 @@ class APIService {
                         let decodedData = try JSONDecoder().decode(T.self,from: jsonData)
                         complete(.success(decodedData))
                     } catch {
-                        
+                        complete(.failure(error))
                     }
                 case .failure(_):
                     print("error")

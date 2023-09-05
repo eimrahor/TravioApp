@@ -81,6 +81,7 @@ class DetailVisitsVC: UIViewController {
     private lazy var addButton: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+        bt.addTarget(self, action: #selector(postOrDeleteVisit), for: .touchUpInside)
         return bt
     }()
     
@@ -138,6 +139,16 @@ class DetailVisitsVC: UIViewController {
     
     @objc func backVisitVC() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func postOrDeleteVisit() {
+        viewModel?.checkVisitByPlaceID() { isHidden in
+            if isHidden {
+                self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+            } else {
+                self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+            }
+        }
     }
     
     func changeDateFormat(date: String) -> String {
