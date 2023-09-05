@@ -33,6 +33,30 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         return lbl
     }()
     
+    private lazy var btnBack : UICustomButton = {
+        let btn = UICustomButton(title: "")
+        let iv = UIImageView()
+        iv.image = UIImage(named: "backArrow.png")
+        iv.contentMode = .scaleAspectFit
+        btn.addSubview(iv)
+        iv.height(22)
+        iv.width(24)
+        btn.height(22)
+        btn.width(24)
+        btn.addTarget(self, action: #selector(goPopView), for: .touchUpInside)
+        return btn
+    }()
+    private lazy var svNavigationBar: UIStackView = {
+        let sv = UIStackView()
+        sv.addArrangedSubview(btnBack)
+        sv.addArrangedSubview(lblPageTitle)
+        sv.alignment = .center
+        sv.distribution = .fillProportionally
+        sv.spacing = 8
+        sv.axis = .horizontal
+        return sv
+    }()
+    
     private lazy var tvSecuritySettings: UITableView = {
         let tv = UITableView(frame: .zero, style: .grouped)
         tv.delegate = self
@@ -46,7 +70,7 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     
     private var btnSave: UICustomButton = {
         let btn = UICustomButton(title: "Save")
-        btn.addTarget(SecuritySettingsVC.self, action: #selector(saveSettings), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(saveSettings), for: .touchUpInside)
         return btn
     }()
 
@@ -64,8 +88,9 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         self.navigationController?.isNavigationBarHidden = true
         
         addSubviews()
-        lblPageTitle.bottomToTop(of: background,offset: -54)
-        lblPageTitle.centerXToSuperview()
+        
+        svNavigationBar.topToSuperview(offset: 19,usingSafeArea: true)
+        svNavigationBar.edgesToSuperview(excluding: [.top,.bottom],insets: .left(20) + .right(20))
         
         tvSecuritySettings.top(to: background,offset: 44)
         tvSecuritySettings.edgesToSuperview(excluding: .top,insets: .bottom(70) + .left(20) + .right(20))
@@ -77,13 +102,16 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     
     override func addSubviews(){
         super.addSubviews()
-        self.view.addSubview(lblPageTitle)
+        self.view.addSubview(svNavigationBar)
         self.view.addSubview(tvSecuritySettings)
         self.view.addSubview(btnSave)
     }
     
     @objc func saveSettings(){
-        
+        print("savesettings")
+    }
+    @objc func goPopView(){
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
@@ -95,9 +123,9 @@ extension SecuritySettingsVC:UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-           return "Change Password"
+           return "CHANGE PASSWORD"
         case 1:
-            return "Privacy"
+            return "PRIVACY"
         default:
             return ""
         }

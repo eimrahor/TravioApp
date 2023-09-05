@@ -7,18 +7,37 @@
 
 import UIKit
 import SnapKit
+import TinyConstraints
 
 class UserRegisterVC: UIViewController {
     
-    private lazy var backButton: UIButton = {
-        let bt = UIButton()
-//        let largeConfig = UIImage.SymbolConfiguration(scale: .large)
-//        let largeSymbolImage = UIImage(systemName: "arrow.left", withConfiguration: largeConfig)
-        let image = UIImage(named: "backArrow")
-        let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(actBack))
-        navigationItem.leftBarButtonItem = barButton
-        navigationItem.leftBarButtonItem?.tintColor = .white
-        return bt
+    private lazy var lblPageTitle: UICustomLabel = {
+        let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Sign Up"))
+        return lbl
+    }()
+    
+    private lazy var btnBack : UICustomButton = {
+        let btn = UICustomButton(title: "")
+        let iv = UIImageView()
+        iv.image = UIImage(named: "backArrow.png")
+        iv.contentMode = .scaleAspectFit
+        btn.addSubview(iv)
+        iv.height(22)
+        iv.width(24)
+        btn.height(22)
+        btn.width(24)
+        btn.addTarget(self, action: #selector(actBack), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var svNavigationBar: UIStackView = {
+        let sv = UIStackView()
+        sv.addArrangedSubview(btnBack)
+        sv.addArrangedSubview(lblPageTitle)
+        sv.alignment = .center
+        sv.spacing = 8
+        sv.axis = .horizontal
+        return sv
     }()
     
     private lazy var secondView: UIView = {
@@ -132,10 +151,10 @@ class UserRegisterVC: UIViewController {
     var user: User?
     
     
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            setupViews()
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews()
+    }
     
     override func viewDidLayoutSubviews() {
         secondView.roundCorners([.topLeft], radius: 80)
@@ -159,18 +178,11 @@ class UserRegisterVC: UIViewController {
     }
         
         func setupViews() {
-            navigationItem.hidesBackButton = true
-            
-            let titleView = UILabel()
-            titleView.text = "Sign Up"
-            titleView.textColor = .white
-            titleView.font = UIFont(name: "Poppins-SemiBold", size: 34)
-            navigationItem.titleView = titleView
-            
+            self.navigationController?.navigationBar.isHidden = true
             
             view.backgroundColor = #colorLiteral(red: 0.258569181, green: 0.7276339531, blue: 0.7204007506, alpha: 1)
             
-            view.addSubview(backButton)
+            view.addSubview(svNavigationBar)
             view.addSubview(secondView)
             view.addSubview(userNameView)
             view.addSubview(userNameLabel)
@@ -190,10 +202,10 @@ class UserRegisterVC: UIViewController {
         
         func makeConst() {
             
-            backButton.snp.makeConstraints { make in
-                make.height.equalTo(22)
-                make.width.equalTo(156)
-            }
+            svNavigationBar.topToSuperview(offset: 19,usingSafeArea: true)
+            svNavigationBar.edgesToSuperview(excluding: [.top,.bottom],insets: .left(20) + .right(20))
+            
+            lblPageTitle.centerXToSuperview()
             
             secondView.snp.makeConstraints { make in
                 make.height.equalTo(view.snp.height).multipliedBy(0.82)

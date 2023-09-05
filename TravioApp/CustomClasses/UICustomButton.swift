@@ -17,7 +17,6 @@ class UICustomButton: UIButton {
             else {self.backgroundColor = CustomColor.TravioLightGray.color}
         }
     }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.setTitleColor(CustomColor.White.color, for: .normal)
