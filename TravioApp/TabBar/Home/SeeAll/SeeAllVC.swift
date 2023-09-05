@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MyAddedPlacesVC: MainViewController {
+class SeeAllVC: MainViewController {
 
     private lazy var buttonAtoZ: UIButton = {
         let bt = UIButton()
@@ -24,7 +24,7 @@ class MyAddedPlacesVC: MainViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.showsVerticalScrollIndicator = false
-        cv.register(MyAddedPlacesCell.self, forCellWithReuseIdentifier: "CollectionCell")
+        cv.register(SeeAllCell.self, forCellWithReuseIdentifier: "CollectionCell")
         return cv
     }()
     
@@ -56,19 +56,19 @@ class MyAddedPlacesVC: MainViewController {
     }
 }
 
-extension MyAddedPlacesVC: UICollectionViewDelegateFlowLayout {
+extension SeeAllVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width - 48, height: 89)
     }
 }
 
-extension MyAddedPlacesVC: UICollectionViewDataSource {
+extension SeeAllVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as? MyAddedPlacesCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as? SeeAllCell else { return UICollectionViewCell() }
         
         return cell
     }

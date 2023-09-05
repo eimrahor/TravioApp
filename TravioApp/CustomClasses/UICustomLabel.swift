@@ -11,6 +11,7 @@ enum CustomLabelTypes{
     case customTextViewHeader(text:String = "")
     case customTextFieldHeader(text:String = "")
     case standardBlackHeader(text:String = "")
+    case standardBlackSubtitle(text:String = "")
     case standardGreenHeader(text:String = "")
 }
 
@@ -45,6 +46,12 @@ class UICustomLabel: UILabel {
             self.text = text
             self.textAlignment = .center
             self.font = CustomFont.PoppinsSemiBold(24).font
+        
+        case .standardBlackHeader(let text):
+            self.textColor = CustomColor.Black.color
+            self.text = text
+            self.textAlignment = .left
+            self.font = CustomFont.PoppinsRegular(14).font
         
         case .standardGreenHeader(let text):
             self.textColor = CustomColor.TravioGreen.color
