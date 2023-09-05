@@ -8,7 +8,7 @@
 import UIKit
 import TinyConstraints
 
-class ChangePasswordSettingsCell: UICollectionViewCell {
+class ChangePasswordSettingsCell: UITableViewCell {
     
     private lazy var view: CustomComponentTextField = {
         let view = CustomComponentTextField()
@@ -16,8 +16,8 @@ class ChangePasswordSettingsCell: UICollectionViewCell {
         return view
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
     
@@ -29,7 +29,9 @@ class ChangePasswordSettingsCell: UICollectionViewCell {
     {
         self.contentView.backgroundColor = CustomColor.TravioWhite.color
         addSubview()
-        view.edgesToSuperview()
+        view.topToSuperview()
+        view.edgesToSuperview(excluding: [.top,.bottom],insets: .left(5) + .right(5))
+        view.height(74)
     }
     
     func addSubview(){

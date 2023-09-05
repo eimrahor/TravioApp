@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import TinyConstraints
 
 
-
-class PrivacySettingsCell: UICollectionViewCell {
+class PrivacySettingsCell: UITableViewCell {
     
     private lazy var switchComponent: CustomComponentSwitch = {
         let component = CustomComponentSwitch()
@@ -17,8 +17,8 @@ class PrivacySettingsCell: UICollectionViewCell {
         return component
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
     
@@ -30,7 +30,9 @@ class PrivacySettingsCell: UICollectionViewCell {
     {
         self.contentView.backgroundColor = CustomColor.TravioWhite.color
         addSubview()
-        switchComponent.edgesToSuperview()
+        switchComponent.topToSuperview()
+        switchComponent.edgesToSuperview(excluding: [.top,.bottom],insets: .left(5) + .right(5))
+        switchComponent.height(74)
     }
     
     func addSubview(){

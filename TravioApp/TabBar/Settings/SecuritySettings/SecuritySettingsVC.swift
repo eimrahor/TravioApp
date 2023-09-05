@@ -9,7 +9,21 @@ import UIKit
 import TinyConstraints
 import SnapKit
 
-class SecuritySettingsVC: MainViewController {
+struct PasswordSettingsData{
+    var titleText:String
+    var placeHolderText:String
+}
+
+struct PrivacySettingsData{
+    var titleText:String
+    var switchState:Bool
+}
+enum SecuritySettingsCellType{
+    case PrivacySettingCell
+    case PasswordSettingCell
+}
+
+class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     
     let securitySettingsVM = SecuritySettingsVM()
     
@@ -19,29 +33,21 @@ class SecuritySettingsVC: MainViewController {
         return lbl
     }()
     
-    private lazy var lblChangePassword: UICustomLabel = {
-        let lbl = UICustomLabel(labelType: .standardGreenHeader(text: "Change Password"))
-        return lbl
+    private lazy var tvSecuritySettings: UITableView = {
+        let tv = UITableView(frame: .zero, style: .grouped)
+        tv.delegate = self
+        tv.dataSource = self
+        tv.backgroundColor = .clear
+        tv.showsVerticalScrollIndicator = false
+        tv.register(ChangePasswordSettingsCell.self, forCellReuseIdentifier: "PasswordSettings")
+        tv.register(PrivacySettingsCell.self, forCellReuseIdentifier: "PrivacySettings")
+        return tv
     }()
     
-    private lazy var cvSecuritySettings: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-         layout.minimumLineSpacing = 8
-         layout.minimumInteritemSpacing = 8
-         layout.scrollDirection = .vertical
-         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-         cv.showsVerticalScrollIndicator = false
-         cv.delegate = self
-         cv.dataSource = self
-         cv.backgroundColor = .clear
-         cv.register(ChangePasswordSettingsCell.self, forCellWithReuseIdentifier: "PasswordSettings")
-        cv.register(<#T##cellClass: AnyClass?##AnyClass?#>, forCellWithReuseIdentifier: <#T##String#>)
-         return cv
-    }()
-    
-    private lazy var lblPrivacy: UICustomLabel = {
-        let lbl = UICustomLabel(labelType: .standardGreenHeader(text: "Privacy"))
-        return lbl
+    private var btnSave: UICustomButton = {
+        let btn = UICustomButton(title: "Save")
+        btn.addTarget(SecuritySettingsVC.self, action: #selector(saveSettings), for: .touchUpInside)
+        return btn
     }()
 
     override func viewDidLoad() {
@@ -61,72 +67,87 @@ class SecuritySettingsVC: MainViewController {
         lblPageTitle.bottomToTop(of: background,offset: -54)
         lblPageTitle.centerXToSuperview()
         
-        lblChangePassword.top(to: background,offset: 44)
-        lblChangePassword.leftToSuperview(offset:24)
-        //156
-        cvPasswordSettings.topToBottom(of: lblChangePassword,offset: 8)
-        cvPasswordSettings.height(156)
-        cvPasswordSettings.width(342)
-        cvPasswordSettings.centerXToSuperview()
+        tvSecuritySettings.top(to: background,offset: 44)
+        tvSecuritySettings.edgesToSuperview(excluding: .top,insets: .bottom(70) + .left(20) + .right(20))
+        tvSecuritySettings.centerXToSuperview()
         
-        lblPrivacy.topToBottom(of: cvPasswordSettings,offset: 24)
-        lblPrivacy.leftToSuperview(offset:24)
-        //156
-        cvPrivacySettings.topToBottom(of: lblPrivacy,offset: 8)
-        cvPrivacySettings.height(238)
-        cvPrivacySettings.width(342)
-        cvPrivacySettings.centerXToSuperview()
-       
+        btnSave.bottomToSuperview(offset:-18,usingSafeArea: true)
+        btnSave.edgesToSuperview(excluding: [.top,.bottom],insets: .left(24) + .right(24))
     }
     
     override func addSubviews(){
         super.addSubviews()
         self.view.addSubview(lblPageTitle)
-        self.view.addSubview(lblChangePassword)
-        self.view.addSubview(cvPasswordSettings)
-        self.view.addSubview(lblPrivacy)
-        self.view.addSubview(cvPrivacySettings)
+        self.view.addSubview(tvSecuritySettings)
+        self.view.addSubview(btnSave)
     }
+    
+    @objc func saveSettings(){
+        
+    }
+    
+}
+extension SecuritySettingsVC:UITableViewDelegate {
 
-}
-extension SecuritySettingsVC:UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 74)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  83
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+           return "Change Password"
+        case 1:
+            return "Privacy"
+        default:
+            return ""
+        }
+    }
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.font = CustomFont.PoppinsSemiBold(16).font
+        header.textLabel?.textColor = CustomColor.TravioGreen.color
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        24
     }
 }
-extension SecuritySettingsVC:UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case cvPasswordSettings :
-            return securitySettingsVM.passwordSettingsDatas.count
-        case cvPrivacySettings :
+extension SecuritySettingsVC:UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        switch section {
+        case 0:
+           return securitySettingsVM.passwordSettingsDatas.count
+        case 1:
             return securitySettingsVM.privacySettingsDatas.count
         default:
             return 0
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch collectionView {
-            
-        case cvPasswordSettings :
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PasswordSettings", for: indexPath) as? ChangePasswordSettingsCell else { return UICollectionViewCell() }
-            cell.configureCell(cellData: securitySettingsVM.passwordSettingsDatas[indexPath.row])
-            cell.backgroundColor = .white
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordSettings", for: indexPath) as? ChangePasswordSettingsCell else { return UITableViewCell() }
+            let object = securitySettingsVM.passwordSettingsDatas[indexPath.row]
+            cell.configureCell(cellData: object)
             return cell
             
-        case cvPrivacySettings :
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PrivacySettings", for: indexPath) as? PrivacySettingsCell else { return UICollectionViewCell() }
-            cell.configureCell(cellData: securitySettingsVM.privacySettingsDatas[indexPath.row])
-            cell.backgroundColor = .white
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PrivacySettings", for: indexPath) as? PrivacySettingsCell else { return UITableViewCell() }
+            let object = securitySettingsVM.privacySettingsDatas[indexPath.row]
+            cell.configureCell(cellData: object)
             return cell
-            
         default:
-            return UICollectionViewCell()
+            return UITableViewCell()
         }
-       
-        }
+    }
+    
 }
     
     
