@@ -80,7 +80,7 @@ class DetailVisitsVC: UIViewController {
     
     private lazy var addButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "detailButtonImage"), for: .normal)
+        bt.setImage(UIImage(named: "AddVisitFill"), for: .normal)
         return bt
     }()
     
@@ -165,16 +165,18 @@ class DetailVisitsVC: UIViewController {
                 let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
                 self?.addPinandZoomPlace(place: cllocation)
                 
-                let titleText = self!.travelData?.data.visit.place.place
-                self!.titleLabel.text! = titleText?.returnSpecialStringText() ?? ""
+                guard let travel = self!.travelData else { return }
                 
-                let changeDate = self!.travelData?.data.visit.place.created_at
-                let date = self!.changeDateFormat(date: changeDate!)
+                let titleText = travel.data.visit.place.place
+                self!.titleLabel.text = titleText.returnSpecialStringText()
+                
+                let changeDate = travel.data.visit.place.created_at
+                let date = self!.changeDateFormat(date: changeDate)
                 self!.dateLabel.text = date
                 
-                self!.addedUserLabel.text = "added by @\(self!.travelData!.data.visit.place.creator)"
+                self!.addedUserLabel.text = "added by @\(travel.data.visit.place.creator)"
                 
-                self!.informationLabel.text = self!.travelData?.data.visit.place.description
+                self!.informationLabel.text = travel.data.visit.place.description
                  }
         }
         
