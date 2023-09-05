@@ -47,6 +47,8 @@
 		7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */; };
 		7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */; };
 		7A84AE3F2A9CCB9F00397420 /* AddNewPlaceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */; };
+		7AB4FB6A2AA711440011AA25 /* MyAddedPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB692AA711440011AA25 /* MyAddedPlacesVC.swift */; };
+		7AB4FB6C2AA7157C0011AA25 /* MyAddedPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB6B2AA7157C0011AA25 /* MyAddedPlacesCell.swift */; };
 		865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomComponentTextField.swift */; };
 		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
 		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
@@ -110,6 +112,8 @@
 		7A7A8F282A9C9F67000681F6 /* UIView+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+UIImage.swift"; sourceTree = "<group>"; };
 		7A84AE3C2A9CCB5C00397420 /* AddNewPlaceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVM.swift; sourceTree = "<group>"; };
 		7A84AE3E2A9CCB9F00397420 /* AddNewPlaceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlaceVC.swift; sourceTree = "<group>"; };
+		7AB4FB692AA711440011AA25 /* MyAddedPlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesVC.swift; sourceTree = "<group>"; };
+		7AB4FB6B2AA7157C0011AA25 /* MyAddedPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddedPlacesCell.swift; sourceTree = "<group>"; };
 		865F62752A9D326900B84578 /* CustomComponentTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentTextField.swift; sourceTree = "<group>"; };
 		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 		7A84AE352A9CB33900397420 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				7AB4FB682AA710DD0011AA25 /* MyAddedPlacesSeeAll */,
 				7A7A8EFF2A9C9E5F000681F6 /* HomeVC.swift */,
 				E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */,
 				E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */,
@@ -340,6 +345,15 @@
 				865F628A2A9FF03300B84578 /* PlacesModel.swift */,
 			);
 			path = AddNewPlace;
+			sourceTree = "<group>";
+		};
+		7AB4FB682AA710DD0011AA25 /* MyAddedPlacesSeeAll */ = {
+			isa = PBXGroup;
+			children = (
+				7AB4FB692AA711440011AA25 /* MyAddedPlacesVC.swift */,
+				7AB4FB6B2AA7157C0011AA25 /* MyAddedPlacesCell.swift */,
+			);
+			path = MyAddedPlacesSeeAll;
 			sourceTree = "<group>";
 		};
 		865F62742A9D324600B84578 /* CustomClasses */ = {
@@ -462,12 +476,14 @@
 				E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */,
 				7A7A8F002A9C9E5F000681F6 /* VisitsVCViewModel.swift in Sources */,
 				865F62892A9F8E3E00B84578 /* UploadImageResponseModel.swift in Sources */,
+				7AB4FB6A2AA711440011AA25 /* MyAddedPlacesVC.swift in Sources */,
 				E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */,
 				865F627D2A9D326900B84578 /* CustomColors.swift in Sources */,
 				865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */,
 				7A32C5E82AA2002400C85F55 /* SecuritySettingsVM.swift in Sources */,
 				7A7A8F0C2A9C9EAB000681F6 /* DetailVisitsCell.swift in Sources */,
 				7A7A8F172A9C9F00000681F6 /* UserLoginVM.swift in Sources */,
+				7AB4FB6C2AA7157C0011AA25 /* MyAddedPlacesCell.swift in Sources */,
 				E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */,
 				7A7A8F062A9C9E5F000681F6 /* MainTabbarController.swift in Sources */,
 				E5C0ED972AA106BF00CFEEBC /* SettingsViewModel.swift in Sources */,
