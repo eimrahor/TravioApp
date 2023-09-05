@@ -8,6 +8,8 @@
 import Foundation
 
 // MARK: Get Popular Places response model
+// MARK: Get Last Places response model
+
 struct PopularPlaces: Codable {
     let data: PPlaces
     let status: String
@@ -17,4 +19,5 @@ struct PPlaces: Codable {
     let count: Int
     let places: [Place]
 }
+
 

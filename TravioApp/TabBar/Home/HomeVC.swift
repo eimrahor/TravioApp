@@ -118,13 +118,14 @@ extension HomeVC: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             viewModel.callPopularPlaces() { () in
-                let place = self.viewModel.returnpPlace(row: indexPath.row)
-                cell.configure(title: "Popular Places",place: place)
+                guard let places = self.viewModel.pPlaces?.data.places else { return }
+                cell.configure(title: "Popular Places",places: places)
             }
         default:
-            viewModel.callPopularPlaces() { () in
-                let place = self.viewModel.returnpPlace(row: indexPath.row)
-                cell.configure(title: "Popular Places",place: place)
+            viewModel.callNewPlaces { () in
+                
+                guard let places = self.viewModel.nPlaces?.data.places else { return }
+                    cell.configure(title: "New Places",places: places)
             }
         }
         return cell
