@@ -43,21 +43,50 @@ class HomeVC: UIViewController {
     }()
     
     let viewModel = HomeViewModel()
+    let dGroup = DispatchGroup()
+    var pPlaces = [Place]()
+    var nPlaces = [Place]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        prepareDataWithDispatch()
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        prepareDataWithDispatch()
     }
     
     override func viewDidLayoutSubviews() {
         secondView.roundCorners([.topLeft], radius: 80)
         tableView.roundCorners([.topLeft], radius: 16)
     }
+    func prepareDataWithDispatch() {
+        dGroup.enter()
+        
+        viewModel.callPopularPlaces { places in
+            self.pPlaces = places
+            self.dGroup.leave()
+        }
+       
+        dGroup.enter()
+        
+        viewModel.callNewPlaces { places in
+            self.nPlaces = places
+            self.dGroup.leave()
+        }
+            
+        dGroup.notify(queue: .main) {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+    }
     
     func setupViews() {
-        //view.backgroundColor =
-        
         view.addSubview(secondView)
         view.addSubview(logoImage)
         view.addSubview(titleLabel)
@@ -117,16 +146,9 @@ extension HomeVC: UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            viewModel.callPopularPlaces() { () in
-                guard let places = self.viewModel.pPlaces?.data.places else { return }
-                cell.configure(title: "Popular Places",places: places)
-            }
+            cell.configure(title: "Popular Places",places: self.pPlaces)
         default:
-            viewModel.callNewPlaces { () in
-                
-                guard let places = self.viewModel.nPlaces?.data.places else { return }
-                    cell.configure(title: "New Places",places: places)
-            }
+            cell.configure(title: "New Places",places: self.nPlaces)
         }
         return cell
     }
