@@ -24,13 +24,13 @@ class SeeAllCell: UICollectionViewCell {
     
     private lazy var lblCountry: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .standardBlackSubtitle(text: "Rome"))
-        lbl.text = "abc"
         return lbl
     }()
     
     private lazy var imgLocationLogo: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "map")
+        img.tintColor = CustomColor.TravioBlack.color
         return img
     }()
     
@@ -40,14 +40,23 @@ class SeeAllCell: UICollectionViewCell {
         sv.addArrangedSubview(lblCountry)
         sv.alignment = .center
         sv.distribution = .fillProportionally
-        sv.spacing = 1
+        sv.spacing = 6
         sv.axis = .horizontal
         return sv
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+     
+        imgPlace.layoutIfNeeded()
+        imgPlace.roundCorners([.topLeft,.bottomLeft], radius: 30)
+        
         setupLayout()
+    }
+    
+    override func layoutSubviews() {
+        
+        //self.contentView.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
     }
     
     required init?(coder: NSCoder) {
@@ -56,17 +65,32 @@ class SeeAllCell: UICollectionViewCell {
     
     func setupLayout()
     {
-        self.contentView.backgroundColor = CustomColor.TravioWhite.color
+        self.contentView.backgroundColor = CustomColor.White.color
+        
         addSubviews()
         
         imgPlace.edgesToSuperview(excluding: [.right],insets: .left(0) + .top(0) + .bottom(0))
-        imgPlace.width()
+        imgPlace.width(89)
         
+        lblPlace.topToSuperview(offset:16)
+        lblPlace.leadingToTrailing(of: imgPlace,offset: 8)
+        
+        svCountry.topToBottom(of: lblPlace)
+        svCountry.leading(to: lblPlace)
+        svCountry.trailingToSuperview(offset:24)
+        svCountry.height(21)
+        
+        imgLocationLogo.width(12)
+        imgLocationLogo.height(12)
     }
     
     func addSubviews(){
         contentView.addSubview(imgPlace)
         contentView.addSubview(lblPlace)
         contentView.addSubview(svCountry)
+    }
+    
+    func configureCell(){
+      
     }
 }

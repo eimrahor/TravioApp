@@ -42,13 +42,13 @@ class UICustomLabel: UILabel {
             self.font = CustomFont.PoppindMedium(14).font
             
         case .standardBlackHeader(let text):
-            self.textColor = CustomColor.Black.color
+            self.textColor = CustomColor.TravioBlack.color
             self.text = text
             self.textAlignment = .center
             self.font = CustomFont.PoppinsSemiBold(24).font
         
-        case .standardBlackHeader(let text):
-            self.textColor = CustomColor.Black.color
+        case .standardBlackSubtitle(let text):
+            self.textColor = CustomColor.TravioBlack.color
             self.text = text
             self.textAlignment = .left
             self.font = CustomFont.PoppinsRegular(14).font
@@ -63,7 +63,7 @@ class UICustomLabel: UILabel {
             self.textColor = CustomColor.Black.color
             self.text = text
             self.textAlignment = .center
-            self.font = CustomFont.PoppinsBold(24).font
+            self.font = CustomFont.PoppinsRegular(24).font
         }
        
     }

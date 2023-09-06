@@ -27,7 +27,6 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     
     let securitySettingsVM = SecuritySettingsVM()
     
-    // TODO: Add back button
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Security Settings"))
         return lbl
@@ -81,7 +80,7 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
 
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
         
-        super.setupLayout()
+        super.setupLayout(backGroundMultiplier: backGroundMultiplier)
        // super.backGroundMultiplier = 0.7
        // super.changeBackgroundMultiplier(to: 0.70)    - ver2
         self.view.backgroundColor = CustomColor.TravioGreen.color

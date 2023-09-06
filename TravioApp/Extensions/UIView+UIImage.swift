@@ -25,7 +25,9 @@ extension UIView {
         }
     }
     
-    func shadowAndRoundCorners(width: CGFloat, height: CGFloat) {
+    func
+    shadowAndRoundCorners(width: CGFloat, height: CGFloat) {
+        
         let demoPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: height), byRoundingCorners:[.topLeft, .topRight, .bottomLeft], cornerRadii: CGSize(width: 16.0, height: 16.0)).cgPath
         
         let shadowLayer = CAShapeLayer()

@@ -7,16 +7,48 @@
 
 import UIKit
 import SnapKit
+import TinyConstraints
 
 class SeeAllVC: MainViewController {
 
-    private lazy var buttonAtoZ: UIButton = {
+    private lazy var lblPageTitle: UICustomLabel = {
+        let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Popular Places"))
+        return lbl
+    }()
+    
+    private lazy var btnBack : UICustomButton = {
+        let btn = UICustomButton(title: "")
+        let iv = UIImageView()
+        iv.image = UIImage(named: "backArrow.png")
+        iv.contentMode = .scaleAspectFit
+        btn.addSubview(iv)
+        iv.height(22);iv.width(24);btn.height(22);btn.width(24)
+        btn.addTarget(self, action: #selector(goPopView), for: .touchUpInside)
+        return btn
+    }()
+    private lazy var svNavigationBar: UIStackView = {
+        let sv = UIStackView()
+        sv.addArrangedSubview(btnBack)
+        sv.addArrangedSubview(lblPageTitle)
+        sv.alignment = .center
+        sv.distribution = .fillProportionally
+        sv.spacing = 8
+        sv.axis = .horizontal
+        return sv
+    }()
+    
+    private lazy var buttonSortAtoZ: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "AtoZ"), for: .normal)
+        bt.setImage(UIImage(named: "btn_AtoZ"), for: .normal)
+        return bt
+    }()
+    private lazy var buttonSortZtoA: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "btn_ZtoA"), for: .normal)
         return bt
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    private lazy var cvPlaces: UICollectionView = {
        let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 16
         layout.scrollDirection = .vertical
@@ -24,36 +56,45 @@ class SeeAllVC: MainViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.showsVerticalScrollIndicator = false
-        cv.register(SeeAllCell.self, forCellWithReuseIdentifier: "CollectionCell")
+        cv.register(SeeAllCell.self, forCellWithReuseIdentifier: "SeeAllCell")
         return cv
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupViews()
+        setupLayout()
     }
     
-    func setupViews() {
-        view.addSubview(buttonAtoZ)
-        view.addSubview(collectionView)
-        makeConst()
+    override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
+        
+        super.setupLayout(backGroundMultiplier: backGroundMultiplier)
+        self.navigationController?.isNavigationBarHidden = true
+        addSubviews()
+        
+        svNavigationBar.topToSuperview(offset: 19,usingSafeArea: true)
+        svNavigationBar.edgesToSuperview(excluding: [.top,.bottom],insets: .left(20) + .right(20))
+        
+        buttonSortAtoZ.top(to: background,offset: 24)
+        buttonSortAtoZ.trailingToSuperview(offset: 24)
+        buttonSortAtoZ.width(21.87)
+        buttonSortAtoZ.height(21.88)
+   
+        cvPlaces.topToBottom(of: buttonSortAtoZ,offset: 24.12)
+        cvPlaces.edgesToSuperview(excluding: [.top],insets: .left(24) + .right(24) + .bottom(0),usingSafeArea: true)
     }
     
-    func makeConst() {
-        buttonAtoZ.snp.makeConstraints { make in
-            make.top.equalTo(background.snp.top).offset(24)
-            make.trailing.equalToSuperview().offset(-23.13)
-            make.width.equalTo(21.87)
-            make.height.equalTo(21.88)
-        }
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(background.snp.top).offset(70)
-            make.leading.equalToSuperview().offset(24)
-            make.trailing.equalToSuperview().offset(-24)
-            make.bottom.equalToSuperview()
-        }
+    override func addSubviews() {
+        super.addSubviews()
+        view.addSubview(svNavigationBar)
+        view.addSubview(buttonSortAtoZ)
+        view.addSubview(cvPlaces)
     }
+    
+    @objc func goPopView(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
 }
 
 extension SeeAllVC: UICollectionViewDelegateFlowLayout {
@@ -64,11 +105,11 @@ extension SeeAllVC: UICollectionViewDelegateFlowLayout {
 
 extension SeeAllVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as? SeeAllCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAllCell", for: indexPath) as? SeeAllCell else { return UICollectionViewCell() }
         
         return cell
     }
