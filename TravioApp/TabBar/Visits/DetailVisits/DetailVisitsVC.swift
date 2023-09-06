@@ -137,6 +137,15 @@ class DetailVisitsVC: UIViewController {
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
     }
     
+    func configure(data: GetGalleryImages, place: Place, count: Int) {
+        imagesData = data
+        pageController.numberOfPages = count
+        titleLabel.text = place.title
+        dateLabel.text = place.created_at
+        addedUserLabel.text = place.creator
+        informationLabel.text = place.description
+    }
+    
     @objc func backVisitVC() {
         navigationController?.popViewController(animated: true)
     }

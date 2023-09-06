@@ -36,6 +36,17 @@ class MapVCViewModel {
         }
     }
     
+    func getAllGallerybyPlaceID(id: String, complete: @escaping (GetGalleryImages)->()) {
+        APIService.call.objectRequestJSON(request: Router.getAllGalleryImagesWithID(id: id)) { (result:Result<GetGalleryImages,Error>) in
+            switch result {
+            case .success(let data):
+                complete(data)
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
     func getCountOfPlaces() -> Int {
         guard let places = places else { return 0 }
         return (places.data.count)

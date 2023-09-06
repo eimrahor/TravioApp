@@ -43,6 +43,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
     var locationsOrdering = [CLLocation]()
+    var allGalleryImages: GetGalleryImages?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,6 +143,14 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         mapView.setCenter(locationsOrdering[indexPath.row].coordinate, animated: true)
         mapView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(5000))
+        
+        guard let places = viewModel.places else { return }
+        viewModel.getAllGallerybyPlaceID(id: places.data.places[indexPath.row].id) { data in
+            print(data)
+        }
+        
+//        let vc = DetailVisitsVC()
+//        vc.configure(data: <#T##GetGalleryImages#>, place: <#T##Place#>, count: <#T##Int#>)
     }
 }
 
