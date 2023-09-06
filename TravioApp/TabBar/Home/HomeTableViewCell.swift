@@ -9,6 +9,11 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
     
+    var delegate:CellDataDelegate?
+    
+    var places = [Place]()
+    var cellPlaceType: ListedPlacesTypes?
+    
     private lazy var titleLabel: UILabel = {
        let lbl = UILabel()
         lbl.text = "nab"
@@ -22,6 +27,7 @@ class HomeTableViewCell: UITableViewCell {
         bt.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 14)
         bt.setTitleColor(#colorLiteral(red: 0.09019607843, green: 0.7529411765, blue: 0.9215686275, alpha: 1), for: .normal)
         bt.setTitle("See All", for: .normal)
+        bt.addTarget(self, action: #selector(seeAll), for: .touchUpInside)
         return bt
     }()
     
@@ -38,8 +44,6 @@ class HomeTableViewCell: UITableViewCell {
         return c
     }()
     
-    var places = [Place]()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -49,9 +53,22 @@ class HomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String, places: [Place]) {
-        titleLabel.text = title
+    @objc func seeAll(){
+        guard let type = cellPlaceType else {return}
+        delegate?.sendSeeAllVC(placesType: type)
+    }
+    
+    func configure(placesType:ListedPlacesTypes, places: [Place]) {
+        
+        switch placesType {
+        case .newPlaces:
+            titleLabel.text = "New Places"
+        case .popularPlaces:
+            titleLabel.text = "Popular Places"
+        }
+        self.cellPlaceType = placesType
         self.places = places
+        
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }

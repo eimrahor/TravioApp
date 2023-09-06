@@ -8,7 +8,14 @@
 import UIKit
 import SnapKit
 
-class HomeVC: UIViewController {
+enum ListedPlacesTypes{
+    case popularPlaces
+    case newPlaces
+}
+protocol CellDataDelegate{
+    func sendSeeAllVC(placesType: ListedPlacesTypes)
+}
+class HomeVC: UIViewController, CellDataDelegate{
 
     private lazy var secondView: UIView = {
        let v = UIView()
@@ -143,13 +150,20 @@ extension HomeVC: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
-        
+        cell.delegate = self
         switch indexPath.section {
         case 0:
-            cell.configure(title: "Popular Places",places: self.pPlaces)
+            cell.configure(placesType: .popularPlaces,places: self.pPlaces)
         default:
-            cell.configure(title: "New Places",places: self.nPlaces)
+            cell.configure(placesType: .newPlaces,places: self.nPlaces)
         }
         return cell
+    }
+}
+extension HomeVC {
+    func sendSeeAllVC(placesType: ListedPlacesTypes) {
+        let targetVC = SeeAllVC()
+        targetVC.listedPlacesType = placesType
+        self.navigationController?.pushViewController(targetVC, animated: true)
     }
 }
