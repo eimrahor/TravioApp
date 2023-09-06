@@ -10,9 +10,10 @@ import SnapKit
 import TinyConstraints
 
 class SeeAllVC: MainViewController {
-
+    
+    var listedPlacesType: ListedPlacesTypes?
     private lazy var lblPageTitle: UICustomLabel = {
-        let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Popular Places"))
+        let lbl = UICustomLabel(labelType: .pageNameHeader(text: "None"))
         return lbl
     }()
     
@@ -65,11 +66,13 @@ class SeeAllVC: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        configureVC()
     }
     
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
         
         super.setupLayout(backGroundMultiplier: backGroundMultiplier)
+
         self.navigationController?.isNavigationBarHidden = true
         addSubviews()
         
@@ -90,6 +93,18 @@ class SeeAllVC: MainViewController {
         view.addSubview(svNavigationBar)
         view.addSubview(buttonSortAtoZ)
         view.addSubview(cvPlaces)
+    }
+    
+    func configureVC(){
+        switch listedPlacesType {
+        case .popularPlaces:
+            lblPageTitle.text = "Popular Places"
+        case .newPlaces:
+            lblPageTitle.text = "New Places"
+        case .none:
+            return
+        }
+
     }
     
     @objc func goPopView(){
