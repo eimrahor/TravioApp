@@ -48,8 +48,7 @@ class SeeAllCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
      
-        imgPlace.layoutIfNeeded()
-        imgPlace.roundCorners([.topLeft,.bottomLeft], radius: 30)
+        self.radiusWithShadow(corners: [.bottomLeft,.topLeft,.topRight])
         
         setupLayout()
     }

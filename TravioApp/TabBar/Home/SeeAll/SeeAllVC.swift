@@ -52,7 +52,9 @@ class SeeAllVC: MainViewController {
        let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 16
         layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 4, left: 24, bottom: 4, right: 24)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
         cv.delegate = self
         cv.dataSource = self
         cv.showsVerticalScrollIndicator = false
@@ -80,7 +82,7 @@ class SeeAllVC: MainViewController {
         buttonSortAtoZ.height(21.88)
    
         cvPlaces.topToBottom(of: buttonSortAtoZ,offset: 24.12)
-        cvPlaces.edgesToSuperview(excluding: [.top],insets: .left(24) + .right(24) + .bottom(0),usingSafeArea: true)
+        cvPlaces.edgesToSuperview(excluding: [.top],insets: .left(0) + .right(0) + .bottom(0),usingSafeArea: true)
     }
     
     override func addSubviews() {

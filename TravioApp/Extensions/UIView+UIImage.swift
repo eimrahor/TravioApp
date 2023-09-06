@@ -7,24 +7,49 @@
 
 import UIKit
 
-extension UIView {
 
-    func roundCorners(_ corners: UIRectCorner, radius: CGFloat, shadow: Bool? = false) {
-         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-         let mask = CAShapeLayer()
-         mask.path = path.cgPath
-         self.layer.mask = mask
-        
-        guard let shadow = shadow else { return }
-        if shadow {
-            self.layer.shadowPath = path.cgPath
-            self.layer.shadowColor = UIColor.black.cgColor
-            self.layer.shadowOpacity = 2
-            self.layer.shadowOffset = CGSize(width: 0, height: 0)
-            self.layer.shadowRadius = 2
-        }
-    }
+extension UICollectionViewCell {
     
+    func radiusWithShadow(corners:UIRectCorner){
+        
+        let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), byRoundingCorners: corners, cornerRadii: CGSize(width: 16, height: 16))
+        rectanglePath.close()
+        
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowRadius = 4
+        layer.shadowPath = rectanglePath.cgPath
+        contentView.roundCorners(corners, radius: 16)
+        contentView.layer.masksToBounds = true
+    }
+}
+
+extension UIView {
+    
+    func roundCorners(_ corners:UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        self.layer.mask = mask
+    }
+//
+//    func roundCorners(_ corners: UIRectCorner, radius: CGFloat, shadow: Bool? = false) {
+//         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+//         let mask = CAShapeLayer()
+//         mask.path = path.cgPath
+//         self.layer.mask = mask
+//        
+//        guard let shadow = shadow else { return }
+//        if shadow {
+//            self.layer.shadowPath = path.cgPath
+//            self.layer.shadowColor = UIColor.black.cgColor
+//            self.layer.shadowOpacity = 2
+//            self.layer.shadowOffset = CGSize(width: 0, height: 0)
+//            self.layer.shadowRadius = 2
+//        }
+//    }
+//    
     func
     shadowAndRoundCorners(width: CGFloat, height: CGFloat) {
         
