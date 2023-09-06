@@ -13,7 +13,7 @@ class HomeViewModel {
     var nPlaces: PopularPlaces?
     
     let params = [
-        "limit": "3"
+        "limit": "5"
     ]
     
     func callPopularPlaces(complete: @escaping ([Place])->()) {

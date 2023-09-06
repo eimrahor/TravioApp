@@ -34,6 +34,10 @@ class GalleryToUploadCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        image.image = nil
+    }
 
     func configureImage(image:UIImage?){
         guard let imageUW = image else {return}

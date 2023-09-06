@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: Check Visit By Place ID response model
 struct DetailVisitsModel: Codable {
-    var message: Bool
+    var message: String
     var status: String
 }
 

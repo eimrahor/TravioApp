@@ -10,7 +10,6 @@ import Alamofire
 
 class DetailVisitsViewModel {
     
-    var dGroup: DispatchGroup?
     var visitId: String?
     var placeId: String?
     var backDataGalleryImagesClosure: ((GetGalleryImages)->())?
@@ -66,28 +65,27 @@ class DetailVisitsViewModel {
         
         APIService.call.objectRequestJSON(request: Router.checkVisitByPlaceID(id: placeId)) { (result:Result<DetailVisitsModel,Error>) in
             switch result {
-            case .success(_):
-                self.dGroup?.enter()
-                
-                self.deleteAVisitByPlaceID() {
-                    self.dGroup?.leave()
+            case .success(let response):
+                if response.status == "success" {
+                    self.deleteAVisitByPlaceID()
+                    complete(true)
+                } else {
+                    self.postAVisit()
+                    complete(false)
                 }
-                complete(true)
             case .failure(_):
-                self.postAVisit()
-                complete(false)
+                print("err json")
             }
         }
     }
     
-    func deleteAVisitByPlaceID(complete: @escaping ()->()) {
+    func deleteAVisitByPlaceID() {
         guard let placeId = placeId else { return }
         
         APIService.call.objectRequestJSON(request: Router.deleteAVisitByPlaceID(id: placeId)) { (result:Result<DeleteAVisit,Error>) in
             switch result {
             case .success(let data):
                 print(data)
-                complete()
             case .failure(let err):
                 print(err)
             }

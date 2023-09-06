@@ -104,7 +104,7 @@ public enum Router: URLRequestConvertible {
     
     var encoding: ParameterEncoding? {
         switch self.method {
-        case .get: return URLEncoding.default
+        case .get, .delete: return URLEncoding.default
         case .post: return JSONEncoding.default
         default:
             return nil
