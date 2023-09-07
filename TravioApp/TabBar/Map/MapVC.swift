@@ -40,6 +40,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         return cv
     }()
     
+    
+    var vc = DetailVisitsVC()
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
     var locationsOrdering = [CLLocation]()
@@ -143,19 +145,17 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
         self.mapView.setCenter(self.locationsOrdering[indexPath.row].coordinate, animated: true)
         self.mapView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(5000))
         
-        let vc = DetailVisitsVC()
         guard let places = self.viewModel.places else { return }
         let cllocation = CLLocation(latitude: places.data.places[indexPath.row].latitude, longitude: places.data.places[indexPath.row].longitude)
         
         self.viewModel.getAllGallerybyPlaceID(id: places.data.places[indexPath.row].id) { galleryImages in
                 
                 
-        var isMyPlace: Bool = false
         self.viewModel.checkByPlaceID(id: places.data.places[indexPath.row].id) { isMyplace in
-            isMyPlace = isMyplace
+            self.vc.configure(data: galleryImages, place: places.data.places[indexPath.row], count: galleryImages.data.images.count, location: cllocation, isMyPlace: isMyplace )
+            self.navigationController?.pushViewController(self.vc, animated: true)
         }
-        vc.configure(data: galleryImages, place: places.data.places[indexPath.row], count: galleryImages.data.images.count, location: cllocation, isMyPlace: isMyPlace )
-        self.navigationController?.pushViewController(vc, animated: true)
+        
         }
     }
 }

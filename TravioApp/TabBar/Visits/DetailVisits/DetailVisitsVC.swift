@@ -149,7 +149,7 @@ class DetailVisitsVC: UIViewController {
         addedUserLabel.text = "added by @\(place.creator)"
         informationLabel.text = place.description
         
-        if isMyPlace == true {
+        if isMyPlace {
             self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
         } else {
             self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
@@ -161,7 +161,7 @@ class DetailVisitsVC: UIViewController {
     }
     
     @objc func postOrDeleteVisit() {
-        viewModel?.checkVisitByPlaceID() { isHidden in
+        self.viewModel?.checkVisitByPlaceID() { isHidden in
             if isHidden {
                 self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
             } else {
