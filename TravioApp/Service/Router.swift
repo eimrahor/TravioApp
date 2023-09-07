@@ -11,8 +11,7 @@ import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), getAllPopularPlaces, getAllLastPlaces
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), checkVisitByPlaceID(id: String), deleteAVisitByPlaceID(id: String), postAVisit(params: Parameters)
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), getAllPopularPlaces, getAllLastPlaces, checkVisitByPlaceID(id: String), deleteAVisitByPlaceID(id: String), postAVisit(params: Parameters)
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -56,9 +55,7 @@ public enum Router: URLRequestConvertible {
     
     var method: HTTPMethod {
         switch self {
-        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces, .getPopularPlaces, .getLastPlaces ,.getAllPopularPlaces, .getAllLastPlaces: return .get
-        case .register, .userLogin, .refreshToken, .upload, .addNewPlace, .postGalleryImage: return .post
-        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces, .getPopularPlaces, .getLastPlaces, .checkVisitByPlaceID: return .get
+        case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces, .getPopularPlaces, .getLastPlaces ,.getAllPopularPlaces, .getAllLastPlaces, .checkVisitByPlaceID: return .get
         case .register, .userLogin, .refreshToken, .upload, .addNewPlace, .postGalleryImage, .postAVisit: return .post
         case .deleteAVisitByPlaceID: return .delete
         }
