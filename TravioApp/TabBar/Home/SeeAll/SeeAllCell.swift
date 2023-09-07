@@ -8,8 +8,11 @@
 import UIKit
 import SnapKit
 import TinyConstraints
+import Kingfisher
 
 class SeeAllCell: UICollectionViewCell {
+    
+    var currentPlace:Place?
     
     private lazy var imgPlace: UIImageView = {
         let img = UIImageView()
@@ -47,15 +50,7 @@ class SeeAllCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-     
-        self.radiusWithShadow(corners: [.bottomLeft,.topLeft,.topRight])
-        
         setupLayout()
-    }
-    
-    override func layoutSubviews() {
-        
-        //self.contentView.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
     }
     
     required init?(coder: NSCoder) {
@@ -64,6 +59,7 @@ class SeeAllCell: UICollectionViewCell {
     
     func setupLayout()
     {
+        self.radiusWithShadow(corners: [.bottomLeft,.topLeft,.topRight])
         self.contentView.backgroundColor = CustomColor.White.color
         
         addSubviews()
@@ -89,7 +85,14 @@ class SeeAllCell: UICollectionViewCell {
         contentView.addSubview(svCountry)
     }
     
-    func configureCell(){
-      
+    func configureCell(place:Place){
+        
+        let url = URL(string: place.cover_image_url)
+        imgPlace.kf.setImage(with: url)
+        
+        lblPlace.text = place.title
+        lblCountry.text = place.place
+        
+        currentPlace = place
     }
 }

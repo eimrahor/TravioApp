@@ -9,9 +9,16 @@ import UIKit
 import SnapKit
 import TinyConstraints
 
+enum PlacesSortType{
+    case AtoZ
+    case ZtoA
+}
+
 class SeeAllVC: MainViewController {
     
+    let seeAllVM = SeeAllVM()
     var listedPlacesType: ListedPlacesTypes?
+    
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "None"))
         return lbl
@@ -41,11 +48,15 @@ class SeeAllVC: MainViewController {
     private lazy var buttonSortAtoZ: UIButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "btn_AtoZ"), for: .normal)
+        bt.addTarget(self, action: #selector(sortAtoZ), for: .touchUpInside)
         return bt
     }()
+    
     private lazy var buttonSortZtoA: UIButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "btn_ZtoA"), for: .normal)
+        bt.isHidden = true
+        bt.addTarget(self, action: #selector(sortZtoA), for: .touchUpInside)
         return bt
     }()
     
@@ -67,6 +78,8 @@ class SeeAllVC: MainViewController {
         super.viewDidLoad()
         setupLayout()
         configureVC()
+        seeAllVM.getPlaces(placesType: listedPlacesType!)
+        seeAllVM.reloadData = { self.cvPlaces.reloadData() }
     }
     
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
@@ -83,6 +96,11 @@ class SeeAllVC: MainViewController {
         buttonSortAtoZ.trailingToSuperview(offset: 24)
         buttonSortAtoZ.width(21.87)
         buttonSortAtoZ.height(21.88)
+        
+        buttonSortZtoA.top(to: background,offset: 24)
+        buttonSortZtoA.trailingToSuperview(offset: 24)
+        buttonSortZtoA.width(21.87)
+        buttonSortZtoA.height(21.88)
    
         cvPlaces.topToBottom(of: buttonSortAtoZ,offset: 24.12)
         cvPlaces.edgesToSuperview(excluding: [.top],insets: .left(0) + .right(0) + .bottom(0),usingSafeArea: true)
@@ -92,6 +110,7 @@ class SeeAllVC: MainViewController {
         super.addSubviews()
         view.addSubview(svNavigationBar)
         view.addSubview(buttonSortAtoZ)
+        view.addSubview(buttonSortZtoA)
         view.addSubview(cvPlaces)
     }
     
@@ -104,13 +123,32 @@ class SeeAllVC: MainViewController {
         case .none:
             return
         }
-
+    }
+    
+    func changeSortButton(){
+        if buttonSortAtoZ.isHidden {
+            buttonSortAtoZ.isHidden = false
+            buttonSortZtoA.isHidden = true
+        }
+        else {
+            buttonSortAtoZ.isHidden = true
+            buttonSortZtoA.isHidden = false
+        }
     }
     
     @objc func goPopView(){
         self.navigationController?.popViewController(animated: true)
     }
     
+    @objc func sortAtoZ(){
+        changeSortButton()
+        seeAllVM.sortPlaces(by: .AtoZ)
+        
+    }
+    @objc func sortZtoA(){
+        changeSortButton()
+        seeAllVM.sortPlaces(by: .ZtoA)
+    }
     
 }
 
@@ -122,12 +160,15 @@ extension SeeAllVC: UICollectionViewDelegateFlowLayout {
 
 extension SeeAllVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        guard let placesCount = seeAllVM.placesCount else {return 0}
+        return placesCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAllCell", for: indexPath) as? SeeAllCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAllCell", for: indexPath) as? SeeAllCell,
+              let places = seeAllVM.placesToBeList else { return UICollectionViewCell() }
         
+        cell.configureCell(place: places[indexPath.row])
         return cell
     }
     
