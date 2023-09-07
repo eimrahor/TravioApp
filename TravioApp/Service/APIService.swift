@@ -81,7 +81,6 @@ class APIService {
 //    }
     
     func objectRequestJSON<T:Codable>(request: URLRequestConvertible, complete: @escaping (Result<T,Error>)->Void) {
-        DispatchQueue.global(qos: .utility).async {
             AF.request(request).responseJSON { response in
                 switch response.result {
                 case .success(let data):
@@ -96,7 +95,6 @@ class APIService {
                     print("error")
                 }
             }
-        }
     }
     
     func uploadImagesToServer<T:Codable>(route:Router, completionHandler: @escaping (Result<T, Error>) -> Void) {

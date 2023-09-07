@@ -137,13 +137,23 @@ class DetailVisitsVC: UIViewController {
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
     }
     
-    func configure(data: GetGalleryImages, place: Place, count: Int) {
+    func configure(data: GetGalleryImages, place: Place, count: Int, location:CLLocation, isMyPlace: Bool) {
+        DispatchQueue.main.async {
+            self.addPinandZoomPlace(place: location)
+        }
+        
         imagesData = data
         pageController.numberOfPages = count
         titleLabel.text = place.title
         dateLabel.text = place.created_at
-        addedUserLabel.text = place.creator
+        addedUserLabel.text = "added by @\(place.creator)"
         informationLabel.text = place.description
+        
+        if isMyPlace == true {
+            self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+        } else {
+            self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+        }
     }
     
     @objc func backVisitVC() {
@@ -180,7 +190,6 @@ class DetailVisitsVC: UIViewController {
     
     func initVM() {
         viewModel?.backDataTravelClosure = { [weak self] data in
-            DispatchQueue.main.async { [self] in
                 self?.travelData = data
                 let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
                 self?.addPinandZoomPlace(place: cllocation)
@@ -197,7 +206,6 @@ class DetailVisitsVC: UIViewController {
                 self!.addedUserLabel.text = "added by @\(travel.data.visit.place.creator)"
                 
                 self!.informationLabel.text = travel.data.visit.place.description
-                 }
         }
         
         viewModel?.backDataGalleryImagesClosure = { [weak self] data in
