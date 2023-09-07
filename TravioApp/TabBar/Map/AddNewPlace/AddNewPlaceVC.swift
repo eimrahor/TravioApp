@@ -201,7 +201,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     
     @objc func buttonCheckActivate() {
         
-        guard let name = placeNameView.txtField.text, let countryCity = countryView.txtField.text else {
+        guard let _ = placeNameView.txtField.text, let _ = countryView.txtField.text else {
             btnAddPlace.isEnabled = false
             return
         }
