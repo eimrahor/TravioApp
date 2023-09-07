@@ -149,7 +149,6 @@ class SeeAllVC: MainViewController {
         changeSortButton()
         seeAllVM.sortPlaces(by: .ZtoA)
     }
-    
 }
 
 extension SeeAllVC: UICollectionViewDelegateFlowLayout {
@@ -171,6 +170,4 @@ extension SeeAllVC: UICollectionViewDataSource {
         cell.configureCell(place: places[indexPath.row])
         return cell
     }
-    
-    
 }

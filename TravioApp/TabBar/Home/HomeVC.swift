@@ -19,7 +19,7 @@ class HomeVC: UIViewController, CellDataDelegate{
 
     private lazy var secondView: UIView = {
        let v = UIView()
-        v.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
+        v.backgroundColor = CustomColor.TravioWhite.color
         return v
     }()
     
@@ -39,7 +39,7 @@ class HomeVC: UIViewController, CellDataDelegate{
     
     private lazy var tableView: UITableView = {
        let tv = UITableView()
-        tv.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
+        tv.backgroundColor = CustomColor.TravioWhite.color
         tv.delegate = self
         tv.dataSource = self
         tv.showsVerticalScrollIndicator = false

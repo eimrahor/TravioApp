@@ -59,6 +59,7 @@ class SeeAllCell: UICollectionViewCell {
     
     func setupLayout()
     {
+        //self.contentView.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
         self.radiusWithShadow(corners: [.bottomLeft,.topLeft,.topRight])
         self.contentView.backgroundColor = CustomColor.White.color
         

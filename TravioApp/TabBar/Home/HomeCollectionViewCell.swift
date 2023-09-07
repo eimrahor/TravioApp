@@ -62,6 +62,9 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     func setupViews() {
         
+        self.backgroundColor = CustomColor.TravioWhite.color
+        //FIXME: fix shadow and round corners.
+        self.radiusWithShadow(corners: [.bottomLeft,.topLeft,.topRight])
         contentView.addSubview(image)
         contentView.addSubview(labelTitle)
         contentView.addSubview(labelDesc)

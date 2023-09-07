@@ -75,6 +75,8 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     func setupViews() {
+        
+        self.backgroundColor = CustomColor.TravioWhite.color
         contentView.addSubview(titleLabel)
         contentView.addSubview(seeAllButton)
         contentView.addSubview(collectionView)
