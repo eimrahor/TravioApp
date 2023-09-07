@@ -80,7 +80,8 @@ class DetailVisitsVC: UIViewController {
     
     private lazy var addButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "detailButtonImage"), for: .normal)
+        bt.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+        bt.addTarget(self, action: #selector(postOrDeleteVisit), for: .touchUpInside)
         return bt
     }()
     
@@ -136,8 +137,37 @@ class DetailVisitsVC: UIViewController {
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
     }
     
+    func configure(data: GetGalleryImages, place: Place, count: Int, location:CLLocation, isMyPlace: Bool) {
+        DispatchQueue.main.async {
+            self.addPinandZoomPlace(place: location)
+        }
+        
+        imagesData = data
+        pageController.numberOfPages = count
+        titleLabel.text = place.title
+        dateLabel.text = place.created_at
+        addedUserLabel.text = "added by @\(place.creator)"
+        informationLabel.text = place.description
+        
+        if isMyPlace == true {
+            self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+        } else {
+            self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+        }
+    }
+    
     @objc func backVisitVC() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func postOrDeleteVisit() {
+        viewModel?.checkVisitByPlaceID() { isHidden in
+            if isHidden {
+                self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+            } else {
+                self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+            }
+        }
     }
     
     func changeDateFormat(date: String) -> String {
@@ -160,22 +190,22 @@ class DetailVisitsVC: UIViewController {
     
     func initVM() {
         viewModel?.backDataTravelClosure = { [weak self] data in
-            DispatchQueue.main.async { [self] in
                 self?.travelData = data
                 let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
                 self?.addPinandZoomPlace(place: cllocation)
                 
-                let titleText = self!.travelData?.data.visit.place.place
-                self!.titleLabel.text! = titleText?.returnSpecialStringText() ?? ""
+                guard let travel = self!.travelData else { return }
                 
-                let changeDate = self!.travelData?.data.visit.place.created_at
-                let date = self!.changeDateFormat(date: changeDate!)
+                let titleText = travel.data.visit.place.place
+                self!.titleLabel.text = titleText.returnSpecialStringText()
+                
+                let changeDate = travel.data.visit.place.created_at
+                let date = self!.changeDateFormat(date: changeDate)
                 self!.dateLabel.text = date
                 
-                self!.addedUserLabel.text = "added by @\(self!.travelData!.data.visit.place.creator)"
+                self!.addedUserLabel.text = "added by @\(travel.data.visit.place.creator)"
                 
-                self!.informationLabel.text = self!.travelData?.data.visit.place.description
-                 }
+                self!.informationLabel.text = travel.data.visit.place.description
         }
         
         viewModel?.backDataGalleryImagesClosure = { [weak self] data in

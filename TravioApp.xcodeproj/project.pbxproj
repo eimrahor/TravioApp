@@ -72,6 +72,7 @@
 		E5C0ED992AA110DF00CFEEBC /* SettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED982AA110DF00CFEEBC /* SettingsCollectionViewCell.swift */; };
 		E5C0ED9D2AA4AB7000CFEEBC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED9C2AA4AB7000CFEEBC /* String.swift */; };
 		E5C0ED9F2AA5126900CFEEBC /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED9E2AA5126900CFEEBC /* HomeModel.swift */; };
+		E5C0EDA12AA7B30300CFEEBC /* DetailVisitsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0EDA02AA7B30300CFEEBC /* DetailVisitsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,7 @@
 		E5C0ED982AA110DF00CFEEBC /* SettingsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5C0ED9C2AA4AB7000CFEEBC /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E5C0ED9E2AA5126900CFEEBC /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		E5C0EDA02AA7B30300CFEEBC /* DetailVisitsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVisitsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +314,7 @@
 				7A7A8F0B2A9C9EAB000681F6 /* DetailVisitsCell.swift */,
 				7A7A8F082A9C9E92000681F6 /* DetailVisitsVC.swift */,
 				7A7A8EFC2A9C9E5F000681F6 /* DetailVisitsViewModel.swift */,
+				E5C0EDA02AA7B30300CFEEBC /* DetailVisitsModel.swift */,
 			);
 			path = DetailVisits;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				7A7A8F182A9C9F00000681F6 /* UserRegisterVM.swift in Sources */,
 				7A7A8F0F2A9C9EC9000681F6 /* MapCollectionCell.swift in Sources */,
 				865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */,
+				E5C0EDA12AA7B30300CFEEBC /* DetailVisitsModel.swift in Sources */,
 				7A7A8F222A9C9F39000681F6 /* APIService.swift in Sources */,
 				865F62842A9D463300B84578 /* CustomComponentTextView.swift in Sources */,
 				865F62812A9D326900B84578 /* BackgroundView.swift in Sources */,

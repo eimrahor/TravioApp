@@ -88,7 +88,13 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        placeNameView.txtField.text = ""
+        visitDescriptionView.txtView.text = ""
         fillLocationDatas()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("Buraya geldi")
     }
     
     @objc func addNewPlace()

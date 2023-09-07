@@ -18,14 +18,14 @@ class MapCollectionCell: UICollectionViewCell {
         return img
     }()
     
-    private lazy var vectorView: UIView = {
-        let img = UIImageView()
-        img.image = UIImage(named: "Rectangle")
-        img.addSubview(UIImageView(image: UIImage(named: "Vector")))
-        img.subviews.last?.frame.origin.x = 10
-        img.subviews.last?.frame.origin.y = 10
-        return img
-    }()
+//    private lazy var vectorView: UIView = {
+//        let img = UIImageView()
+//        img.image = UIImage(named: "Rectangle")
+//        img.addSubview(UIImageView(image: UIImage(named: "Vector")))
+//        img.subviews.last?.frame.origin.x = 10
+//        img.subviews.last?.frame.origin.y = 10
+//        return img
+//    }()
     
     private lazy var labelTitle: UILabel = {
        let lbl = UILabel()
@@ -71,7 +71,7 @@ class MapCollectionCell: UICollectionViewCell {
     
     func setupViews() {
         contentView.addSubview(image)
-        contentView.addSubview(vectorView)
+//        contentView.addSubview(vectorView)
         contentView.addSubview(labelTitle)
         contentView.addSubview(labelDesc)
         contentView.addSubview(locationImage)
@@ -83,11 +83,11 @@ class MapCollectionCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
         
-        vectorView.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview()
-            make.height.equalTo(40)
-            make.width.equalTo(45)
-        }
+//        vectorView.snp.makeConstraints { make in
+//            make.top.trailing.equalToSuperview()
+//            make.height.equalTo(40)
+//            make.width.equalTo(45)
+//        }
         
         labelTitle.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-29)

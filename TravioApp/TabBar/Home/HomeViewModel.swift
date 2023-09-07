@@ -13,29 +13,33 @@ class HomeViewModel {
     var nPlaces: PopularPlaces?
     
     let params = [
-        "limit": "3"
+        "limit": "5"
     ]
     
     func callPopularPlaces(complete: @escaping ([Place])->()) {
-        APIService.call.objectRequestJSON(request: Router.getPopularPlaces(params: params)) { (result:Result<PopularPlaces,Error>) in
-            switch result {
-            case .success(let data):
-                self.pPlaces = data
-                complete(data.data.places)
-            case .failure(let err):
-                print(err)
+        DispatchQueue.global(qos: .utility).async {
+            APIService.call.objectRequestJSON(request: Router.getPopularPlaces(params: self.params)) { (result:Result<PopularPlaces,Error>) in
+                switch result {
+                case .success(let data):
+                    self.pPlaces = data
+                    complete(data.data.places)
+                case .failure(let err):
+                    print(err)
+                }
             }
         }
     }
     
     func callNewPlaces(complete: @escaping ([Place])->()) {
-        APIService.call.objectRequestJSON(request: Router.getLastPlaces(params: params)) { (result:Result<PopularPlaces,Error>) in
-            switch result {
-            case .success(let data):
-                self.nPlaces = data
-                complete(data.data.places)
-            case .failure(let err):
-                print(err)
+        DispatchQueue.global(qos: .utility).async {
+            APIService.call.objectRequestJSON(request: Router.getLastPlaces(params: self.params)) { (result:Result<PopularPlaces,Error>) in
+                switch result {
+                case .success(let data):
+                    self.nPlaces = data
+                    complete(data.data.places)
+                case .failure(let err):
+                    print(err)
+                }
             }
         }
     }
