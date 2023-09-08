@@ -122,9 +122,14 @@ class DetailVisitsVC: UIViewController {
     var viewModel: DetailVisitsViewModel?
     var imagesData: GetGalleryImages?
     var travelData: GetVisit?
+    var visitId: String?
+    var placeId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let visitId = visitId, let placeId = placeId else { return }
+        viewModel = DetailVisitsViewModel(visitId: visitId, placeId: placeId)
         
         mpKit.delegate = self
         
@@ -132,9 +137,20 @@ class DetailVisitsVC: UIViewController {
         setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let visitId = visitId, let placeId = placeId else { return }
+        viewModel = DetailVisitsViewModel(visitId: visitId, placeId: placeId)
+        initVM()
+    }
+    
     override func viewDidLayoutSubviews() {
         let height = informationLabel.frame.origin.y + informationLabel.frame.height
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
+    }
+    
+    func isMyVisit() {
+        addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
     }
     
     func configure(data: GetGalleryImages, place: Place, count: Int, location:CLLocation, isMyPlace: Bool) {
@@ -161,7 +177,9 @@ class DetailVisitsVC: UIViewController {
     }
     
     @objc func postOrDeleteVisit() {
-        self.viewModel?.checkVisitByPlaceID() { isHidden in
+        guard let viewModel = viewModel else { return }
+        
+        viewModel.checkVisitByPlaceID() { isHidden in
             if isHidden {
                 self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
             } else {
@@ -189,7 +207,9 @@ class DetailVisitsVC: UIViewController {
     }
     
     func initVM() {
-        viewModel?.backDataTravelClosure = { [weak self] data in
+        guard let viewModel = viewModel else { return }
+        
+        viewModel.backDataTravelClosure = { [weak self] data in
                 self?.travelData = data
                 let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
                 self?.addPinandZoomPlace(place: cllocation)
@@ -208,7 +228,7 @@ class DetailVisitsVC: UIViewController {
                 self!.informationLabel.text = travel.data.visit.place.description
         }
         
-        viewModel?.backDataGalleryImagesClosure = { [weak self] data in
+        viewModel.backDataGalleryImagesClosure = { [weak self] data in
             DispatchQueue.main.async {
                 self?.imagesData = data
                 self?.collectionView.reloadData()
@@ -337,7 +357,6 @@ extension DetailVisitsVC: UICollectionViewDelegateFlowLayout{
 extension DetailVisitsVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let data = imagesData else { return 0 }
-        print("------\(data)")
         return data.data.images.count
     }
     
