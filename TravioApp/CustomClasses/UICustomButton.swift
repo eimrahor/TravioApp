@@ -14,7 +14,7 @@ class UICustomButton: UIButton {
         didSet{
             if isEnabled
             { self.backgroundColor = CustomColor.TravioGreen.color}
-            else {self.backgroundColor = CustomColor.TravioLightGray.color}
+            else { self.backgroundColor = CustomColor.TravioLightGray.color}
         }
     }
     override func layoutSubviews() {

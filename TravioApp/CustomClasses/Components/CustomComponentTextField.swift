@@ -31,6 +31,7 @@ class CustomComponentTextField: UIView {
         tf.textColor = CustomColor.TravioLightGray.color
         tf.font = CustomFont.PoppinsRegular(12).font
         tf.leftViewMode = .always
+        tf.delegate = self
         
         return tf
     }()
@@ -75,6 +76,13 @@ class CustomComponentTextField: UIView {
         placeHolder.addAttribute(NSAttributedString.Key.foregroundColor, value:color.color, range:NSRange(location:0,length:placeHolderText.count))
         
         txtField.attributedPlaceholder = placeHolder
+    }
+    
+}
+extension CustomComponentTextField:UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+            textField.textColor = .black
+      
     }
     
 }

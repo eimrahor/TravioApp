@@ -14,7 +14,6 @@ class GalleryToUploadCell: UICollectionViewCell {
     lazy var image: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-       // img.backgroundColor = .clear
         return img
     }()
     
@@ -45,6 +44,7 @@ class GalleryToUploadCell: UICollectionViewCell {
     }
     
     func setupViews() {
+        self.radiusWithShadow(corners: [.bottomLeft,.topLeft,.topRight])
         self.contentView.backgroundColor = CustomColor.White.color
         contentView.addSubview(imgCameraLogo)
         contentView.addSubview(image)
@@ -52,10 +52,7 @@ class GalleryToUploadCell: UICollectionViewCell {
     }
     
     func makeConst() {
-        
         imgCameraLogo.edgesToSuperview(insets: .left(70) + .right(70) + .bottom(70) + .top(70))
-        image.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        image.edgesToSuperview()
     }
 }
