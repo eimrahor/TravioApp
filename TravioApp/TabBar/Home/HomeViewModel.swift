@@ -11,7 +11,7 @@ class HomeViewModel {
     
     var pPlaces: PopularPlaces?
     var nPlaces: PopularPlaces?
-    
+    var aVisits: ListUserVisitsResponse?
     let params = [
         "limit": "5"
     ]
@@ -37,6 +37,20 @@ class HomeViewModel {
                 case .success(let data):
                     self.nPlaces = data
                     complete(data.data.places)
+                case .failure(let err):
+                    print(err)
+                }
+            }
+        }
+    }
+    
+    func callMyVisits(complete: @escaping ([Visit])->()) {
+        DispatchQueue.global(qos: .utility).async {
+            APIService.call.objectRequestJSON(request: Router.listVisits) { (result:Result<ListUserVisitsResponse,Error>) in
+                switch result {
+                case .success(let data):
+                    self .aVisits = data
+                    complete(data.data.visits)
                 case .failure(let err):
                     print(err)
                 }

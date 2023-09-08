@@ -44,6 +44,21 @@ class SeeAllVM{
                     print(error)
                 }
             }
+        case .myAddedPlaces:
+            APIService.call.objectRequestJSON(request: Router.listVisits){ (result:Result<ListUserVisitsResponse,Error>) in
+                
+                switch result {
+                case .success(let visits):
+                    var visitsToBeList = [Place]()
+                    for visit in visits.data.visits { 
+                        visitsToBeList.append(visit.place)
+                    }
+                    self.placesToBeList = visitsToBeList
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
     }
     

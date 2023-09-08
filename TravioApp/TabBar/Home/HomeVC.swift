@@ -11,6 +11,7 @@ import SnapKit
 enum ListedPlacesTypes{
     case popularPlaces
     case newPlaces
+    case myAddedPlaces
 }
 protocol CellDataDelegate{
     func sendSeeAllVC(placesType: ListedPlacesTypes)
@@ -53,6 +54,7 @@ class HomeVC: UIViewController, CellDataDelegate{
     let dGroup = DispatchGroup()
     var pPlaces = [Place]()
     var nPlaces = [Place]()
+    var allVisits = [Visit]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +87,13 @@ class HomeVC: UIViewController, CellDataDelegate{
             self.dGroup.leave()
         }
             
+        dGroup.enter()
+        
+        viewModel.callMyVisits { visits in
+            self.allVisits = visits
+            self.dGroup.leave()
+        }
+        
         dGroup.notify(queue: .main) {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -154,9 +163,12 @@ extension HomeVC: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             cell.configure(placesType: .popularPlaces,places: self.pPlaces)
-        default:
+        case 1:
             cell.configure(placesType: .newPlaces,places: self.nPlaces)
+        default:
+            cell.configure(placesType: .myAddedPlaces, visits: self.allVisits)
         }
+        
         return cell
     }
 }
