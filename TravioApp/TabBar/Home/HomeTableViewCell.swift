@@ -11,6 +11,7 @@ class HomeTableViewCell: UITableViewCell {
     
     var delegate:CellDataDelegate?
     
+    var visits = [Visit]()
     var places = [Place]()
     var cellPlaceType: ListedPlacesTypes?
     
@@ -58,20 +59,36 @@ class HomeTableViewCell: UITableViewCell {
         delegate?.sendSeeAllVC(placesType: type)
     }
     
-    func configure(placesType:ListedPlacesTypes, places: [Place]) {
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func configure(placesType:ListedPlacesTypes, places: [Place]? = nil, visits: [Visit]? = nil) {
         
         switch placesType {
         case .newPlaces:
             titleLabel.text = "New Places"
         case .popularPlaces:
             titleLabel.text = "Popular Places"
+        case .myAddedPlaces:
+            titleLabel.text = "My Added Places"
         }
-        self.cellPlaceType = placesType
-        self.places = places
         
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
+        self.cellPlaceType = placesType
+        
+        if let places = places {
+            self.places = places
         }
+        
+        if let visits = visits {
+            for visit in visits {
+                self.places.append(visit.place)
+            }
+        }
+        
+        reloadCollectionView()
     }
     
     func setupViews() {

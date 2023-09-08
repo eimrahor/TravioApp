@@ -29,8 +29,10 @@ class SeeAllVC: MainViewController {
         let iv = UIImageView()
         iv.image = UIImage(named: "backArrow.png")
         iv.contentMode = .scaleAspectFit
+        btn.height(22);btn.width(24)
+        iv.height(22);iv.width(24)
         btn.addSubview(iv)
-        iv.height(22);iv.width(24);btn.height(22);btn.width(24)
+        iv.edgesToSuperview()
         btn.addTarget(self, action: #selector(goPopView), for: .touchUpInside)
         return btn
     }()
@@ -120,6 +122,8 @@ class SeeAllVC: MainViewController {
             lblPageTitle.text = "Popular Places"
         case .newPlaces:
             lblPageTitle.text = "New Places"
+        case .myAddedPlaces:
+            lblPageTitle.text = "My Added Places"
         case .none:
             return
         }
