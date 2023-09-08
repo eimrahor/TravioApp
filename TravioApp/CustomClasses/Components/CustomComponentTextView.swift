@@ -66,7 +66,6 @@ class CustomComponentTextView: UIView {
         txtView.topToBottom(of: lbl,offset: 8)
         txtView.edgesToSuperview(excluding: .top,insets: .left(5) + .right(5) + .bottom(5))
     }
-    
 }
 extension CustomComponentTextView:UITextViewDelegate {
     

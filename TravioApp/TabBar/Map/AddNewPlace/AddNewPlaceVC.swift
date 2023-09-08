@@ -13,12 +13,12 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     var reloadClosureWhenAddNewData: (()->())?
     let addNewPlaceVM = AddNewPlaceVM()
     var selectedCellIndex:IndexPath?
+    var imagesToUpload:[UIImage] = []
     
     private lazy var placeNameView: CustomComponentTextField = {
        let tv = CustomComponentTextField()
         tv.lbl.text = "Place Name"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
-      // tv.lbl.font = CustomFont.PoppindMedium(14).font
         tv.placeHolderConfig(placeHolderText: "Please write a place name")
         tv.txtField.addTarget(self, action: #selector(buttonCheckActivate), for: UIControl.Event.editingChanged)
         return tv
@@ -36,7 +36,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
        let tv = CustomComponentTextField()
         tv.lbl.text = "Country, City"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
-      // tv.lbl.font = CustomFont.PoppindMedium(14).font
         tv.placeHolderConfig(placeHolderText: "France,Paris")
         tv.txtField.addTarget(self, action: #selector(buttonCheckActivate), for: UIControl.Event.editingChanged)
         return tv
@@ -45,8 +44,8 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     private lazy var collectionViewGallery:UICollectionView = {
        
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 15
-        layout.minimumInteritemSpacing = 15
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.showsVerticalScrollIndicator = false
@@ -69,11 +68,9 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     private lazy var btnAddPlace: UICustomButton = {
         let btn = UICustomButton(title: "Add New Place")
         btn.addTarget(self, action: #selector(addNewPlace), for: .touchUpInside)
-        
+        btn.isEnabled = false
         return btn
     }()
- 
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,34 +88,20 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         placeNameView.txtField.text = ""
         visitDescriptionView.txtView.text = ""
         fillLocationDatas()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("Buraya geldi")
+        imagesToUpload = []
+        collectionViewGallery.reloadData()
+        
     }
     
     @objc func addNewPlace()
     {
-        var imagesToSend:[UIImage] = []
-        var currentIndexPath:IndexPath?
-        var currentCell:GalleryToUploadCell?
-        
-        for index in 0..<collectionViewGallery.numberOfItems(inSection: 0){
-            currentIndexPath = [0,index]
-            currentCell = collectionViewGallery.cellForItem(at: currentIndexPath!) as? GalleryToUploadCell
-            
-            if let cellImage = currentCell?.image.image {
-                imagesToSend.append(cellImage)
-            }
-        }
-        addNewPlaceVM.sendImagesToServer(selectedImages: imagesToSend) { result in
+        addNewPlaceVM.sendImagesToServer(selectedImages: imagesToUpload) { result in
             switch result {
             case .failure(let error):
                 self.showAlert(title: "Error: While upload images to server", err: error.localizedDescription)
             case .success(_):
                 self.addNewPlaceToServerResult()
             }
-            
         }
     }
     
@@ -150,8 +133,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         let alert = UIAlertController(title: title, message: err, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "Try again", style: .default)
         let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            self.dismiss(animated: true)
-        }
+            self.dismiss(animated: true)}
         alert.addAction(alertAction)
         alert.addAction(alertActionCancel)
         alert.present(self, animated: true)
@@ -174,9 +156,9 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         countryView.edgesToSuperview(excluding: [.bottom,.top],insets: .left(24) + .right(24))
         countryView.height(74)
         
-        collectionViewGallery.topToBottom(of: countryView,offset: 16)
+        collectionViewGallery.topToBottom(of: countryView,offset: 11)
         collectionViewGallery.height(215)
-        collectionViewGallery.edgesToSuperview(excluding: [.bottom , .top] , insets: .left(24) + .right(24))
+        collectionViewGallery.edgesToSuperview(excluding: [.bottom , .top] , insets: .left(19) + .right(19))
         
         btnAddPlace.topToBottom(of:collectionViewGallery,offset:16)
         btnAddPlace.edgesToSuperview(excluding: [.top,.bottom] , insets: .left(24) + .right(24))
@@ -190,6 +172,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         self.view.addSubview(collectionViewGallery)
         self.view.addSubview(btnAddPlace)
     }
+    
     func fillLocationDatas(){
         
         guard let place = addNewPlaceVM.place else {return}
@@ -201,20 +184,21 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     
     @objc func buttonCheckActivate() {
         
-        guard let name = placeNameView.txtField.text, let countryCity = countryView.txtField.text else {
-            btnAddPlace.isEnabled = false
-            return
-        }
-        btnAddPlace.isEnabled = true
-    }
-    
+        guard let name = placeNameView.txtField.text, let countryCity = countryView.txtField.text  else { return }
 
+        if name.isEmpty || countryCity.isEmpty
+        { btnAddPlace.isEnabled = false }
+        else{ btnAddPlace.isEnabled = true }
+    }
 }
 extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.frame.height, height: collectionView.frame.height)
+        let size = CGSize(width: collectionView.frame.height-5, height: collectionView.frame.height-5)
         return size
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCellIndex = indexPath
@@ -226,8 +210,10 @@ extension AddNewPlaceVC: UICollectionViewDataSource {
         3
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadCell", for: indexPath) as? GalleryToUploadCell else {return UICollectionViewCell() }
         
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadCell", for: indexPath) as? GalleryToUploadCell else { return UICollectionViewCell() }
+        
+        if imagesToUpload.count > indexPath.row { cell.configureImage(image: imagesToUpload[indexPath.row])}
         return cell
     }
 }
@@ -235,10 +221,14 @@ extension AddNewPlaceVC: UICollectionViewDataSource {
 extension AddNewPlaceVC: UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[.originalImage] as! UIImage
-        let cell = collectionViewGallery.cellForItem(at: selectedCellIndex!) as! GalleryToUploadCell
-        cell.configureImage(image: image )
+        addImage(info: info)
         self.dismiss(animated: true)
+    }
+    
+    func addImage(info: [UIImagePickerController.InfoKey : Any]){
+        let image = info[.originalImage] as! UIImage
+        imagesToUpload.append(image)
+        collectionViewGallery.reloadData()
     }
     
 }
