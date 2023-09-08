@@ -83,6 +83,7 @@ class HomeTableViewCell: UITableViewCell {
         }
         
         if let visits = visits {
+            self.places = []
             for visit in visits {
                 self.places.append(visit.place)
             }
