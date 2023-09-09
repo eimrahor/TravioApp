@@ -39,8 +39,9 @@ class PrivacySettingsCell: UITableViewCell {
         self.contentView.addSubview(switchComponent)
     }
     
-    func configureCell(cellData:PrivacySettingsData){
+    func configureCell(cellData:PrivacySettingsData, id: Int){
         switchComponent.lbl.text = cellData.titleText
+        switchComponent.switchControl.tag = id
         switchComponent.switchControl.isOn = cellData.switchState
     }
 }

@@ -69,10 +69,12 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     
     private var btnSave: UICustomButton = {
         let btn = UICustomButton(title: "Save")
-        btn.addTarget(self, action: #selector(saveSettings), for: .touchUpInside)
+        btn.addTarget(SecuritySettingsVC.self, action: #selector(saveSettings), for: .touchUpInside)
         return btn
     }()
 
+    var id = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -168,7 +170,8 @@ extension SecuritySettingsVC:UITableViewDataSource{
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PrivacySettings", for: indexPath) as? PrivacySettingsCell else { return UITableViewCell() }
             let object = securitySettingsVM.privacySettingsDatas[indexPath.row]
-            cell.configureCell(cellData: object)
+            cell.configureCell(cellData: object, id: id)
+            id += 1
             return cell
         default:
             return UITableViewCell()

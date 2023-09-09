@@ -62,7 +62,6 @@
 		865F628B2A9FF03300B84578 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F628A2A9FF03300B84578 /* PlacesModel.swift */; };
 		86C477592AA3CEB300566549 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C477582AA3CEB300566549 /* MainViewController.swift */; };
 		86C4775B2AA467C600566549 /* ChangePasswordSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */; };
-		86C4775D2AA494AF00566549 /* CustomComponentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */; };
 		86C477602AA4980900566549 /* PrivacySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */; };
 		86C4776A2AA90F1300566549 /* SeeAllVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C477692AA90F1300566549 /* SeeAllVM.swift */; };
 		E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */; };
@@ -73,6 +72,8 @@
 		E5C0ED9D2AA4AB7000CFEEBC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED9C2AA4AB7000CFEEBC /* String.swift */; };
 		E5C0ED9F2AA5126900CFEEBC /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED9E2AA5126900CFEEBC /* HomeModel.swift */; };
 		E5C0EDA12AA7B30300CFEEBC /* DetailVisitsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0EDA02AA7B30300CFEEBC /* DetailVisitsModel.swift */; };
+		E5C0EDA32AAB78DA00CFEEBC /* CustomUIViewSwitchControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0EDA22AAB78DA00CFEEBC /* CustomUIViewSwitchControl.swift */; };
+		E5C0EDC92AAC425800CFEEBC /* CustomComponentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0EDC82AAC425800CFEEBC /* CustomComponentSwitch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,7 +130,6 @@
 		865F628A2A9FF03300B84578 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		86C477582AA3CEB300566549 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordSettingsCell.swift; sourceTree = "<group>"; };
-		86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomComponentSwitch.swift; sourceTree = "<group>"; };
 		86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsCell.swift; sourceTree = "<group>"; };
 		86C477692AA90F1300566549 /* SeeAllVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllVM.swift; sourceTree = "<group>"; };
 		E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -140,6 +140,8 @@
 		E5C0ED9C2AA4AB7000CFEEBC /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E5C0ED9E2AA5126900CFEEBC /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		E5C0EDA02AA7B30300CFEEBC /* DetailVisitsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVisitsModel.swift; sourceTree = "<group>"; };
+		E5C0EDA22AAB78DA00CFEEBC /* CustomUIViewSwitchControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIViewSwitchControl.swift; sourceTree = "<group>"; };
+		E5C0EDC82AAC425800CFEEBC /* CustomComponentSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentSwitch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,6 +373,7 @@
 				865F62772A9D326900B84578 /* UICustomButton.swift */,
 				865F62792A9D326900B84578 /* UICustomLabel.swift */,
 				865F627B2A9D326900B84578 /* UICustomTextField.swift */,
+				E5C0EDA22AAB78DA00CFEEBC /* CustomUIViewSwitchControl.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -380,7 +383,7 @@
 			children = (
 				865F62752A9D326900B84578 /* CustomComponentTextField.swift */,
 				865F62832A9D463300B84578 /* CustomComponentTextView.swift */,
-				86C4775C2AA494AF00566549 /* CustomComponentSwitch.swift */,
+				E5C0EDC82AAC425800CFEEBC /* CustomComponentSwitch.swift */,
 				865F627A2A9D326900B84578 /* BackgroundView.swift */,
 				86C477582AA3CEB300566549 /* MainViewController.swift */,
 			);
@@ -475,6 +478,7 @@
 			files = (
 				865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */,
 				7A7A8F192A9C9F00000681F6 /* HomePageVM.swift in Sources */,
+				E5C0EDC92AAC425800CFEEBC /* CustomComponentSwitch.swift in Sources */,
 				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,
 				7A7A8F1D2A9C9F18000681F6 /* MapKit.swift in Sources */,
@@ -485,6 +489,7 @@
 				7AB4FB6A2AA711440011AA25 /* SeeAllVC.swift in Sources */,
 				E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */,
 				865F627D2A9D326900B84578 /* CustomColors.swift in Sources */,
+				E5C0EDA32AAB78DA00CFEEBC /* CustomUIViewSwitchControl.swift in Sources */,
 				865F62802A9D326900B84578 /* UICustomLabel.swift in Sources */,
 				7A32C5E82AA2002400C85F55 /* SecuritySettingsVM.swift in Sources */,
 				7A7A8F0C2A9C9EAB000681F6 /* DetailVisitsCell.swift in Sources */,
@@ -517,7 +522,6 @@
 				7A7A8F222A9C9F39000681F6 /* APIService.swift in Sources */,
 				865F62842A9D463300B84578 /* CustomComponentTextView.swift in Sources */,
 				865F62812A9D326900B84578 /* BackgroundView.swift in Sources */,
-				86C4775D2AA494AF00566549 /* CustomComponentSwitch.swift in Sources */,
 				865F627F2A9D326900B84578 /* CustomFonts.swift in Sources */,
 				7A7A8F022A9C9E5F000681F6 /* MapVC.swift in Sources */,
 				7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */,

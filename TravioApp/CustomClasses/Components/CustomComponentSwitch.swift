@@ -8,7 +8,7 @@
 import UIKit
 import TinyConstraints
 
-class CustomComponentSwitch: UIView {
+class CustomComponentSwitch: CustomUIViewSwitchControl {
 
     
     lazy var lbl: UICustomLabel = {
@@ -20,6 +20,7 @@ class CustomComponentSwitch: UIView {
     {
         let s = UISwitch()
         s.onTintColor = .green
+        s.addTarget(self, action: #selector(deneme(_:)), for: .valueChanged)
         return s
     }()
     
@@ -37,6 +38,8 @@ class CustomComponentSwitch: UIView {
         self.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
     }
     
+    let notificationName = Notification.Name("CustomNotification")
+    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = CustomColor.White.color
@@ -47,6 +50,12 @@ class CustomComponentSwitch: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func deneme(_ sender: UISwitch) {
+        if sender.tag == 1 {
+            NotificationCenter.default.post(name: notificationName, object: nil)
+        }
     }
     
     func addSubviews() {
