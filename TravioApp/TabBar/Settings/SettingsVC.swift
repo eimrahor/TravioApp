@@ -126,6 +126,9 @@ extension SettingsVC: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let targetVC = viewModel.arr[indexPath.row].targetVC
+        if let targetVC = targetVC as? SeeAllVC {
+            targetVC.listedPlacesType = .myAddedPlaces
+        }
         self.navigationController?.pushViewController(targetVC, animated: true)
     }
 }
