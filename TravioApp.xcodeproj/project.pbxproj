@@ -73,6 +73,7 @@
 		86C4778B2AACAE8600566549 /* AboutVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4778A2AACAE8600566549 /* AboutVM.swift */; };
 		86C4778D2AACAE9A00566549 /* TermsOfUseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4778C2AACAE9A00566549 /* TermsOfUseVC.swift */; };
 		86C4778F2AACAEA500566549 /* TermsOfUseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4778E2AACAEA500566549 /* TermsOfUseVM.swift */; };
+		86C477912AAD13B600566549 /* PrivacySettingsCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C477902AAD13B600566549 /* PrivacySettingsCellVM.swift */; };
 		E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */; };
 		E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */; };
 		E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */; };
@@ -148,6 +149,7 @@
 		86C4778A2AACAE8600566549 /* AboutVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVM.swift; sourceTree = "<group>"; };
 		86C4778C2AACAE9A00566549 /* TermsOfUseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseVC.swift; sourceTree = "<group>"; };
 		86C4778E2AACAEA500566549 /* TermsOfUseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseVM.swift; sourceTree = "<group>"; };
+		86C477902AAD13B600566549 /* PrivacySettingsCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsCellVM.swift; sourceTree = "<group>"; };
 		E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */,
 				86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */,
 				86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */,
+				86C477902AAD13B600566549 /* PrivacySettingsCellVM.swift */,
 			);
 			path = SecuritySettings;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				865F62862A9D586D00B84578 /* GalleryToUploadCell.swift in Sources */,
 				E5C0EDA12AA7B30300CFEEBC /* DetailVisitsModel.swift in Sources */,
 				7A7A8F222A9C9F39000681F6 /* APIService.swift in Sources */,
+				86C477912AAD13B600566549 /* PrivacySettingsCellVM.swift in Sources */,
 				865F62842A9D463300B84578 /* CustomComponentTextView.swift in Sources */,
 				865F62812A9D326900B84578 /* BackgroundView.swift in Sources */,
 				86C4775D2AA494AF00566549 /* CustomComponentSwitch.swift in Sources */,
@@ -733,6 +737,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -759,6 +764,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

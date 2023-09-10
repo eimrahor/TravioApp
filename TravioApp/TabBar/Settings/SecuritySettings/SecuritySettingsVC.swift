@@ -13,10 +13,15 @@ struct PasswordSettingsData{
     var titleText:String
     var placeHolderText:String
 }
-
 struct PrivacySettingsData{
     var titleText:String
     var switchState:Bool
+    var perrmissionType:PermissionType
+}
+enum PermissionType{
+    case CameraPermission
+    case PhotoLibraryPermission
+    case LocationPermission
 }
 enum SecuritySettingsCellType{
     case PrivacySettingCell
@@ -75,6 +80,7 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        securitySettingsVM.addObserver()
         setupLayout()
     }
 
