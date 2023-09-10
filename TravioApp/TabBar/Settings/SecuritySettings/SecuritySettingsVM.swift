@@ -14,15 +14,18 @@ class SecuritySettingsVM{
      
     var passwordSettingsDatas:[PasswordSettingsData] = [PasswordSettingsData(titleText: "New Password", placeHolderText: "********"),PasswordSettingsData(titleText: "New Password Confirm", placeHolderText: "********")]
     
-    var privacySettingsDatas:[PrivacySettingsData] = [PrivacySettingsData(titleText: "Camera", switchState: true,perrmissionType: .CameraPermission),PrivacySettingsData(titleText: "Photo Library", switchState: false,perrmissionType: .PhotoLibraryPermission),PrivacySettingsData(titleText: "Location", switchState: true,perrmissionType: .LocationPermission)]
+    var privacySettingsDatas:[PrivacySettingsData] = [PrivacySettingsData(titleText: "Camera",perrmissionType: .CameraPermission),PrivacySettingsData(titleText: "Photo Library",perrmissionType: .PhotoLibraryPermission),PrivacySettingsData(titleText: "Location",perrmissionType: .LocationPermission)]
     
-//    func addObserver(){
-//        NotificationCenter.default.addObserver(self, selector: #selector(cameraPermissionChanged), name: .AVCaptureDeviceWasConnected, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(cameraPermissionChanged), name: .AVCaptureDeviceWasDisconnected, object: nil)
-//        addPhotoLibraryPermissionObserver()
-//    }
+    func addObserver(){
+
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSettings), name: Notification.Name("appDidBecomeActive"), object: nil)
+    }
     
-//    @objc func cameraPermissionChanged(){
+    @objc func updateSettings(){
+      print("blVLlvals")
+    }
+    
+//    func cameraPermissionChanged(){
 //        let status = AVCaptureDevice.authorizationStatus(for: .video)
 //
 //        switch status {
@@ -50,13 +53,8 @@ class SecuritySettingsVM{
 //        }
 //    }
     
-//    func removeCameraPermissionObserver() {
-//        NotificationCenter.default.removeObserver(self, name: .AVCaptureDeviceWasConnected, object: nil)
-//        NotificationCenter.default.removeObserver(self, name: .AVCaptureDeviceWasDisconnected, object: nil)
-//    }
-    
 //    deinit {
-//        removeCameraPermissionObserver()
+//        NotificationCenter.default.removeObserver(self, name: Notification.Name("appDidBecomeActive"), object: nil)
 //    }
 
     

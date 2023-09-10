@@ -16,7 +16,6 @@ struct PasswordSettingsData{
 }
 struct PrivacySettingsData{
     var titleText:String
-    var switchState:Bool
     var perrmissionType:PermissionType
 }
 enum PermissionType{
@@ -90,8 +89,6 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
         
         super.setupLayout(backGroundMultiplier: backGroundMultiplier)
-       // super.backGroundMultiplier = 0.7
-       // super.changeBackgroundMultiplier(to: 0.70)    - ver2
         self.view.backgroundColor = CustomColor.TravioGreen.color
         self.navigationController?.isNavigationBarHidden = true
         

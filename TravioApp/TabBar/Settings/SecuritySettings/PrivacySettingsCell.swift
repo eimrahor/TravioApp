@@ -10,6 +10,7 @@ import TinyConstraints
 
 class PrivacySettingsCell: UITableViewCell {
     
+    let privacySettingCellVM = PrivacySettingsCellVM()
     var permissionType:PermissionType?
     
     private lazy var switchComponent: CustomComponentSwitch = {
@@ -21,8 +22,9 @@ class PrivacySettingsCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
-        
-       
+        privacySettingCellVM.sendSwitchStateToVC = { switchState in
+            self.switchComponent.switchControl.isOn = switchState
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -31,12 +33,14 @@ class PrivacySettingsCell: UITableViewCell {
     
     func setupLayout()
     {
+        privacySettingCellVM.addObserver()
         self.contentView.backgroundColor = CustomColor.TravioWhite.color
         addSubview()
         switchComponent.topToSuperview()
         switchComponent.edgesToSuperview(excluding: [.top,.bottom],insets: .left(5) + .right(5))
         switchComponent.height(74)
-        switchComponent.switchControl.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
+        
+        switchComponent.switchControl.addTarget(self, action: #selector(switchTryingChange(_:)), for: .valueChanged)
     }
     
     func addSubview(){
@@ -45,11 +49,10 @@ class PrivacySettingsCell: UITableViewCell {
     
     func configureCell(cellData:PrivacySettingsData){
         switchComponent.lbl.text = cellData.titleText
-        switchComponent.switchControl.isOn = cellData.switchState
         permissionType = cellData.perrmissionType
     }
     
-    @objc func switchChanged(_ sender:UISwitch){
+    @objc func switchTryingChange(_ sender:UISwitch){
         
         if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
             if UIApplication.shared.canOpenURL(settingsURL) {
