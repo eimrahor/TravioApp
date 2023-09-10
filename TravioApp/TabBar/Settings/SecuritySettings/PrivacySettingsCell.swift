@@ -21,6 +21,7 @@ class PrivacySettingsCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        
        
     }
     
@@ -50,7 +51,7 @@ class PrivacySettingsCell: UITableViewCell {
     
     @objc func switchChanged(_ sender:UISwitch){
         
-        if let settingsURL = URL(string: UIApplication.openSettingsURLString +  Bundle.main.bundleIdentifier!) {
+        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
             if UIApplication.shared.canOpenURL(settingsURL) {
                 UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
             }

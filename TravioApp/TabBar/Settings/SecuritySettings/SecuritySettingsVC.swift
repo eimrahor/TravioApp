@@ -8,6 +8,7 @@
 import UIKit
 import TinyConstraints
 import SnapKit
+import AVFoundation
 
 struct PasswordSettingsData{
     var titleText:String
@@ -80,10 +81,12 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        securitySettingsVM.addObserver()
+        
         setupLayout()
+        securitySettingsVM.requestPermissions()
+        //securitySettingsVM.addObserver()
     }
-
+   
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
         
         super.setupLayout(backGroundMultiplier: backGroundMultiplier)
