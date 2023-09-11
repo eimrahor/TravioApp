@@ -12,8 +12,9 @@ class PrivacySettingsCell: UITableViewCell {
     
     let privacySettingCellVM = PrivacySettingsCellVM()
     var permissionType:PermissionType?
+    var switchState: Bool?
     
-    private lazy var switchComponent: CustomComponentSwitch = {
+    lazy var switchComponent: CustomComponentSwitch = {
         let component = CustomComponentSwitch()
         component.backgroundColor = CustomColor.White.color
         return component
@@ -23,8 +24,10 @@ class PrivacySettingsCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
         privacySettingCellVM.sendSwitchStateToVC = { switchState in
-            self.switchComponent.switchControl.isOn = switchState
+            self.switchState = switchState
         }
+        guard let switchState = switchState else { return }
+        self.switchComponent.switchControl.isOn = switchState
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +52,8 @@ class PrivacySettingsCell: UITableViewCell {
     
     func configureCell(cellData:PrivacySettingsData){
         switchComponent.lbl.text = cellData.titleText
-        permissionType = cellData.perrmissionType
+        privacySettingCellVM.permissionType = cellData.perrmissionType
+        
     }
     
     @objc func switchTryingChange(_ sender:UISwitch){

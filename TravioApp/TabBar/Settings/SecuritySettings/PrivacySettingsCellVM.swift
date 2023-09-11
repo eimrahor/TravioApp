@@ -9,16 +9,24 @@ import Foundation
 import Photos
 import AVFoundation
 
+protocol ChangeSwitchProtocol{
+    func changeSwitch(switchState:Bool)
+}
+
 class PrivacySettingsCellVM{
     
     var permissionType:PermissionType?
     
     var sendSwitchStateToVC:((Bool)->(Void))?
     
+    var delegate:ChangeSwitchProtocol?
+    
     var switchState:Bool?{
         didSet{
-            guard let switchState = switchState , let sendSwitchStateToVC = sendSwitchStateToVC else {return}
-            sendSwitchStateToVC(switchState)
+//            guard let switchState = switchState , let sendSwitchStateToVC = sendSwitchStateToVC else {return}
+//            sendSwitchStateToVC(switchState)
+            guard let switchState = switchState else {return}
+            delegate?.changeSwitch(switchState: switchState)
         }
     }
     
@@ -50,9 +58,9 @@ class PrivacySettingsCellVM{
         let status = AVCaptureDevice.authorizationStatus(for: .video)
 
         switch status {
-        case .authorized,.notDetermined:
+        case .authorized:
             switchState = true
-        case .denied,.restricted:
+        case .denied,.restricted,.notDetermined:
             switchState = false
         default:
             switchState = false
