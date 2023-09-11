@@ -7,17 +7,13 @@
 
 import Foundation
 
-protocol SendDataDelegate {
-    func sendDatatoVC(titleArr:[String])
-}
-
 class HelpAndSupportVM{
     
     
-    var delegate: SendDataDelegate?
+    var closure: (([String])->())?
     
-    init() {
-        delegate?.sendDatatoVC(titleArr: labelTitlesEachRows)
+    func takeArray() {
+        closure?(labelTitlesEachRows)
     }
     
     let labelTitlesEachRows = [
