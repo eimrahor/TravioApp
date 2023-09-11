@@ -69,4 +69,16 @@ class SecuritySettingsVM{
         PermissionsHelper.shared.requestPhotoLibraryPermission()
         PermissionsHelper.shared.requestLocationPermission()
     }
+    
+    func savePasswordToAPI(params: [String:Any]) {
+        
+        APIService.call.objectRequestJSON(request: Router.changePassword(params: params)) { (result:Result<ChangePasswordResponse,Error>) in
+            switch result {
+            case .success(let response):
+                print(response.message)
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
 }

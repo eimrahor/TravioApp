@@ -97,8 +97,6 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         securitySettingsVM.reloadClosure = {
             self.tvSecuritySettings.reloadData()
         }
-        
-        
     }
    
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
@@ -128,8 +126,16 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     }
     
     @objc func saveSettings(){
-       
+        
+        let passwordPath = IndexPath(row: 0, section: 0)
+        guard let cellPassword = tvSecuritySettings.cellForRow(at: passwordPath) as? ChangePasswordSettingsCell else {return}
+        let newPassword = cellPassword.getPasswordText()
+        
+        securitySettingsVM.savePasswordToAPI(params:[
+            "new_password":newPassword
+        ])
     }
+    
     @objc func goPopView(){
         self.navigationController?.popViewController(animated: true)
     }
@@ -142,8 +148,7 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         guard let cellPassword = tvSecuritySettings.cellForRow(at: passwordPath) as? ChangePasswordSettingsCell ,
               let cellConfirmPassword = tvSecuritySettings.cellForRow(at: confirmPasswordPath) as? ChangePasswordSettingsCell
         else { btnSave.isEnabled = false
-            return
-        }
+            return }
         
         let passwordTxt = cellPassword.getPasswordText()
         let confirmTxt = cellConfirmPassword.getPasswordText()
@@ -152,7 +157,6 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
             btnSave.isEnabled = true
         }
         else{btnSave.isEnabled = false}
-        
     }
     
 }
