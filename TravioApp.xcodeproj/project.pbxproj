@@ -50,7 +50,6 @@
 		7AB4FB6A2AA711440011AA25 /* SeeAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB692AA711440011AA25 /* SeeAllVC.swift */; };
 		7AB4FB6C2AA7157C0011AA25 /* SeeAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB6B2AA7157C0011AA25 /* SeeAllCell.swift */; };
 		86227F872AADDF7E000D6396 /* PermissionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F862AADDF7E000D6396 /* PermissionsHelper.swift */; };
-		86227F8E2AAE4A7D000D6396 /* PrivacySettingsCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F8D2AAE4A7D000D6396 /* PrivacySettingsCellVM.swift */; };
 		865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomComponentTextField.swift */; };
 		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
 		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
@@ -127,7 +126,6 @@
 		7AB4FB692AA711440011AA25 /* SeeAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllVC.swift; sourceTree = "<group>"; };
 		7AB4FB6B2AA7157C0011AA25 /* SeeAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllCell.swift; sourceTree = "<group>"; };
 		86227F862AADDF7E000D6396 /* PermissionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelper.swift; sourceTree = "<group>"; };
-		86227F8D2AAE4A7D000D6396 /* PrivacySettingsCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsCellVM.swift; sourceTree = "<group>"; };
 		865F62752A9D326900B84578 /* CustomComponentTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentTextField.swift; sourceTree = "<group>"; };
 		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 				7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */,
 				86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */,
 				86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */,
-				86227F8D2AAE4A7D000D6396 /* PrivacySettingsCellVM.swift */,
 			);
 			path = SecuritySettings;
 			sourceTree = "<group>";
@@ -535,7 +532,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86227F8E2AAE4A7D000D6396 /* PrivacySettingsCellVM.swift in Sources */,
 				865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */,
 				7A7A8F192A9C9F00000681F6 /* HomePageVM.swift in Sources */,
 				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
