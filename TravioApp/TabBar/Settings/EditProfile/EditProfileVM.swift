@@ -9,4 +9,6 @@ import Foundation
 
 class EditPorfileVM{
     
+    var userProfile:UserProfile?
+    
 }

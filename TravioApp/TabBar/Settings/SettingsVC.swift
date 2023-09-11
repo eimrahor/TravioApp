@@ -26,7 +26,7 @@ class SettingsVC: UIViewController {
     
     private lazy var image: UIImageView = {
        let img = UIImageView()
-        img.image = UIImage(named: "bruce")
+        img.image = UIImage(systemName: "person")
         return img
     }()
     
@@ -42,6 +42,7 @@ class SettingsVC: UIViewController {
         bt.setTitle("Edit Profile", for: .normal)
         bt.titleLabel?.font = UIFont(name: "Poppins-Regular", size: 12)
         bt.setTitleColor(#colorLiteral(red: 0, green: 0.7960889935, blue: 0.9382097721, alpha: 1), for: .normal)
+        bt.addTarget(self, action: #selector(goEditProfile), for: .touchUpInside)
         return bt
     }()
     
@@ -63,8 +64,16 @@ class SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViews()
+        
+        viewModel.sendUserDataToVC = { user in
+            self.nameLabel.text = user.full_name
+            guard let stringURL = user.pp_url else {return}
+            let url = URL(string: stringURL)
+            self.image.kf.setImage(with: url)
+        }
+        
+        viewModel.getUserProfile()
     }
     
     override func viewDidLayoutSubviews() {
@@ -117,6 +126,12 @@ class SettingsVC: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview()
         }
+    }
+    
+    @objc func goEditProfile(){
+        let targetVC = EditProfileVC()
+        targetVC.editProfileVM.userProfile = viewModel.user
+        self.navigationController?.pushViewController(targetVC, animated: true)
     }
 }
 

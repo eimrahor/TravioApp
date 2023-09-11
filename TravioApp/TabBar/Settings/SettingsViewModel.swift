@@ -23,7 +23,29 @@ class SettingsViewModel {
                 Settings(icon: "vector4", label: "About",targetVC: AboutVC()),
                 Settings(icon: "vector5", label: "Terms of Use",targetVC: TermsOfUseVC())]
     
+    var sendUserDataToVC:((UserProfile)->())?
+    
+    var user:UserProfile?{
+        didSet{
+            guard let sendUserDataToVC = sendUserDataToVC , let user = user else { return }
+            sendUserDataToVC(user)
+        }
+    }
+    
     func countofArr() -> Int {
         return arr.count
+    }
+    
+    func getUserProfile(){
+        
+        APIService.call.objectRequestJSON(request: Router.getUserProfile){ (result:Result<UserProfile,Error>) in
+            
+            switch result {
+            case .success(let profile):
+                self.user = profile
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
