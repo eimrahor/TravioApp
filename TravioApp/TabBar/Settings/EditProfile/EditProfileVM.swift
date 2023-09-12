@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EditPorfileVM{
+class EditProfileVM{
     
     var userProfile:UserProfile?
     

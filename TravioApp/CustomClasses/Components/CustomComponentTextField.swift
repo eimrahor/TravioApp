@@ -82,7 +82,6 @@ class CustomComponentTextField: UIView {
 extension CustomComponentTextField:UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
             textField.textColor = .black
-      
     }
     
 }
