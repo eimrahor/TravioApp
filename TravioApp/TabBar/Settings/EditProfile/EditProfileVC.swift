@@ -50,7 +50,7 @@ class EditProfileVC: MainViewController {
     
     private lazy var btnChangePhoto: UIButton = {
        let bt = UIButton()
-        bt.setTitle("Edit Profile", for: .normal)
+        bt.setTitle("Change Photo", for: .normal)
         bt.titleLabel?.font = CustomFont.PoppinsRegular(12).font
         bt.setTitleColor(CustomColor.TravioGreen.color, for: .normal)
         bt.addTarget(self, action: #selector(changePhoto), for: .touchUpInside)
@@ -149,7 +149,6 @@ class EditProfileVC: MainViewController {
     override func viewDidLayoutSubviews() {
         viewRegisterDate.shadowAndRoundCorners(width: viewRegisterDate.frame.width, height: viewRegisterDate.frame.height)
         viewRole.shadowAndRoundCorners(width: viewRole.frame.width, height: viewRole.frame.height)
-        
     }
     
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
