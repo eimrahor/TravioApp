@@ -188,14 +188,14 @@ class DetailVisitsVC: UIViewController {
         }
     }
     
-    func changeDateFormat(date: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-        let theDate = dateFormatter.date(from: date)!
-        let newDateFormater = DateFormatter()
-        newDateFormater.dateFormat = "dd MMMM yyyy"
-        return newDateFormater.string(from: theDate)
-    }
+//    func changeDateFormat(date: String) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+//        let theDate = dateFormatter.date(from: date)!
+//        let newDateFormater = DateFormatter()
+//        newDateFormater.dateFormat = "dd MMMM yyyy"
+//        return newDateFormater.string(from: theDate)
+//    }
     
     func addPinandZoomPlace(place: CLLocation) {
         let pin = MKPointAnnotation()
@@ -220,7 +220,7 @@ class DetailVisitsVC: UIViewController {
                 self!.titleLabel.text = titleText.returnSpecialStringText()
                 
                 let changeDate = travel.data.visit.place.created_at
-                let date = self!.changeDateFormat(date: changeDate)
+                let date = changeDate.changeDateFormat()
                 self!.dateLabel.text = date
                 
                 self!.addedUserLabel.text = "added by @\(travel.data.visit.place.creator)"

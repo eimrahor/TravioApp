@@ -7,10 +7,12 @@
 
 import UIKit
 import TinyConstraints
+import AVFoundation
 
 class EditProfileVC: MainViewController {
-
+    
     let editProfileVM = EditProfileVM()
+    var captureSession = AVCaptureSession()
     
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Edit Profile"))
@@ -43,13 +45,13 @@ class EditProfileVC: MainViewController {
     }()
     
     private lazy var imgProfile: UIImageView = {
-       let img = UIImageView()
+        let img = UIImageView()
         img.image = UIImage(named: "bruce")
         return img
     }()
     
     private lazy var btnChangePhoto: UIButton = {
-       let bt = UIButton()
+        let bt = UIButton()
         bt.setTitle("Change Photo", for: .normal)
         bt.titleLabel?.font = CustomFont.PoppinsRegular(12).font
         bt.setTitleColor(CustomColor.TravioGreen.color, for: .normal)
@@ -58,14 +60,14 @@ class EditProfileVC: MainViewController {
     }()
     
     private lazy var lblName: UILabel = {
-       let lbl = UILabel()
+        let lbl = UILabel()
         lbl.text = "Bruce Wills"
         lbl.font = CustomFont.PoppinsSemiBold(24).font
         return lbl
     }()
     
     private lazy var viewRegisterDate:UIView = {
-      let view = UIView()
+        let view = UIView()
         view.height(52); view.width(163)
         view.addSubview(svDate)
         return view
@@ -93,7 +95,7 @@ class EditProfileVC: MainViewController {
     }()
     
     private lazy var viewRole:UIView = {
-      let view = UIView()
+        let view = UIView()
         view.height(52); view.width(163)
         view.addSubview(svRole)
         return view
@@ -135,15 +137,25 @@ class EditProfileVC: MainViewController {
         return view
     }()
     
-    private var btnSave: UICustomButton = {
+    private lazy var btnSave: UICustomButton = {
         let btn = UICustomButton(title: "Save")
         btn.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return btn
     }()
+//
+//    private lazy var cameraPreviewLayer:AVCaptureVideoPreviewLayer = {
+//        let showLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+//        showLayer.videoGravity = .resizeAspectFill
+//        showLayer.frame = view.layer.bounds
+//        return showLayer
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        configureVCWithUserData()
+       // addInput()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -190,22 +202,70 @@ class EditProfileVC: MainViewController {
         
         btnSave.bottomToSuperview(offset:-18,usingSafeArea: true)
         btnSave.edgesToSuperview(excluding: [.top,.bottom],insets: .left(24) + .right(24))
-        
     }
     
     override func addSubviews() {
         super.addSubviews()
         self.view.addSubviews(svNavigationBar,imgProfile,btnChangePhoto,lblName,viewRegisterDate,viewRole,viewFullName,viewEmail,btnSave)
+       // self.view.layer.addSublayer(cameraPreviewLayer)
     }
     
     @objc func goPopView(){
         self.navigationController?.popViewController(animated: true)
     }
     @objc func changePhoto(){
+        PermissionsHelper.shared.requestCameraPermission()
+      
+//        DispatchQueue.global().async {
+//            self.captureSession.startRunning()
+//        }
         
     }
     @objc func saveChanges(){
         
     }
+    
+    func configureVCWithUserData(){
+        guard let user = editProfileVM.userProfile else {return}
+        guard let stringURL = user.pp_url, let fullName = user.full_name, let email = user.email, let role = user.role, let date = user.created_at else {return}
+        
+        let url = URL(string: stringURL)
+        self.imgProfile.kf.setImage(with: url)
+        
+        viewFullName.txtField.text = fullName
+        viewEmail.txtField.text = email
+        
+        lblRole.text = role
+        let formattedDate = date.changeDateFormat()
+        lblDate.text = formattedDate
+    }
+    
+//    func addInput(){
+//        captureSession.sessionPreset = .low
+//        if let captureDevice = AVCaptureDevice.default(for: .video) {
+//            do {
+//                let input = try AVCaptureDeviceInput(device: captureDevice)
+//                if captureSession.canAddInput(input) {
+//                    captureSession.addInput(input)
+//                }
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
+    
+    func setupAndStartCaptureSession(){
+            DispatchQueue.global(qos: .userInitiated).async{
+                self.captureSession = AVCaptureSession()
+                self.captureSession.beginConfiguration()
+                
+                //do some configuration?
+                
+                //commit configuration
+                self.captureSession.commitConfiguration()
+                //start running it
+                self.captureSession.startRunning()
+            }
+        }
 
 }
