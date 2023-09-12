@@ -249,7 +249,6 @@ class UserRegisterVC: UIViewController {
                 make.leading.equalTo(emailView.snp.leading).offset(12)
                 make.trailing.equalTo(emailView.snp.trailing).offset(-12)
             }
-//
             passwordView.snp.makeConstraints { make in
                 make.top.equalTo(emailView.snp.bottom).offset(24)
                 make.leading.trailing.equalTo(userNameView)

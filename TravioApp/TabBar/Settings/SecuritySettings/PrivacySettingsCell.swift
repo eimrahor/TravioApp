@@ -8,10 +8,12 @@
 import UIKit
 import TinyConstraints
 
-
 class PrivacySettingsCell: UITableViewCell {
+
+    var permissionType:PermissionType?
+    var switchState: Bool?
     
-    private lazy var switchComponent: CustomComponentSwitch = {
+    lazy var switchComponent: CustomComponentSwitch = {
         let component = CustomComponentSwitch()
         component.backgroundColor = CustomColor.White.color
         return component
@@ -20,6 +22,8 @@ class PrivacySettingsCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        guard let switchState = switchState else { return }
+        self.switchComponent.switchControl.isOn = switchState
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +37,7 @@ class PrivacySettingsCell: UITableViewCell {
         switchComponent.topToSuperview()
         switchComponent.edgesToSuperview(excluding: [.top,.bottom],insets: .left(5) + .right(5))
         switchComponent.height(74)
+        switchComponent.switchControl.addTarget(self, action: #selector(switchTryingChange(_:)), for: .valueChanged)
     }
     
     func addSubview(){
@@ -43,4 +48,14 @@ class PrivacySettingsCell: UITableViewCell {
         switchComponent.lbl.text = cellData.titleText
         switchComponent.switchControl.isOn = cellData.switchState
     }
+    
+    @objc func switchTryingChange(_ sender:UISwitch){
+        
+        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(settingsURL) {
+                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
 }

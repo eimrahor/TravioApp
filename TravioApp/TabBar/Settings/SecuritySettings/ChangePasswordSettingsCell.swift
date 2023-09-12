@@ -10,9 +10,12 @@ import TinyConstraints
 
 class ChangePasswordSettingsCell: UITableViewCell {
     
+    var textDidChangedClosure:(()->())?
+    
     private lazy var view: CustomComponentTextField = {
         let view = CustomComponentTextField()
         view.backgroundColor = CustomColor.White.color
+        view.txtField.delegate = self
         return view
     }()
     
@@ -41,5 +44,15 @@ class ChangePasswordSettingsCell: UITableViewCell {
     func configureCell(cellData:PasswordSettingsData){
         view.lbl.text = cellData.titleText
         view.placeHolderConfig(placeHolderText: cellData.placeHolderText)
+    }
+    
+    func getPasswordText()->String{
+        guard let txt = view.txtField.text else {return ""}
+        return txt
+    }
+}
+extension ChangePasswordSettingsCell: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        textDidChangedClosure?()
     }
 }

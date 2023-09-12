@@ -8,16 +8,29 @@
 import UIKit
 import TinyConstraints
 import SnapKit
+import AVFoundation
+import CoreLocation
 
+//MARK: password setting cell datas structure.
 struct PasswordSettingsData{
     var titleText:String
     var placeHolderText:String
 }
-
+//MARK: privacy setting cell datas structure.
 struct PrivacySettingsData{
     var titleText:String
-    var switchState:Bool
+    var perrmissionType:PermissionType
+    var switchState:Bool = false
 }
+
+//MARK: privacy setting permission types.
+enum PermissionType{
+    case CameraPermission
+    case PhotoLibraryPermission
+    case LocationPermission
+}
+
+//MARK: security settings cell types.
 enum SecuritySettingsCellType{
     case PrivacySettingCell
     case PasswordSettingCell
@@ -70,19 +83,29 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     private var btnSave: UICustomButton = {
         let btn = UICustomButton(title: "Save")
         btn.addTarget(self, action: #selector(saveSettings), for: .touchUpInside)
+        btn.isEnabled = false
         return btn
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupLayout()
+        
+        PermissionsHelper.shared.locationManager.delegate = self
+        
+        securitySettingsVM.requestPermissions()
+        securitySettingsVM.addObserver()
+        securitySettingsVM.updateSettings()
+        
+        securitySettingsVM.reloadClosure = {
+            self.tvSecuritySettings.reloadData()
+        }
     }
-
+   
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
         
         super.setupLayout(backGroundMultiplier: backGroundMultiplier)
-       // super.backGroundMultiplier = 0.7
-       // super.changeBackgroundMultiplier(to: 0.70)    - ver2
         self.view.backgroundColor = CustomColor.TravioGreen.color
         self.navigationController?.isNavigationBarHidden = true
         
@@ -107,10 +130,37 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     }
     
     @objc func saveSettings(){
-        print("savesettings")
+        
+        let passwordPath = IndexPath(row: 0, section: 0)
+        guard let cellPassword = tvSecuritySettings.cellForRow(at: passwordPath) as? ChangePasswordSettingsCell else {return}
+        let newPassword = cellPassword.getPasswordText()
+        
+        securitySettingsVM.savePasswordToAPI(params:[
+            "new_password":newPassword
+        ])
     }
+    
     @objc func goPopView(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func checkButtonActive(){
+        
+        let passwordPath = IndexPath(row: 0, section: 0)
+        let confirmPasswordPath = IndexPath(row: 1, section: 0)
+        
+        guard let cellPassword = tvSecuritySettings.cellForRow(at: passwordPath) as? ChangePasswordSettingsCell ,
+              let cellConfirmPassword = tvSecuritySettings.cellForRow(at: confirmPasswordPath) as? ChangePasswordSettingsCell
+        else { btnSave.isEnabled = false
+            return }
+        
+        let passwordTxt = cellPassword.getPasswordText()
+        let confirmTxt = cellConfirmPassword.getPasswordText()
+        
+        if passwordTxt == confirmTxt && passwordTxt.count >= 6 {
+            btnSave.isEnabled = true
+        }
+        else{btnSave.isEnabled = false}
     }
     
 }
@@ -141,19 +191,13 @@ extension SecuritySettingsVC:UITableViewDelegate {
     }
 }
 extension SecuritySettingsVC:UITableViewDataSource{
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        switch section {
-        case 0:
-           return securitySettingsVM.passwordSettingsDatas.count
-        case 1:
-            return securitySettingsVM.privacySettingsDatas.count
-        default:
-            return 0
-        }
+      return  getNumberOfRowsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,6 +207,9 @@ extension SecuritySettingsVC:UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordSettings", for: indexPath) as? ChangePasswordSettingsCell else { return UITableViewCell() }
             let object = securitySettingsVM.passwordSettingsDatas[indexPath.row]
             cell.configureCell(cellData: object)
+            cell.textDidChangedClosure = {
+                self.checkButtonActive()
+            }
             return cell
             
         case 1:
@@ -175,7 +222,38 @@ extension SecuritySettingsVC:UITableViewDataSource{
         }
     }
     
+    func getNumberOfRowsInSection(section: Int) -> Int{
+        
+        switch section {
+        case 0:
+           return securitySettingsVM.passwordSettingsDatas.count
+        case 1:
+            return securitySettingsVM.privacySettingsDatas.count
+        default:
+            return 0
+        }
+    }
+    
 }
     
-    
+extension SecuritySettingsVC: CLLocationManagerDelegate {
+    //MARK:  for location permission
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            securitySettingsVM.privacySettingsDatas[2].switchState = true
+            securitySettingsVM.reloadClosure?()
+        case .denied:
+            securitySettingsVM.privacySettingsDatas[2].switchState = false
+            securitySettingsVM.reloadClosure?()
+        default:
+            break
+        }
+        
+        securitySettingsVM.reloadClosure = {
+            self.tvSecuritySettings.reloadData()
+        }
+    }
+}
 
