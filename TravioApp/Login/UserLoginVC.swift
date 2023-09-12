@@ -74,7 +74,7 @@ class UserLoginVC: UIViewController {
     private lazy var passText: UITextField = {
         let tx = UITextField()
         tx.placeholder = "*********"
-        tx.text = "123123123"
+        tx.text = "123456"
         tx.textColor = #colorLiteral(red: 0.7200164199, green: 0.7165551782, blue: 0.7164821029, alpha: 1)
         tx.isSecureTextEntry = true
         return tx

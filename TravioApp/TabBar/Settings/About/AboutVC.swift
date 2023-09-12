@@ -51,7 +51,7 @@ class AboutVC: MainViewController {
         
         let childView = webController.view
         guard let childView = childView else { return }
-        childView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        childView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width - 8, height: view.frame.size.height - 185 - (tabBarController?.tabBar.frame.size.height)!)
         wView.addSubview(childView)
         webController.didMove(toParent: self)
     }
