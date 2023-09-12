@@ -101,7 +101,7 @@ extension VisitsVC: UITableViewDelegate {
         
         vc.visitId = viewModel.visitsArr[indexPath.row].id
         vc.placeId = viewModel.visitsArr[indexPath.row].place_id
-        vc.isMyVisit()
+        vc.configure(place: viewModel.visitsArr[indexPath.row].place )
         navigationController?.pushViewController(vc, animated: false)
     }
 }

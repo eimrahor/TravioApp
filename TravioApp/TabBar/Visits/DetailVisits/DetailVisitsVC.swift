@@ -80,7 +80,7 @@ class DetailVisitsVC: UIViewController {
     
     private lazy var addButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+        bt.setImage(UIImage(named: "AddVisit"), for: .normal)
         bt.addTarget(self, action: #selector(postOrDeleteVisit), for: .touchUpInside)
         return bt
     }()
@@ -137,39 +137,30 @@ class DetailVisitsVC: UIViewController {
         setupViews()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let visitId = visitId, let placeId = placeId else { return }
-        viewModel = DetailVisitsViewModel(visitId: visitId, placeId: placeId)
-        initVM()
-    }
-    
     override func viewDidLayoutSubviews() {
         let height = informationLabel.frame.origin.y + informationLabel.frame.height
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
     }
     
-    func isMyVisit() {
-        addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
-    }
-    
-    func configure(data: GetGalleryImages, place: Place, count: Int, location:CLLocation, isMyPlace: Bool) {
+    func configure(place: Place) {
+        let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
         DispatchQueue.main.async {
-            self.addPinandZoomPlace(place: location)
+            self.addPinandZoomPlace(place: cllocation)
+            self.titleLabel.text = place.title
+            self.dateLabel.text = place.created_at
+            self.addedUserLabel.text = "added by @\(place.creator)"
+            self.informationLabel.text = place.description
+            
+            self.viewModel?.checkVisitByPlaceID(complete: { result in
+                if result {
+                    self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+                } else {
+                    self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+                }
+            })
         }
-        
-        imagesData = data
+        guard let count = imagesData?.data.count else { return }
         pageController.numberOfPages = count
-        titleLabel.text = place.title
-        dateLabel.text = place.created_at
-        addedUserLabel.text = "added by @\(place.creator)"
-        informationLabel.text = place.description
-        
-        if isMyPlace {
-            self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
-        } else {
-            self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
-        }
     }
     
     @objc func backVisitVC() {
@@ -178,14 +169,15 @@ class DetailVisitsVC: UIViewController {
     
     @objc func postOrDeleteVisit() {
         guard let viewModel = viewModel else { return }
-        
-        viewModel.checkVisitByPlaceID() { isHidden in
-            if isHidden {
+        viewModel.checkVisitByPlaceID(complete: { result in
+            if result {
+                viewModel.deleteAVisitByPlaceID()
                 self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
             } else {
+                viewModel.postAVisit()
                 self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
             }
-        }
+        })
     }
     
     func changeDateFormat(date: String) -> String {
@@ -208,25 +200,6 @@ class DetailVisitsVC: UIViewController {
     
     func initVM() {
         guard let viewModel = viewModel else { return }
-        
-        viewModel.backDataTravelClosure = { [weak self] data in
-                self?.travelData = data
-                let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
-                self?.addPinandZoomPlace(place: cllocation)
-                
-                guard let travel = self!.travelData else { return }
-                
-                let titleText = travel.data.visit.place.place
-                self!.titleLabel.text = titleText.returnSpecialStringText()
-                
-                let changeDate = travel.data.visit.place.created_at
-                let date = self!.changeDateFormat(date: changeDate)
-                self!.dateLabel.text = date
-                
-                self!.addedUserLabel.text = "added by @\(travel.data.visit.place.creator)"
-                
-                self!.informationLabel.text = travel.data.visit.place.description
-        }
         
         viewModel.backDataGalleryImagesClosure = { [weak self] data in
             DispatchQueue.main.async {

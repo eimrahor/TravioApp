@@ -155,7 +155,7 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
             self.vc.placeId = places.data.places[indexPath.row].id
         
             self.viewModel.checkByPlaceID(id: places.data.places[indexPath.row].id) { isMyplace in
-                self.vc.configure(data: galleryImages, place: places.data.places[indexPath.row], count: galleryImages.data.images.count, location: cllocation, isMyPlace: isMyplace )
+              //  self.vc.configure(data: galleryImages, place: places.data.places[indexPath.row], count: galleryImages.data.images.count, location: cllocation, isMyPlace: isMyplace )
                 self.navigationController?.pushViewController(self.vc, animated: true)
                 }
             
