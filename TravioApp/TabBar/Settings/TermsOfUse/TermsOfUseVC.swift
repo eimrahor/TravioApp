@@ -7,6 +7,7 @@
 
 import UIKit
 import TinyConstraints
+import SnapKit
 
 class TermsOfUseVC: MainViewController {
 
@@ -34,8 +35,24 @@ class TermsOfUseVC: MainViewController {
         return sv
     }()
     
+    private lazy var wView: UIView = {
+        let v = UIView()
+        return v
+    }()
+    
+    let webController = WebViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        webController.url = Links.termsofUse
+        addChild(webController)
+        
+        let childView = webController.view
+        guard let childView = childView else { return }
+        childView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        wView.addSubview(childView)
+        webController.didMove(toParent: self)
     }
     
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
@@ -47,11 +64,18 @@ class TermsOfUseVC: MainViewController {
         svNavigationBar.topToSuperview(offset: 19,usingSafeArea: true)
         svNavigationBar.edgesToSuperview(excluding: [.top,.bottom],insets: .left(20) + .right(20))
         
+        wView.snp.makeConstraints { make in
+            make.top.equalTo(background.snp.top).offset(60)
+            make.leading.equalToSuperview().offset(4)
+            make.trailing.equalToSuperview().offset(-4)
+            make.bottom.equalToSuperview()
+        }
     }
     
     override func addSubviews() {
         super.addSubviews()
         self.view.addSubview(svNavigationBar)
+        self.view.addSubview(wView)
     }
     
     @objc func goPopView(){
