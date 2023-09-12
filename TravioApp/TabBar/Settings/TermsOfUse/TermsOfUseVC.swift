@@ -18,18 +18,10 @@ class TermsOfUseVC: MainViewController {
         return lbl
     }()
     
-    private lazy var btnBack : UICustomButton = {
-        let btn = UICustomButton(title: "")
-        let iv = UIImageView()
-        iv.image = UIImage(named: "backArrow.png")
-        iv.contentMode = .scaleAspectFit
-        btn.addSubview(iv)
-        iv.height(22)
-        iv.width(24)
-        btn.height(22)
-        btn.width(24)
-        btn.addTarget(self, action: #selector(goPopView), for: .touchUpInside)
-        return btn
+    private lazy var btnBack: UICustomButtonBack = {
+        let bt = UICustomButtonBack()
+        bt.addTarget(self, action: #selector(goPopView), for: .touchUpInside)
+        return bt
     }()
     private lazy var svNavigationBar: UIStackView = {
         let sv = UIStackView()

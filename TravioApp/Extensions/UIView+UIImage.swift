@@ -54,12 +54,11 @@ extension UIView {
             self.layer.shadowColor = UIColor.black.cgColor
             self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
             self.layer.shadowOpacity = 0.5
-            self.layer.shadowRadius = 8
+            self.layer.shadowRadius = 2
             self.layer.masksToBounds = false
             }
     
-    func
-    shadowAndRoundCorners(width: CGFloat, height: CGFloat) {
+    func shadowAndRoundCorners(width: CGFloat, height: CGFloat) {
         
         let demoPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: height), byRoundingCorners:[.topLeft, .topRight, .bottomLeft], cornerRadii: CGSize(width: 16.0, height: 16.0)).cgPath
         

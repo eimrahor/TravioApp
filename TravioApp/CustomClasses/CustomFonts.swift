@@ -25,6 +25,7 @@ enum CustomFont
     case PoppinsSemiBold(Int)
     case PoppindMedium(Int)
     case PoppinsRegular(Int)
+    case PoppinsLight(Int)
     
     var font : UIFont {
         switch self {
@@ -46,6 +47,8 @@ enum CustomFont
             return UIFont(name: "Poppins-Medium", size: CGFloat(size))!
         case .PoppinsRegular(let size):
             return UIFont(name: "Poppins-Regular", size: CGFloat(size))!
+        case .PoppinsLight(let size):
+            return UIFont(name: "Poppins-Light", size: CGFloat(size))!
         }
     }
 }

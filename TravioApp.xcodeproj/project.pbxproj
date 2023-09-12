@@ -54,6 +54,7 @@
 		86227F902AAE5EB8000D6396 /* ProfilleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F8F2AAE5EB8000D6396 /* ProfilleModel.swift */; };
 		86227F872AADDF7E000D6396 /* PermissionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F862AADDF7E000D6396 /* PermissionsHelper.swift */; };
 		86227F922AAF48D3000D6396 /* ChangePasswordResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F912AAF48D3000D6396 /* ChangePasswordResponseModel.swift */; };
+		7ADDC1D22AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADDC1D12AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift */; };
 		865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomComponentTextField.swift */; };
 		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
 		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
@@ -86,6 +87,7 @@
 		E5C0ED9D2AA4AB7000CFEEBC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED9C2AA4AB7000CFEEBC /* String.swift */; };
 		E5C0ED9F2AA5126900CFEEBC /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED9E2AA5126900CFEEBC /* HomeModel.swift */; };
 		E5C0EDA12AA7B30300CFEEBC /* DetailVisitsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0EDA02AA7B30300CFEEBC /* DetailVisitsModel.swift */; };
+		E5C0EDFF2AADBBCD00CFEEBC /* UICustomButtonBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0EDFE2AADBBCD00CFEEBC /* UICustomButtonBack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +136,7 @@
 		86227F8F2AAE5EB8000D6396 /* ProfilleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilleModel.swift; sourceTree = "<group>"; };
 		86227F862AADDF7E000D6396 /* PermissionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelper.swift; sourceTree = "<group>"; };
 		86227F912AAF48D3000D6396 /* ChangePasswordResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordResponseModel.swift; sourceTree = "<group>"; };
+		7ADDC1D12AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportCollectionViewCell.swift; sourceTree = "<group>"; };
 		865F62752A9D326900B84578 /* CustomComponentTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentTextField.swift; sourceTree = "<group>"; };
 		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 		E5C0ED9C2AA4AB7000CFEEBC /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E5C0ED9E2AA5126900CFEEBC /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		E5C0EDA02AA7B30300CFEEBC /* DetailVisitsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVisitsModel.swift; sourceTree = "<group>"; };
+		E5C0EDFE2AADBBCD00CFEEBC /* UICustomButtonBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomButtonBack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,10 +190,10 @@
 		7A32C5E62AA1FFED00C85F55 /* SecuritySettings */ = {
 			isa = PBXGroup;
 			children = (
-				7A32C5E72AA2002400C85F55 /* SecuritySettingsVM.swift */,
 				7A32C5E92AA2004B00C85F55 /* SecuritySettingsVC.swift */,
 				86C4775A2AA467C600566549 /* ChangePasswordSettingsCell.swift */,
 				86C4775F2AA4980900566549 /* PrivacySettingsCell.swift */,
+				7A32C5E72AA2002400C85F55 /* SecuritySettingsVM.swift */,
 				86227F912AAF48D3000D6396 /* ChangePasswordResponseModel.swift */,
 			);
 			path = SecuritySettings;
@@ -412,6 +416,7 @@
 				865F62762A9D326900B84578 /* CustomColors.swift */,
 				865F62782A9D326900B84578 /* CustomFonts.swift */,
 				865F62772A9D326900B84578 /* UICustomButton.swift */,
+				E5C0EDFE2AADBBCD00CFEEBC /* UICustomButtonBack.swift */,
 				865F62792A9D326900B84578 /* UICustomLabel.swift */,
 				865F627B2A9D326900B84578 /* UICustomTextField.swift */,
 			);
@@ -443,6 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				86C477842AACAE5800566549 /* HelpAndSupportVC.swift */,
+				7ADDC1D12AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift */,
 				86C477862AACAE6500566549 /* HelpAndSupportVM.swift */,
 			);
 			path = HelpAndSupport;
@@ -619,8 +625,10 @@
 				86C4778D2AACAE9A00566549 /* TermsOfUseVC.swift in Sources */,
 				7A84AE3F2A9CCB9F00397420 /* AddNewPlaceVC.swift in Sources */,
 				86C4778F2AACAEA500566549 /* TermsOfUseVM.swift in Sources */,
+				E5C0EDFF2AADBBCD00CFEEBC /* UICustomButtonBack.swift in Sources */,
 				7A7A8F122A9C9EDE000681F6 /* VisitsVCTableViewCell.swift in Sources */,
 				E5C0ED9D2AA4AB7000CFEEBC /* String.swift in Sources */,
+				7ADDC1D22AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
