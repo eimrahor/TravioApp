@@ -42,7 +42,8 @@ class PermissionsHelper{
     let locationManager = CLLocationManager()
 
     func requestLocationPermission() {
-        locationManager.requestWhenInUseAuthorization() // Kullanıldığında konum izni için
+        
+        PermissionsHelper.shared.locationManager.requestWhenInUseAuthorization() // Kullanıldığında konum izni için
         // veya
         // locationManager.requestAlwaysAuthorization() // Her zaman konum izni için
     }

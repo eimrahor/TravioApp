@@ -9,6 +9,7 @@ import UIKit
 import TinyConstraints
 import SnapKit
 import AVFoundation
+import CoreLocation
 
 //MARK: password setting cell datas structure.
 struct PasswordSettingsData{
@@ -90,6 +91,9 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         
         setupLayout()
+        
+        PermissionsHelper.shared.locationManager.delegate = self
+        
         securitySettingsVM.requestPermissions()
         securitySettingsVM.addObserver()
         securitySettingsVM.updateSettings()
@@ -232,5 +236,24 @@ extension SecuritySettingsVC:UITableViewDataSource{
     
 }
     
-    
+extension SecuritySettingsVC: CLLocationManagerDelegate {
+    //MARK:  for location permission
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            securitySettingsVM.privacySettingsDatas[2].switchState = true
+            securitySettingsVM.reloadClosure?()
+        case .denied:
+            securitySettingsVM.privacySettingsDatas[2].switchState = false
+            securitySettingsVM.reloadClosure?()
+        default:
+            break
+        }
+        
+        securitySettingsVM.reloadClosure = {
+            self.tvSecuritySettings.reloadData()
+        }
+    }
+}
 

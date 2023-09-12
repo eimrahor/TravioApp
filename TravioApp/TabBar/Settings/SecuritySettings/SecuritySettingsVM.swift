@@ -9,9 +9,10 @@ import Foundation
 import AVFoundation
 import UIKit
 import Photos
+import CoreLocation
 
-class SecuritySettingsVM{
-     
+class SecuritySettingsVM {
+    
     //MARK: closure for reload tableview data when privacySettings switchStates changed.
     var reloadClosure:(()->())?
     var passwordSettingsDatas:[PasswordSettingsData] = [PasswordSettingsData(titleText: "New Password", placeHolderText: "********"),PasswordSettingsData(titleText: "New Password Confirm", placeHolderText: "********")]
@@ -26,6 +27,7 @@ class SecuritySettingsVM{
     @objc func updateSettings(){
         cameraPermissionChanged()
         photoLibraryPermissionChanged()
+        locationPermissionChanged()
         reloadClosure?()
     }
     
@@ -49,14 +51,23 @@ class SecuritySettingsVM{
             switch status {
             case .authorized:
                 self.privacySettingsDatas[1].switchState = true
-            case .denied, .restricted:
-                self.privacySettingsDatas[1].switchState = false
-            case .notDetermined:
+            case .notDetermined, .denied, .restricted:
                 self.privacySettingsDatas[1].switchState = false
             default:
                 break
             }
         }
+    }
+    
+    //MARK: for location permission
+    func locationPermissionChanged() {
+        let permissionStatus = PermissionsHelper.shared.locationManager.authorizationStatus
+       
+            if permissionStatus == .authorizedWhenInUse || permissionStatus == .authorizedAlways {
+                self.privacySettingsDatas[2].switchState = true
+            } else {
+                self.privacySettingsDatas[2].switchState = false
+            }
     }
     
     deinit {
