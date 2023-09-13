@@ -20,6 +20,7 @@ class MapVCViewModel {
             getAllCLLocations()
         }
     }
+    var placesLocation = [CLLocation]()
     var reloadClosure: (()->())?
     var getAllCLLocationsLocation: (([CLLocation])->())?
     
@@ -30,7 +31,6 @@ class MapVCViewModel {
                 self.places = result
                 self.delegate?.reloadData()
             case .failure(let err):
-                print(err)
                 print(err)
             }
         }
@@ -46,7 +46,6 @@ class MapVCViewModel {
     }
     
     func getAllCLLocations() {
-        var placesLocation = [CLLocation]()
         places?.data.places.forEach { place in
             placesLocation.append(CLLocation(latitude: place.latitude, longitude: place.longitude))
         }

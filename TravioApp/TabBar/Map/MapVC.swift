@@ -189,5 +189,18 @@ extension MapVC: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = view.annotation else { return }
+        let coordinateAnnotation = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+        var indexPin = 0
+        for (index, value) in locationsOrdering.enumerated() {
+            print("index: \(index)")
+            let coordinate = CLLocationCoordinate2D(latitude: value.coordinate.latitude, longitude: value.coordinate.longitude)
+            if coordinateAnnotation.latitude == coordinate.latitude {
+                indexPin = index
+            }
+            print(index)
+        }
+        let indexPath = IndexPath(item: (locationsOrdering.count / 2), section: 0)
+        // Collection view'i belirtilen index path'e kaydırır
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }

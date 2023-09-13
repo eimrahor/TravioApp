@@ -164,6 +164,7 @@ class DetailVisitsVC: UIViewController {
         
         viewModel.getAllGalleryImages( complete: { () in
             DispatchQueue.main.async {
+                self.pageController.currentPage = 0
                 self.pageController.numberOfPages = viewModel.galleryImagesDataCount()
                 self.collectionView.reloadData()
                 
