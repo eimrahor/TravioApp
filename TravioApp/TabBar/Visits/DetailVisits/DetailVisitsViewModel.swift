@@ -12,12 +12,9 @@ class DetailVisitsViewModel {
     
     var visitId: String?
     var placeId: String?
-    var backDataGalleryImagesClosure: ((GetGalleryImages)->())?
     
-    init(visitId: String, placeId: String) {
-        self.visitId = visitId
+    init(placeId: String) {
         self.placeId = placeId
-        getAllGalleryImages()
     }
     
     func takeFormattedDate() -> String {
@@ -30,13 +27,13 @@ class DetailVisitsViewModel {
         return formattedDate
     }
 
-    func getAllGalleryImages() {
+    func getAllGalleryImages(complete: @escaping (GetGalleryImages)->()) {
         guard let placeId = placeId else { return }
         
         APIService.call.objectRequestJSON(request: Router.getAllGalleryImagesWithID(id: placeId) ) { (result:Result<GetGalleryImages,Error>) in
             switch result {
             case .success(let data):
-                self.backDataGalleryImagesClosure?(data)
+                complete(data)
             case .failure(let err):
                 print(err)
             }

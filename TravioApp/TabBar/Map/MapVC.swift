@@ -147,20 +147,11 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
         
         guard let places = self.viewModel.places else { return }
         
-        let cllocation = CLLocation(latitude: places.data.places[indexPath.row].latitude, longitude: places.data.places[indexPath.row].longitude)
-        
-        self.viewModel.getAllGallerybyPlaceID(id: places.data.places[indexPath.row].id) { galleryImages in
-        
-            self.vc.visitId = ""
-            self.vc.placeId = places.data.places[indexPath.row].id
-        
-            self.viewModel.checkByPlaceID(id: places.data.places[indexPath.row].id) { isMyplace in
-              //  self.vc.configure(data: galleryImages, place: places.data.places[indexPath.row], count: galleryImages.data.images.count, location: cllocation, isMyPlace: isMyplace )
-                self.navigationController?.pushViewController(self.vc, animated: true)
-                }
-            
-            }
+        DispatchQueue.main.async {
+            self.vc.configure(place: places.data.places[indexPath.row])
+            self.navigationController?.pushViewController(self.vc, animated: true)
         }
+    }
 }
 
 extension MapVC: UICollectionViewDataSource {

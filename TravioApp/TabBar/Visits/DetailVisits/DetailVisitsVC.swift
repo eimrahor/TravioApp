@@ -122,18 +122,13 @@ class DetailVisitsVC: UIViewController {
     var viewModel: DetailVisitsViewModel?
     var imagesData: GetGalleryImages?
     var travelData: GetVisit?
-    var visitId: String?
     var placeId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let visitId = visitId, let placeId = placeId else { return }
-        viewModel = DetailVisitsViewModel(visitId: visitId, placeId: placeId)
-        
         mpKit.delegate = self
         
-        initVM()
         setupViews()
     }
     
@@ -143,14 +138,15 @@ class DetailVisitsVC: UIViewController {
     }
     
     func configure(place: Place) {
+        viewModel = DetailVisitsViewModel(placeId: place.id)
         let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
         DispatchQueue.main.async {
+            self.initVMForGetGalleryImages()
             self.addPinandZoomPlace(place: cllocation)
             self.titleLabel.text = place.title
             self.dateLabel.text = place.created_at
             self.addedUserLabel.text = "added by @\(place.creator)"
             self.informationLabel.text = place.description
-            
             self.viewModel?.checkVisitByPlaceID(complete: { result in
                 if result {
                     self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
@@ -163,8 +159,24 @@ class DetailVisitsVC: UIViewController {
         pageController.numberOfPages = count
     }
     
-    @objc func backVisitVC() {
-        navigationController?.popViewController(animated: true)
+    func initVMForGetGalleryImages() {
+        guard let viewModel = viewModel else { return }
+        viewModel.getAllGalleryImages { [weak self] allGalleryImages in
+            DispatchQueue.main.async {
+                self?.imagesData = allGalleryImages
+                self?.collectionView.reloadData()
+                self?.pageController.numberOfPages = (allGalleryImages.data.images.count)
+            }
+        }
+    }
+    
+    func addPinandZoomPlace(place: CLLocation) {
+        let pin = MKPointAnnotation()
+        pin.title = ""
+        pin.coordinate = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        mpKit.addAnnotation(pin)
+        mpKit.setCenter(place.coordinate, animated: true)
+        mpKit.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(3000))
     }
     
     @objc func postOrDeleteVisit() {
@@ -180,6 +192,10 @@ class DetailVisitsVC: UIViewController {
         })
     }
     
+    @objc func backVisitVC() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     func changeDateFormat(date: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
@@ -188,28 +204,6 @@ class DetailVisitsVC: UIViewController {
         newDateFormater.dateFormat = "dd MMMM yyyy"
         return newDateFormater.string(from: theDate)
     }
-    
-    func addPinandZoomPlace(place: CLLocation) {
-        let pin = MKPointAnnotation()
-        pin.title = ""
-        pin.coordinate = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-        mpKit.addAnnotation(pin)
-        mpKit.setCenter(place.coordinate, animated: true)
-        mpKit.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(3000))
-    }
-    
-    func initVM() {
-        guard let viewModel = viewModel else { return }
-        
-        viewModel.backDataGalleryImagesClosure = { [weak self] data in
-            DispatchQueue.main.async {
-                self?.imagesData = data
-                self?.collectionView.reloadData()
-                self?.pageController.numberOfPages = (data.data.images.count)
-            }
-        }
-    }
-    
     
     func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
