@@ -11,5 +11,8 @@ import AVFoundation
 class EditProfileVM{
     
     var userProfile:UserProfile?
+   
+    
     
 }
+

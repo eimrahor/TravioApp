@@ -51,7 +51,7 @@ class UserLoginVC: UIViewController {
     private lazy var emailText: UITextField = {
        let tx = UITextField()
         tx.placeholder = "developer@bilgeadam.com"
-        tx.text = "747172@gmail.com"
+        tx.text = "Elif@mail.com"
         tx.textColor = #colorLiteral(red: 0.7200164199, green: 0.7165551782, blue: 0.7164821029, alpha: 1)
         return tx
     }()

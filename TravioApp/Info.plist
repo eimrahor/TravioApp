@@ -9,12 +9,6 @@
 		<string>Poppins-Regular.ttf</string>
 		<string>Poppins-Light.ttf</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Permission to access your camera is required to use the photo capture function.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Permission to access your location is required to use the location.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Permission to access your gallery is required to use the photo selection function.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

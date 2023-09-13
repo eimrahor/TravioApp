@@ -11,11 +11,11 @@ import TinyConstraints
 
 class UICustomButtonBack: UIButton {
     
+    let iv = UIImageView()
     init() {
         super.init(frame: .zero)
         self.height(21.39)
         self.width(24)
-        let iv = UIImageView()
         iv.image = UIImage(named: "backArrow")
         iv.height(21.39)
         iv.width(24)

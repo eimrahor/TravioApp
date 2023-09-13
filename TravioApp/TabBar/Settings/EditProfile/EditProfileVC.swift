@@ -13,6 +13,7 @@ class EditProfileVC: MainViewController {
     
     let editProfileVM = EditProfileVM()
     var captureSession = AVCaptureSession()
+
     
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Edit Profile"))
@@ -215,11 +216,12 @@ class EditProfileVC: MainViewController {
     }
     @objc func changePhoto(){
         PermissionsHelper.shared.requestCameraPermission()
-      
+        let cameraVC = CameraVC()
+        cameraVC.CameraTrandferDataDelegate = self
+        navigationController?.pushViewController(cameraVC, animated: true)
 //        DispatchQueue.global().async {
 //            self.captureSession.startRunning()
 //        }
-        
     }
     @objc func saveChanges(){
         
@@ -253,19 +255,14 @@ class EditProfileVC: MainViewController {
 //            }
 //        }
 //    }
-    
-    func setupAndStartCaptureSession(){
-            DispatchQueue.global(qos: .userInitiated).async{
-                self.captureSession = AVCaptureSession()
-                self.captureSession.beginConfiguration()
-                
-                //do some configuration?
-                
-                //commit configuration
-                self.captureSession.commitConfiguration()
-                //start running it
-                self.captureSession.startRunning()
-            }
-        }
-
+//    }
 }
+extension EditProfileVC:CameraTransferData
+{
+    func transferImage(image: UIImage) {
+        imgProfile.image = image
+    }
+    
+}
+
+
