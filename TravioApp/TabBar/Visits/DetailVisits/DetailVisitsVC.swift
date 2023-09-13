@@ -120,9 +120,6 @@ class DetailVisitsVC: UIViewController {
     }()
     
     var viewModel: DetailVisitsViewModel?
-    var imagesData: GetGalleryImages?
-    var travelData: GetVisit?
-    var placeId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,11 +134,19 @@ class DetailVisitsVC: UIViewController {
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
     }
     
-    func configure(place: Place) {
-        viewModel = DetailVisitsViewModel(placeId: place.id)
-        let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
+    func configure(placeID: String) {
+        viewModel = DetailVisitsViewModel(placeId: placeID)
+        
         DispatchQueue.main.async {
-            self.initVMForGetGalleryImages()
+            self.initVM()
+        }
+    }
+    
+    func initVM() {
+        guard let viewModel = viewModel else { return }
+        
+        viewModel.getAPlaceById { place in
+            let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
             self.addPinandZoomPlace(place: cllocation)
             self.titleLabel.text = place.title
             self.dateLabel.text = place.created_at
@@ -155,19 +160,15 @@ class DetailVisitsVC: UIViewController {
                 }
             })
         }
-        guard let count = imagesData?.data.count else { return }
-        pageController.numberOfPages = count
-    }
-    
-    func initVMForGetGalleryImages() {
-        guard let viewModel = viewModel else { return }
-        viewModel.getAllGalleryImages { [weak self] allGalleryImages in
+        
+        
+        viewModel.getAllGalleryImages( complete: { () in
             DispatchQueue.main.async {
-                self?.imagesData = allGalleryImages
-                self?.collectionView.reloadData()
-                self?.pageController.numberOfPages = (allGalleryImages.data.images.count)
+                self.pageController.numberOfPages = viewModel.galleryImagesDataCount()
+                self.collectionView.reloadData()
+                
             }
-        }
+        })
     }
     
     func addPinandZoomPlace(place: CLLocation) {
@@ -323,16 +324,15 @@ extension DetailVisitsVC: UICollectionViewDelegateFlowLayout{
 
 extension DetailVisitsVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let data = imagesData else { return 0 }
-        return data.data.images.count
+        guard let viewModel = viewModel else { return 0 }
+        return viewModel.galleryImagesDataCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell, let viewModel = viewModel else {
             return UICollectionViewCell()
         }
-        guard let data = imagesData else { return UICollectionViewCell() }
-        cell.configure(object: data.data.images[indexPath.row])
+        cell.configure(object: viewModel.returnGalleryImage(row: indexPath.row))
         return cell
     }
 }

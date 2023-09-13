@@ -148,7 +148,7 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
         guard let places = self.viewModel.places else { return }
         
         DispatchQueue.main.async {
-            self.vc.configure(place: places.data.places[indexPath.row])
+            self.vc.configure(placeID: places.data.places[indexPath.row].id)
             self.navigationController?.pushViewController(self.vc, animated: true)
         }
     }
@@ -185,5 +185,9 @@ extension MapVC: MKMapViewDelegate {
         annotationView?.frame.size = CGSize(width: 29.93, height: 40)
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation else { return }
     }
 }

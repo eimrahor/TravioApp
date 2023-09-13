@@ -99,7 +99,7 @@ extension VisitsVC: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        vc.configure(place: viewModel.visitsArr[indexPath.row].place )
+        vc.configure(placeID: viewModel.visitsArr[indexPath.row].place_id )
         navigationController?.pushViewController(vc, animated: false)
     }
 }
