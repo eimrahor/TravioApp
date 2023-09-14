@@ -24,6 +24,12 @@ class CameraVC: UIViewController {
     
     var CameraTrandferDataDelegate:CameraTransferData?
     
+    private lazy var btnBack: UICustomButtonBack = {
+        let bt = UICustomButtonBack()
+        bt.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        return bt
+    }()
+    
     private lazy var btnTakePhoto: UIButton = {
         let bt = UIButton()
         bt.addTarget(self, action: #selector(takeAPhoto), for: .touchUpInside)
@@ -66,15 +72,22 @@ class CameraVC: UIViewController {
         showCamera()
         setupLayout()
     }
+    @objc func goBack(){
+        dismiss(animated: true)
+    }
+    
     @objc func throwAwayPhoto(){
         imgPreview.image = nil
         canTakePhoto = true
     }
+    
     @objc func choosePhoto(){
         guard let image = imgPreview.image else {return}
         CameraTrandferDataDelegate?.transferImage(image: image)
-        self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
+        //self.navigationController?.popViewController(animated: true)
     }
+    
     @objc func takeAPhoto(){
 
         guard canTakePhoto else {return}
@@ -98,6 +111,10 @@ class CameraVC: UIViewController {
         
         self.view.backgroundColor = CustomColor.Black.color
         addSubviews()
+        
+        btnBack.topToSuperview(offset: 19,usingSafeArea: true)
+        btnBack.leadingToSuperview(offset: 20)
+        
         imgPreview.edgesToSuperview()
         btnTakePhoto.bottomToSuperview(offset: -80)
 
@@ -110,7 +127,7 @@ class CameraVC: UIViewController {
 
     }
     func addSubviews(){
-        self.view.addSubviews(btnCross,btnTakePhoto,btnChoose,imgPreview)
+        self.view.addSubviews(btnBack,btnCross,btnTakePhoto,btnChoose,imgPreview)
     }
     
     func showCamera() {

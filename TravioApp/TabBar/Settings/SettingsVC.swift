@@ -27,6 +27,7 @@ class SettingsVC: UIViewController {
     private lazy var image: UIImageView = {
        let img = UIImageView()
         img.image = UIImage(systemName: "person")
+        img.contentMode = .scaleAspectFill
         return img
     }()
     
@@ -82,6 +83,11 @@ class SettingsVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         secondView.roundCorners([.topLeft], radius: 80)
+        
+        let maskPath = UIBezierPath(roundedRect: image.bounds, cornerRadius: 60)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = maskPath.cgPath
+        image.layer.mask = maskLayer
     }
     
     func setupViews() {

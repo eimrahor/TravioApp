@@ -45,6 +45,7 @@ class EditProfileVC: MainViewController {
     private lazy var imgProfile: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "bruce")
+        img.contentMode = .scaleAspectFill
         return img
     }()
     
@@ -67,6 +68,7 @@ class EditProfileVC: MainViewController {
     private lazy var viewRegisterDate:UIView = {
         let view = UIView()
         view.height(52); view.width(163)
+        view.backgroundColor = CustomColor.White.color
         view.addSubview(svDate)
         return view
     }()
@@ -95,6 +97,7 @@ class EditProfileVC: MainViewController {
     private lazy var viewRole:UIView = {
         let view = UIView()
         view.height(52); view.width(163)
+        view.backgroundColor = CustomColor.White.color
         view.addSubview(svRole)
         return view
     }()
@@ -151,8 +154,14 @@ class EditProfileVC: MainViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        viewRegisterDate.shadowAndRoundCorners(width: viewRegisterDate.frame.width, height: viewRegisterDate.frame.height)
-        viewRole.shadowAndRoundCorners(width: viewRole.frame.width, height: viewRole.frame.height)
+        viewRegisterDate.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
+        viewRole.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
+        
+        let maskPath = UIBezierPath(roundedRect: imgProfile.bounds, cornerRadius: 60)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = maskPath.cgPath
+        imgProfile.layer.mask = maskLayer
+        
     }
     
     override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
@@ -208,13 +217,16 @@ class EditProfileVC: MainViewController {
         PermissionsHelper.shared.requestCameraPermission()
         let cameraVC = CameraVC()
         cameraVC.CameraTrandferDataDelegate = self
+        cameraVC.modalPresentationStyle = .fullScreen
         present(cameraVC, animated: true)
+        
        // navigationController?.pushViewController(cameraVC, animated: true)
     }
     @objc func saveChanges(){
         
         sendUserDataToVM()
         sendImageToServer()
+        lblName.text = viewFullName.txtField.text
        
     }
     func sendUserDataToVM()
@@ -253,12 +265,15 @@ class EditProfileVC: MainViewController {
         let url = URL(string: stringURL)
         self.imgProfile.kf.setImage(with: url)
         
+        lblName.text = fullName
         viewFullName.txtField.text = fullName
         viewEmail.txtField.text = email
         
         lblRole.text = role
         let formattedDate = date.changeDateFormat()
         lblDate.text = formattedDate
+        
+        
     }
 }
 extension EditProfileVC:CameraTransferData
