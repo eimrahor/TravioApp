@@ -38,7 +38,6 @@
 		7A7A8F122A9C9EDE000681F6 /* VisitsVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F112A9C9EDE000681F6 /* VisitsVCTableViewCell.swift */; };
 		7A7A8F172A9C9F00000681F6 /* UserLoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F142A9C9F00000681F6 /* UserLoginVM.swift */; };
 		7A7A8F182A9C9F00000681F6 /* UserRegisterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F152A9C9F00000681F6 /* UserRegisterVM.swift */; };
-		7A7A8F192A9C9F00000681F6 /* HomePageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F162A9C9F00000681F6 /* HomePageVM.swift */; };
 		7A7A8F1D2A9C9F18000681F6 /* MapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F1B2A9C9F18000681F6 /* MapKit.swift */; };
 		7A7A8F1E2A9C9F18000681F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F1C2A9C9F18000681F6 /* User.swift */; };
 		7A7A8F222A9C9F39000681F6 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8F202A9C9F39000681F6 /* APIService.swift */; };
@@ -122,7 +121,6 @@
 		7A7A8F112A9C9EDE000681F6 /* VisitsVCTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitsVCTableViewCell.swift; sourceTree = "<group>"; };
 		7A7A8F142A9C9F00000681F6 /* UserLoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginVM.swift; sourceTree = "<group>"; };
 		7A7A8F152A9C9F00000681F6 /* UserRegisterVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterVM.swift; sourceTree = "<group>"; };
-		7A7A8F162A9C9F00000681F6 /* HomePageVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageVM.swift; sourceTree = "<group>"; };
 		7A7A8F1B2A9C9F18000681F6 /* MapKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapKit.swift; sourceTree = "<group>"; };
 		7A7A8F1C2A9C9F18000681F6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7A7A8F202A9C9F39000681F6 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -231,7 +229,6 @@
 				7A7A8EF72A9C9E05000681F6 /* TabBar */,
 				7A7A8EF22A9C9DB8000681F6 /* Login */,
 				7A84AE3A2A9CB4EF00397420 /* Register */,
-				7A7A8F132A9C9EF5000681F6 /* UserData */,
 				7A7A8F1A2A9C9F0F000681F6 /* Model */,
 				7A7A8EC52A9C9B79000681F6 /* Assets.xcassets */,
 				7A7A8EC72A9C9B79000681F6 /* LaunchScreen.storyboard */,
@@ -263,14 +260,6 @@
 				7A84AE392A9CB4B400397420 /* Settings */,
 			);
 			path = TabBar;
-			sourceTree = "<group>";
-		};
-		7A7A8F132A9C9EF5000681F6 /* UserData */ = {
-			isa = PBXGroup;
-			children = (
-				7A7A8F162A9C9F00000681F6 /* HomePageVM.swift */,
-			);
-			path = UserData;
 			sourceTree = "<group>";
 		};
 		7A7A8F1A2A9C9F0F000681F6 /* Model */ = {
@@ -566,7 +555,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */,
-				7A7A8F192A9C9F00000681F6 /* HomePageVM.swift in Sources */,
 				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
 				86227F8A2AAE3549000D6396 /* EditProfileVM.swift in Sources */,
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,

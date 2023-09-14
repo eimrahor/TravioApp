@@ -10,6 +10,8 @@ import Kingfisher
 
 class HomeCollectionViewCell: UICollectionViewCell {
     
+    var holdingPlace:Place?
+    
     private lazy var image: UIImageView = {
        let img = UIImageView()
         img.contentMode = .scaleToFill
@@ -54,6 +56,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(place: Place) {
+        holdingPlace = place
         let url = URL(string: place.cover_image_url)
         image.kf.setImage(with: url)
         labelTitle.text = place.title

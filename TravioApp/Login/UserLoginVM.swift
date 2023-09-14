@@ -9,8 +9,6 @@ import Foundation
 
 class UserLoginVM {
     
-    let viewModelHome = HomePageVM()
-    
     var user = User(full_name: "asdfgrgt", email: "747172@gmail.com", password: "123123123")
     var takeUsersArr: ((User)->Void)?
     

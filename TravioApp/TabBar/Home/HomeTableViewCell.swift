@@ -129,6 +129,13 @@ extension HomeTableViewCell: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? HomeCollectionViewCell else{return}
+        cell.holdingPlace
+    }
+    
+    func goToDetailPage(place:Place){
+        let detailVC = DetailVisitsVC()
+      //  detailVC.
     }
 }
 

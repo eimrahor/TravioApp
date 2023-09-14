@@ -44,8 +44,9 @@ class EditProfileVC: MainViewController {
     
     private lazy var imgProfile: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "bruce")
         img.contentMode = .scaleAspectFill
+        img.image = UIImage(systemName: "person.circle.fill")
+        img.tintColor = CustomColor.TravioGreen.color
         return img
     }()
     
@@ -264,6 +265,9 @@ class EditProfileVC: MainViewController {
         
         let url = URL(string: stringURL)
         self.imgProfile.kf.setImage(with: url)
+        if user.pp_url == "" {
+            self.imgProfile.image = UIImage(systemName: "person.circle.fill")
+        }
         
         lblName.text = fullName
         viewFullName.txtField.text = fullName

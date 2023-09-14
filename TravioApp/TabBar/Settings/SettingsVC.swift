@@ -28,6 +28,7 @@ class SettingsVC: UIViewController {
        let img = UIImageView()
         img.image = UIImage(systemName: "person")
         img.contentMode = .scaleAspectFill
+        img.tintColor = CustomColor.TravioGreen.color
         return img
     }()
     
@@ -74,9 +75,15 @@ class SettingsVC: UIViewController {
     func initVM(){
         viewModel.sendUserDataToVC = { user in
             self.nameLabel.text = user.full_name
-            guard let stringURL = user.pp_url else {return}
+            guard let stringURL = user.pp_url else {
+                self.image.image = UIImage(systemName: "person.circle.fill")
+                return}
+            
             let url = URL(string: stringURL)
             self.image.kf.setImage(with: url)
+            if user.pp_url == "" {
+                self.image.image = UIImage(systemName: "person.circle.fill")
+            }
         }
         viewModel.getUserProfile()
     }
