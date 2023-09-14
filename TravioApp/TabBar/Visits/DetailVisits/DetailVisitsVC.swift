@@ -149,7 +149,7 @@ class DetailVisitsVC: UIViewController {
             let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
             self.addPinandZoomPlace(place: cllocation)
             self.titleLabel.text = place.title
-            self.dateLabel.text = place.created_at
+            self.dateLabel.text = place.created_at.changeDateFormat()
             self.addedUserLabel.text = "added by @\(place.creator)"
             self.informationLabel.text = place.description
             self.viewModel?.checkVisitByPlaceID(complete: { result in

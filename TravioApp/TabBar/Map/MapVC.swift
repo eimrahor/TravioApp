@@ -8,7 +8,6 @@
 import UIKit
 import MapKit
 import SnapKit
-import SwiftUI
 
 class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
@@ -43,6 +42,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     let vc = DetailVisitsVC()
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
+    var status: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +92,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     
     func initVM() {
         viewModel.delegate = self
+        viewModel.triggerDelegate = self
         viewModel.takeAllPlacesFromService()
         
         mapView.delegate = self
@@ -149,12 +150,13 @@ extension MapVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapCell", for: indexPath) as? MapCollectionCell else { return UICollectionViewCell() }
         let model = viewModel.getPlace(index: indexPath.row)
         guard let model = model else { return UICollectionViewCell() }
-        cell.configure(place: model)
+        guard let status = status else { return UICollectionViewCell() }
+        cell.configure(place: model, status: status)
         return cell
     }
 }
 
-extension MapVC: sendAllPlacesToMapVC {
+extension MapVC: CollectionViewReloadData {
     func reloadData() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
@@ -186,5 +188,11 @@ extension MapVC: MKMapViewDelegate {
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             }
         }
+    }
+}
+
+extension MapVC: TriggerIndicatorProtocol {
+    func sendStatusIsLoading(status: Bool) {
+        self.status = status
     }
 }

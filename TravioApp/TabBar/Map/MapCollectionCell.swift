@@ -11,21 +11,27 @@ import Kingfisher
 
 class MapCollectionCell: UICollectionViewCell {
     
+    var viewModel: MapVCViewModel?
+    var status: Bool? {
+        didSet {
+            print("tetiklendi")
+        }
+    }
+    
+    private lazy var spinner: UIActivityIndicatorView = {
+       let s = UIActivityIndicatorView()
+        s.hidesWhenStopped = true
+        s.style = .large
+        s.color = .black
+        return s
+    }()
+    
     private lazy var image: UIImageView = {
        let img = UIImageView()
         img.contentMode = .scaleToFill
         img.image = UIImage(named: "1")
         return img
     }()
-    
-//    private lazy var vectorView: UIView = {
-//        let img = UIImageView()
-//        img.image = UIImage(named: "Rectangle")
-//        img.addSubview(UIImageView(image: UIImage(named: "Vector")))
-//        img.subviews.last?.frame.origin.x = 10
-//        img.subviews.last?.frame.origin.y = 10
-//        return img
-//    }()
     
     private lazy var labelTitle: UILabel = {
        let lbl = UILabel()
@@ -62,11 +68,15 @@ class MapCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(place: Place) {
+    func configure(place: Place, status: Bool) {
+        spinner.startAnimating()
         let url = URL(string: place.cover_image_url)
         image.kf.setImage(with: url)
         labelTitle.text = place.title
         labelDesc.text = place.place.returnSpecialStringText()
+        if !status {
+            spinner.stopAnimating()
+        }
     }
     
     func setupViews() {
@@ -75,6 +85,7 @@ class MapCollectionCell: UICollectionViewCell {
         contentView.addSubview(labelTitle)
         contentView.addSubview(labelDesc)
         contentView.addSubview(locationImage)
+        contentView.addSubview(spinner)
         makeConst()
     }
     
@@ -82,12 +93,6 @@ class MapCollectionCell: UICollectionViewCell {
         image.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-//        vectorView.snp.makeConstraints { make in
-//            make.top.trailing.equalToSuperview()
-//            make.height.equalTo(40)
-//            make.width.equalTo(45)
-//        }
         
         labelTitle.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-29)
@@ -100,6 +105,10 @@ class MapCollectionCell: UICollectionViewCell {
             make.leading.equalToSuperview().offset(22)
             make.width.equalTo(12)
             make.height.equalTo(15)
+        }
+        
+        spinner.snp.makeConstraints { make in
+            make.center.equalTo(image.snp.center)
         }
         
         labelDesc.snp.makeConstraints { make in

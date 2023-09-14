@@ -8,13 +8,20 @@
 import Foundation
 import MapKit
 
-protocol sendAllPlacesToMapVC: AnyObject {
+protocol CollectionViewReloadData: AnyObject {
     func reloadData()
 }
 
+protocol TriggerIndicatorProtocol: AnyObject {
+    func sendStatusIsLoading(status: Bool)
+}
+
+
 class MapVCViewModel {
     
-    weak var delegate: sendAllPlacesToMapVC?
+    weak var delegate: CollectionViewReloadData?
+    weak var triggerDelegate: TriggerIndicatorProtocol?
+    
     var places: GetAllPlaces? {
         didSet {
             getAllCLLocations()
@@ -30,6 +37,7 @@ class MapVCViewModel {
             case .success(let result):
                 self.places = result
                 self.delegate?.reloadData()
+                self.triggerDelegate?.sendStatusIsLoading(status: false)
             case .failure(let err):
                 print(err)
             }
