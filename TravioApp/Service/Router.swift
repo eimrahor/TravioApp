@@ -11,8 +11,7 @@ import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), getAllPopularPlaces, getAllLastPlaces, checkVisitByPlaceID(id: String), deleteAVisitByPlaceID(id: String), postAVisit(params: Parameters), changePassword(params: Parameters), editProfile(params:Parameters)
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), getPlaceByID(id: String), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), getAllPopularPlaces, getAllLastPlaces, checkVisitByPlaceID(id: String), deleteAVisitByPlaceID(id: String), postAVisit(params: Parameters), changePassword(params: Parameters)
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters),getPlaceByID(id: String), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), getAllPopularPlaces, getAllLastPlaces, checkVisitByPlaceID(id: String), deleteAVisitByPlaceID(id: String), postAVisit(params: Parameters), changePassword(params: Parameters), editProfile(params:Parameters)
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
