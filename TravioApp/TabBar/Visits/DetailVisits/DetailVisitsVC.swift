@@ -80,7 +80,7 @@ class DetailVisitsVC: UIViewController {
     
     private lazy var addButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+        bt.setImage(UIImage(named: "AddVisit"), for: .normal)
         bt.addTarget(self, action: #selector(postOrDeleteVisit), for: .touchUpInside)
         return bt
     }()
@@ -120,28 +120,13 @@ class DetailVisitsVC: UIViewController {
     }()
     
     var viewModel: DetailVisitsViewModel?
-    var imagesData: GetGalleryImages?
-    var travelData: GetVisit?
-    var visitId: String?
-    var placeId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let visitId = visitId, let placeId = placeId else { return }
-        viewModel = DetailVisitsViewModel(visitId: visitId, placeId: placeId)
-        
         mpKit.delegate = self
         
-        initVM()
         setupViews()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let visitId = visitId, let placeId = placeId else { return }
-        viewModel = DetailVisitsViewModel(visitId: visitId, placeId: placeId)
-        initVM()
     }
     
     override func viewDidLayoutSubviews() {
@@ -149,53 +134,43 @@ class DetailVisitsVC: UIViewController {
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
     }
     
-    func isMyVisit() {
-        addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
-    }
-    
-    func configure(data: GetGalleryImages, place: Place, count: Int, location:CLLocation, isMyPlace: Bool) {
+    func configure(placeID: String) {
+        viewModel = DetailVisitsViewModel(placeId: placeID)
+        
         DispatchQueue.main.async {
-            self.addPinandZoomPlace(place: location)
-        }
-        
-        imagesData = data
-        pageController.numberOfPages = count
-        titleLabel.text = place.title
-        dateLabel.text = place.created_at
-        addedUserLabel.text = "added by @\(place.creator)"
-        informationLabel.text = place.description
-        
-        if isMyPlace {
-            self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
-        } else {
-            self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+            self.initVM()
         }
     }
     
-    @objc func backVisitVC() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func postOrDeleteVisit() {
+    func initVM() {
         guard let viewModel = viewModel else { return }
         
-        viewModel.checkVisitByPlaceID() { isHidden in
-            if isHidden {
-                self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
-            } else {
-                self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
-            }
+        viewModel.getAPlaceById { place in
+            let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
+            self.addPinandZoomPlace(place: cllocation)
+            self.titleLabel.text = place.title
+            self.dateLabel.text = place.created_at
+            self.addedUserLabel.text = "added by @\(place.creator)"
+            self.informationLabel.text = place.description
+            self.viewModel?.checkVisitByPlaceID(complete: { result in
+                if result {
+                    self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
+                } else {
+                    self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+                }
+            })
         }
+        
+        
+        viewModel.getAllGalleryImages( complete: { () in
+            DispatchQueue.main.async {
+                self.pageController.currentPage = 0
+                self.pageController.numberOfPages = viewModel.galleryImagesDataCount()
+                self.collectionView.reloadData()
+                
+            }
+        })
     }
-    
-//    func changeDateFormat(date: String) -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-//        let theDate = dateFormatter.date(from: date)!
-//        let newDateFormater = DateFormatter()
-//        newDateFormater.dateFormat = "dd MMMM yyyy"
-//        return newDateFormater.string(from: theDate)
-//    }
     
     func addPinandZoomPlace(place: CLLocation) {
         let pin = MKPointAnnotation()
@@ -206,37 +181,31 @@ class DetailVisitsVC: UIViewController {
         mpKit.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(3000))
     }
     
-    func initVM() {
+    @objc func postOrDeleteVisit() {
         guard let viewModel = viewModel else { return }
-        
-        viewModel.backDataTravelClosure = { [weak self] data in
-                self?.travelData = data
-                let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
-                self?.addPinandZoomPlace(place: cllocation)
-                
-                guard let travel = self!.travelData else { return }
-                
-                let titleText = travel.data.visit.place.place
-                self!.titleLabel.text = titleText.returnSpecialStringText()
-                
-                let changeDate = travel.data.visit.place.created_at
-                let date = changeDate.changeDateFormat()
-                self!.dateLabel.text = date
-                
-                self!.addedUserLabel.text = "added by @\(travel.data.visit.place.creator)"
-                
-                self!.informationLabel.text = travel.data.visit.place.description
-        }
-        
-        viewModel.backDataGalleryImagesClosure = { [weak self] data in
-            DispatchQueue.main.async {
-                self?.imagesData = data
-                self?.collectionView.reloadData()
-                self?.pageController.numberOfPages = (data.data.images.count)
+        viewModel.checkVisitByPlaceID(complete: { result in
+            if result {
+                viewModel.deleteAVisitByPlaceID()
+                self.addButton.setImage(UIImage(named: "AddVisit"), for: .normal)
+            } else {
+                viewModel.postAVisit()
+                self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
             }
-        }
+        })
     }
     
+    @objc func backVisitVC() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func changeDateFormat(date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        let theDate = dateFormatter.date(from: date)!
+        let newDateFormater = DateFormatter()
+        newDateFormater.dateFormat = "dd MMMM yyyy"
+        return newDateFormater.string(from: theDate)
+    }
     
     func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
@@ -356,16 +325,15 @@ extension DetailVisitsVC: UICollectionViewDelegateFlowLayout{
 
 extension DetailVisitsVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let data = imagesData else { return 0 }
-        return data.data.images.count
+        guard let viewModel = viewModel else { return 0 }
+        return viewModel.galleryImagesDataCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell, let viewModel = viewModel else {
             return UICollectionViewCell()
         }
-        guard let data = imagesData else { return UICollectionViewCell() }
-        cell.configure(object: data.data.images[indexPath.row])
+        cell.configure(object: viewModel.returnGalleryImage(row: indexPath.row))
         return cell
     }
 }

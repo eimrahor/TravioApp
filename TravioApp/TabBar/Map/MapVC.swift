@@ -43,7 +43,6 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     let vc = DetailVisitsVC()
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
-    var locationsOrdering = [CLLocation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,23 +90,13 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-    func addPins(places: [CLLocation]) {
-        places.forEach { place in
-            let pin = MKPointAnnotation()
-            pin.title = ""
-            pin.coordinate = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-            mapView.addAnnotation(pin)
-        }
-    }
-    
     func initVM() {
         viewModel.delegate = self
         viewModel.takeAllPlacesFromService()
         
         mapView.delegate = self
-        viewModel.getAllCLLocationsLocation = { allPlaces in
-            self.locationsOrdering = allPlaces
-            self.addPins(places: allPlaces)
+        viewModel.getAllCLLocationsLocation = { _ in
+            self.viewModel.addPins(places: self.viewModel.placesLocation, mapView: self.mapView)
         }
         self.mapView.addGestureRecognizer(longPressRecognizer)
         
@@ -141,26 +130,14 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.mapView.setCenter(self.locationsOrdering[indexPath.row].coordinate, animated: true)
+        self.mapView.setCenter(self.viewModel.placesLocation[indexPath.row].coordinate, animated: true)
         self.mapView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(5000))
-        
-        
-        guard let places = self.viewModel.places else { return }
-        
-        let cllocation = CLLocation(latitude: places.data.places[indexPath.row].latitude, longitude: places.data.places[indexPath.row].longitude)
-        
-        self.viewModel.getAllGallerybyPlaceID(id: places.data.places[indexPath.row].id) { galleryImages in
-        
-            self.vc.visitId = ""
-            self.vc.placeId = places.data.places[indexPath.row].id
-        
-            self.viewModel.checkByPlaceID(id: places.data.places[indexPath.row].id) { isMyplace in
-                self.vc.configure(data: galleryImages, place: places.data.places[indexPath.row], count: galleryImages.data.images.count, location: cllocation, isMyPlace: isMyplace )
-                self.navigationController?.pushViewController(self.vc, animated: true)
-                }
-            
-            }
+    
+        DispatchQueue.main.async {
+            self.vc.configure(placeID: self.viewModel.getPlaceID(at: indexPath.row))
+            self.navigationController?.pushViewController(self.vc, animated: true)
         }
+    }
 }
 
 extension MapVC: UICollectionViewDataSource {
@@ -189,10 +166,25 @@ extension MapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "travel")
         annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "travel")
-        
-        annotationView?.image = UIImage(named: "locationImage")
-        annotationView?.frame.size = CGSize(width: 29.93, height: 40)
+        guard let annotationView = annotationView else { return MKAnnotationView()}
+        annotationView.image = UIImage(named: "locationImage")
+        annotationView.frame.size = CGSize(width: 29.93, height: 40)
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        let allLocationsAnnotation = viewModel.locationsOrderingMKPointAnnotation
+        
+        if let annotation = view.annotation {
+            
+            if let selectedPinIndex = allLocationsAnnotation.firstIndex(where: { $0.coordinate.latitude == annotation.coordinate.latitude && $0.coordinate.longitude == annotation.coordinate.longitude }) {
+                
+                let indexPath = IndexPath(item: (selectedPinIndex), section: 0)
+                    
+                collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            }
+        }
     }
 }

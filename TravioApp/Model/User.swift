@@ -104,3 +104,15 @@ struct ArrData: Codable {
     var count: Int
     var places: [Place]
 }
+
+
+// MARK: Get a Place by ID response Data Model
+
+struct GetAPlaces: Codable {
+    var data: DataPlace
+    var status: String
+}
+
+struct DataPlace: Codable {
+    let place: Place
+}

@@ -20,8 +20,9 @@ class MapVCViewModel {
             getAllCLLocations()
         }
     }
-    var reloadClosure: (()->())?
-    var getAllCLLocationsLocation: (([CLLocation])->())?
+    var placesLocation = [CLLocation]()
+    var getAllCLLocationsLocation: ((Bool)->())?
+    var locationsOrderingMKPointAnnotation = [MKPointAnnotation]()
     
     func takeAllPlacesFromService() {
         APIService.call.objectRequestJSON(request: Router.getAllPlaces) { (result: Result<GetAllPlaces,Error>) in
@@ -31,52 +32,39 @@ class MapVCViewModel {
                 self.delegate?.reloadData()
             case .failure(let err):
                 print(err)
-                print(err)
             }
         }
     }
     
-    func getAllGallerybyPlaceID(id: String, complete: @escaping (GetGalleryImages)->()) {
-        APIService.call.objectRequestJSON(request: Router.getAllGalleryImagesWithID(id: id)) { (result:Result<GetGalleryImages,Error>) in
-            switch result {
-            case .success(let data):
-                complete(data)
-            case .failure(let err):
-                print(err)
-            }
-        }
-    }
-    
-    func checkByPlaceID(id: String, complete: @escaping (Bool)->()) {
-        APIService.call.objectRequestJSON(request: Router.checkVisitByPlaceID(id: id)) { (result:Result<DetailVisitsModel,Error>) in
-            switch result {
-            case .success(let response):
-                if response.status == "success" {
-                    complete(true)
-                } else {
-                    complete(false)
-                }
-            case .failure(_):
-                print("err json")
-            }
-        }
-    }
-    
-    
-    func getCountOfPlaces() -> Int {
-        guard let places = places else { return 0 }
-        return (places.data.count)
+    func getPlaceID(at row:Int) -> String {
+        guard let places = places else { return "" }
+        return places.data.places[row].id
     }
     
     func getPlace(index : Int) -> Place? {
         return places?.data.places[index]
     }
     
+    func getCountOfPlaces() -> Int {
+        guard let places = places else { return 0 }
+        return (places.data.count)
+    }
+    
     func getAllCLLocations() {
-        var placesLocation = [CLLocation]()
         places?.data.places.forEach { place in
             placesLocation.append(CLLocation(latitude: place.latitude, longitude: place.longitude))
         }
-        getAllCLLocationsLocation?(placesLocation)
+        getAllCLLocationsLocation?(true)
+    }
+    
+    func addPins(places: [CLLocation], mapView: MKMapView) {
+        places.forEach { place in
+            let pin = MKPointAnnotation()
+            pin.title = ""
+            pin.coordinate = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+            mapView.addAnnotation(pin)
+            
+            locationsOrderingMKPointAnnotation.append(pin)
+        }
     }
 }
