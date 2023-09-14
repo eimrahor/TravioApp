@@ -88,6 +88,7 @@ class SeeAllCell: UICollectionViewCell {
     
     func configureCell(place:Place){
         
+        
         let url = URL(string: place.cover_image_url)
         imgPlace.kf.setImage(with: url)
         
