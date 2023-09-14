@@ -24,6 +24,13 @@ class SettingsVC: UIViewController {
         return lbl
     }()
     
+    private lazy var logoutBtn: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "logoutButton"), for: .normal)
+        bt.addTarget(self, action: #selector(actLogoutButton), for: .touchUpInside)
+        return bt
+    }()
+    
     private lazy var image: UIImageView = {
        let img = UIImageView()
         img.image = UIImage(systemName: "person")
@@ -77,12 +84,31 @@ class SettingsVC: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        navigationController?.navigationBar.isHidden = true 
         secondView.roundCorners([.topLeft], radius: 80)
+    }
+    
+    @objc func actLogoutButton() {
+        KeyChainHelper.shared.deleteKey(account: "ios")
+        
+        let loginVC = UserLoginVC()
+        let navigationController = UINavigationController(rootViewController: loginVC)
+                
+        let windowsSD = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window
+        windowsSD?.rootViewController = navigationController
+        windowsSD?.makeKeyAndVisible()
+    }
+    
+    @objc func goEditProfile(){
+        let targetVC = EditProfileVC()
+        targetVC.editProfileVM.userProfile = viewModel.user
+        self.navigationController?.pushViewController(targetVC, animated: true)
     }
     
     func setupViews() {
         view.addSubview(secondView)
         view.addSubview(titleLabel)
+        view.addSubview(logoutBtn)
         view.addSubview(image)
         view.addSubview(nameLabel)
         view.addSubview(editButton)
@@ -101,6 +127,13 @@ class SettingsVC: UIViewController {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.bottom.equalTo(secondView.snp.top).offset(-54)
+        }
+        
+        logoutBtn.snp.makeConstraints { make in
+            make.bottom.equalTo(secondView.snp.top).offset(-61.1)
+            make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(30.9)
+            make.width.equalTo(30)
         }
         
         image.snp.makeConstraints { make in
@@ -126,12 +159,6 @@ class SettingsVC: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview()
         }
-    }
-    
-    @objc func goEditProfile(){
-        let targetVC = EditProfileVC()
-        targetVC.editProfileVM.userProfile = viewModel.user
-        self.navigationController?.pushViewController(targetVC, animated: true)
     }
 }
 
