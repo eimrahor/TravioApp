@@ -27,11 +27,9 @@ class CameraVC: UIViewController {
     private lazy var btnTakePhoto: UIButton = {
         let bt = UIButton()
         bt.addTarget(self, action: #selector(takeAPhoto), for: .touchUpInside)
-        bt.height(60)
-        bt.width(60)
+        bt.height(60); bt.width(60)
         let iv = UIImageView()
-        iv.height(60)
-        iv.width(60)
+        iv.height(60); iv.width(60)
         iv.image = UIImage(systemName: "circle.fill")
         iv.tintColor = CustomColor.White.color
         bt.addSubview(iv)

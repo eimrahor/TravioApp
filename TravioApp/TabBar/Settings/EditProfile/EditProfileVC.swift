@@ -13,7 +13,6 @@ class EditProfileVC: MainViewController {
     
     let editProfileVM = EditProfileVM()
     var captureSession = AVCaptureSession()
-
     
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Edit Profile"))
@@ -27,10 +26,8 @@ class EditProfileVC: MainViewController {
         iv.image = UIImage(named: "backArrow.png")
         iv.contentMode = .scaleAspectFit
         btn.addSubview(iv)
-        iv.height(22)
-        iv.width(24)
-        btn.height(22)
-        btn.width(24)
+        iv.height(22); iv.width(24)
+        btn.height(22); btn.width(24)
         btn.addTarget(self, action: #selector(goPopView), for: .touchUpInside)
         return btn
     }()
@@ -101,16 +98,19 @@ class EditProfileVC: MainViewController {
         view.addSubview(svRole)
         return view
     }()
+    
     private lazy var imgRoleIcon: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "editProfileRoleIcon")
         img.contentMode = .scaleAspectFit
         return img
     }()
+    
     private lazy var lblRole: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .standardBlackLabel(text: "Admin"))
         return lbl
     }()
+    
     private lazy var svRole: UIStackView = {
         let sv = UIStackView()
         sv.addArrangedSubview(imgRoleIcon)
@@ -143,20 +143,11 @@ class EditProfileVC: MainViewController {
         btn.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return btn
     }()
-//
-//    private lazy var cameraPreviewLayer:AVCaptureVideoPreviewLayer = {
-//        let showLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//        showLayer.videoGravity = .resizeAspectFill
-//        showLayer.frame = view.layer.bounds
-//        return showLayer
-//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         configureVCWithUserData()
-       // addInput()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -208,7 +199,6 @@ class EditProfileVC: MainViewController {
     override func addSubviews() {
         super.addSubviews()
         self.view.addSubviews(svNavigationBar,imgProfile,btnChangePhoto,lblName,viewRegisterDate,viewRole,viewFullName,viewEmail,btnSave)
-       // self.view.layer.addSublayer(cameraPreviewLayer)
     }
     
     @objc func goPopView(){
@@ -218,13 +208,42 @@ class EditProfileVC: MainViewController {
         PermissionsHelper.shared.requestCameraPermission()
         let cameraVC = CameraVC()
         cameraVC.CameraTrandferDataDelegate = self
-        navigationController?.pushViewController(cameraVC, animated: true)
-//        DispatchQueue.global().async {
-//            self.captureSession.startRunning()
-//        }
+        present(cameraVC, animated: true)
+       // navigationController?.pushViewController(cameraVC, animated: true)
     }
     @objc func saveChanges(){
         
+        sendUserDataToVM()
+        sendImageToServer()
+       
+    }
+    func sendUserDataToVM()
+    {
+        guard let full_name = viewFullName.txtField.text , let email = viewEmail.txtField.text else {return}
+        let user:UserProfile = UserProfile(full_name: full_name, email: email)
+        editProfileVM.userProfile = user
+    }
+    func sendImageToServer(){
+        
+        guard let img = imgProfile.image else {return}
+        editProfileVM.sendImagesToServer(image: [img]) { result in
+            switch result {
+            case .failure(_):
+                return
+            case .success(_):
+                self.updateProfileResult()
+            }
+        }
+    }
+    func updateProfileResult() {
+        editProfileVM.updateProfile() { result in
+            switch result {
+            case .failure(let err):
+                return
+            case .success(let response):
+                print(response)
+            }
+        }
     }
     
     func configureVCWithUserData(){
@@ -241,28 +260,12 @@ class EditProfileVC: MainViewController {
         let formattedDate = date.changeDateFormat()
         lblDate.text = formattedDate
     }
-    
-//    func addInput(){
-//        captureSession.sessionPreset = .low
-//        if let captureDevice = AVCaptureDevice.default(for: .video) {
-//            do {
-//                let input = try AVCaptureDeviceInput(device: captureDevice)
-//                if captureSession.canAddInput(input) {
-//                    captureSession.addInput(input)
-//                }
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
-//    }
 }
 extension EditProfileVC:CameraTransferData
 {
     func transferImage(image: UIImage) {
         imgProfile.image = image
     }
-    
 }
 
 

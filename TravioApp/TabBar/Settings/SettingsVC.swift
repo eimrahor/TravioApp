@@ -66,13 +66,17 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        initVM()
+    }
+    func initVM(){
         viewModel.sendUserDataToVC = { user in
             self.nameLabel.text = user.full_name
             guard let stringURL = user.pp_url else {return}
             let url = URL(string: stringURL)
             self.image.kf.setImage(with: url)
         }
-        
         viewModel.getUserProfile()
     }
     

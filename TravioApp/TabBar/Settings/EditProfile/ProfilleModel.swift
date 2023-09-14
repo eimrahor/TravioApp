@@ -16,3 +16,8 @@ struct UserProfile:Codable{
     var created_at: String?
     var updated_at: String?
 }
+
+struct ResponseUpdateProfile:Codable{
+    var message: String
+    var status: String
+}

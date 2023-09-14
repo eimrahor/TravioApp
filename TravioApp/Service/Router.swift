@@ -11,7 +11,7 @@ import UIKit
 
 public enum Router: URLRequestConvertible {
     
-    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), getAllPopularPlaces, getAllLastPlaces, checkVisitByPlaceID(id: String), deleteAVisitByPlaceID(id: String), postAVisit(params: Parameters), changePassword(params: Parameters)
+    case register(params: Parameters), userLogin(params: Parameters), refreshToken(params: Parameters), getUserProfile, listVisits, getVisitWithID(id: String), getAllGalleryImagesWithID(id: String), getAllPlaces,upload(imageDatas:[Data]),addNewPlace(params:Parameters), postGalleryImage(params:Parameters), getPopularPlaces(params: Parameters), getLastPlaces(params: Parameters), getAllPopularPlaces, getAllLastPlaces, checkVisitByPlaceID(id: String), deleteAVisitByPlaceID(id: String), postAVisit(params: Parameters), changePassword(params: Parameters), editProfile(params:Parameters)
     
     var baseURL: URL {
         return URL(string: "https://api.iosclass.live")!
@@ -51,6 +51,8 @@ public enum Router: URLRequestConvertible {
             return "/v1/visits"
         case .changePassword:
             return "/v1/change-password"
+        case .editProfile(params: let params):
+            return "/v1/edit-profile"
         }
     }
     
@@ -58,14 +60,14 @@ public enum Router: URLRequestConvertible {
         switch self {
         case .getUserProfile, .listVisits, .getVisitWithID, .getAllGalleryImagesWithID, .getAllPlaces, .getPopularPlaces, .getLastPlaces ,.getAllPopularPlaces, .getAllLastPlaces, .checkVisitByPlaceID: return .get
         case .register, .userLogin, .refreshToken, .upload, .addNewPlace, .postGalleryImage, .postAVisit: return .post
-        case .changePassword: return .put
+        case .changePassword, .editProfile: return .put
         case .deleteAVisitByPlaceID: return .delete
         }
     }
      
     var headers: HTTPHeaders {
         switch self {
-        case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID, .addNewPlace, .postGalleryImage, .checkVisitByPlaceID, .deleteAVisitByPlaceID, .postAVisit, .changePassword : return headersAllcases ?? [:]
+        case .listVisits, .getUserProfile, .getVisitWithID, .getAllGalleryImagesWithID, .addNewPlace, .postGalleryImage, .checkVisitByPlaceID, .deleteAVisitByPlaceID, .postAVisit, .changePassword, .editProfile: return headersAllcases ?? [:]
         case .upload : return ["Content-Type":"multipart/form-data"]
         default:
             return [:]
@@ -84,7 +86,7 @@ public enum Router: URLRequestConvertible {
     
     var params: Parameters {
         switch self {
-        case .register(let params), .userLogin(let params), .refreshToken(let params), .addNewPlace(let params), .postGalleryImage(let params), .getPopularPlaces(let params), .getLastPlaces(let params), .postAVisit(let params), .changePassword(let params): return params
+        case .register(let params), .userLogin(let params), .refreshToken(let params), .addNewPlace(let params), .postGalleryImage(let params), .getPopularPlaces(let params), .getLastPlaces(let params), .postAVisit(let params), .changePassword(let params), .editProfile(let params): return params
         default: return [:]
         }
     }
