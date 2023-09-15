@@ -37,6 +37,14 @@ class VisitsVCTableViewCell: UITableViewCell {
         return lbl
     }()
     
+    lazy var spinner: UIActivityIndicatorView = {
+       let s = UIActivityIndicatorView()
+        s.hidesWhenStopped = true
+        s.style = .large
+        s.color = .black
+        return s
+    }()
+    
     var travel : Place?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -50,15 +58,17 @@ class VisitsVCTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(object: Visit) {
+    func configure(object: Visit, status: Bool) {
         let url = URL(string: object.place.cover_image_url)
         img.kf.setImage(with: url)
-        
         locationImg.image = UIImage(named: "map")
         locationImg.image = locationImg.image?.withRenderingMode(.alwaysTemplate)
         locationImg.tintColor = .white
         placeTitle.text = object.place.title
         labelCity.text = object.place.place.returnSpecialStringText()
+        if !status {
+            spinner.stopAnimating()
+        }
     }
     
     func setupViews() {
@@ -68,6 +78,7 @@ class VisitsVCTableViewCell: UITableViewCell {
         contentView.addSubview(placeTitle)
         contentView.addSubview(locationImg)
         contentView.addSubview(labelCity)
+        contentView.addSubview(spinner)
         
         makeConsts()
     }
@@ -97,6 +108,10 @@ class VisitsVCTableViewCell: UITableViewCell {
             make.top.equalTo(img.snp.top).offset(187)
             make.leading.equalTo(locationImg.snp.trailing).offset(6)
             make.trailing.equalToSuperview().offset(-6)
+        }
+        
+        spinner.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 }

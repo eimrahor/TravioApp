@@ -51,11 +51,26 @@ class HomeVC: UIViewController, CellDataDelegate{
         return tv
     }()
     
+    lazy var spinner: UIActivityIndicatorView = {
+       let s = UIActivityIndicatorView()
+        s.hidesWhenStopped = true
+        s.style = .large
+        s.color = .black
+        return s
+    }()
+    
     let viewModel = HomeViewModel()
     let dGroup = DispatchGroup()
     var pPlaces = [Place]()
     var nPlaces = [Place]()
     var allVisits = [Visit]()
+    
+    var status: Bool? {
+        didSet {
+        reloadTableView()
+        }
+    }
+    var statusCv: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +89,8 @@ class HomeVC: UIViewController, CellDataDelegate{
         tableView.roundCorners([.topLeft], radius: 16)
     }
     func prepareDataWithDispatch() {
+        viewModel.triggerDelegate = self
+        
         dGroup.enter()
         
         viewModel.callPopularPlaces { places in
@@ -103,11 +120,18 @@ class HomeVC: UIViewController, CellDataDelegate{
         
     }
     
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func setupViews() {
         view.addSubview(secondView)
         view.addSubview(logoImage)
         view.addSubview(titleLabel)
         view.addSubview(tableView)
+        view.addSubview(spinner)
         makeConst()
     }
     
@@ -136,6 +160,10 @@ class HomeVC: UIViewController, CellDataDelegate{
             make.leading.equalToSuperview().offset(24)
             make.bottom.equalToSuperview().offset(2 * (tabBarController?.tabBar.frame.height)!)
         }
+        
+        spinner.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
     
 }
@@ -161,12 +189,24 @@ extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
         cell.delegate = self
+        spinner.startAnimating()
+        guard let status = status else { self.status = false; return cell }
+        spinner.stopAnimating()
         switch indexPath.section {
         case 0:
+            DispatchQueue.main.async {
+                cell.dataTransferClosure?(self.statusCv)
+            }
             cell.configure(placesType: .popularPlaces,places: self.pPlaces)
         case 1:
+            DispatchQueue.main.async {
+                cell.dataTransferClosure?(self.statusCv)
+            }
             cell.configure(placesType: .newPlaces,places: self.nPlaces)
         default:
+            DispatchQueue.main.async {
+                cell.dataTransferClosure?(self.statusCv)
+            }
             cell.configure(placesType: .myAddedPlaces, visits: self.allVisits)
         }
         
@@ -185,4 +225,11 @@ extension HomeVC {
         self.navigationController?.pushViewController(targetVC, animated: true)
     }
     
+}
+
+extension HomeVC: TriggerIndicatorProtocol {
+    func sendStatusIsLoading(status: Bool) {
+        self.statusCv = status
+        reloadTableView()
+    }
 }

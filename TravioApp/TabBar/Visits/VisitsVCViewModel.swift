@@ -11,6 +11,7 @@ import Alamofire
 class VisitsVCViewModel {
     
     var visitsArr = [Visit]()
+    weak var triggerDelegate: TriggerIndicatorProtocol?
     
     func callListTravels(complete: @escaping ()->Void) {
         
@@ -19,6 +20,9 @@ class VisitsVCViewModel {
             switch result {
             case .success(let data):
                 self.visitsArr = data.data.visits
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.triggerDelegate?.sendStatusIsLoading(status: false)
+                }
                 complete()
             case .failure(let err):
                 print(err)

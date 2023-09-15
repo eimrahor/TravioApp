@@ -120,15 +120,18 @@ class DetailVisitsVC: UIViewController {
     }()
     
     var viewModel: DetailVisitsViewModel?
+    var placeId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        guard let placeId = placeId else { return }
+        viewModel = DetailVisitsViewModel(placeId: placeId)
         mpKit.delegate = self
         
+        initVM()
         setupViews()
     }
-    
+
     override func viewDidLayoutSubviews() {
         let height = informationLabel.frame.origin.y + informationLabel.frame.height
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
@@ -137,9 +140,6 @@ class DetailVisitsVC: UIViewController {
     func configure(placeID: String) {
         viewModel = DetailVisitsViewModel(placeId: placeID)
         
-        DispatchQueue.main.async {
-            self.initVM()
-        }
     }
     
     func initVM() {
@@ -331,10 +331,12 @@ extension DetailVisitsVC: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell, let viewModel = viewModel else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell else {
             return UICollectionViewCell()
         }
-        cell.configure(object: viewModel.returnGalleryImage(row: indexPath.row))
+        print(indexPath)
+        
+        cell.configure(object: viewModel!.returnGalleryImage(row: indexPath.row))
         return cell
     }
 }

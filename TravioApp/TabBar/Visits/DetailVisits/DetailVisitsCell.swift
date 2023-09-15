@@ -16,6 +16,14 @@ class DetailVisitsCell: UICollectionViewCell {
         return img
     }()
     
+    private lazy var spinner: UIActivityIndicatorView = {
+        let s = UIActivityIndicatorView()
+        s.hidesWhenStopped = true
+        s.color = .black
+        s.style = .large
+        return s
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -27,12 +35,21 @@ class DetailVisitsCell: UICollectionViewCell {
     }
     
     func configure(object: Image) {
+        spinner.startAnimating()
         let url = URL(string: object.image_url)
-        image.kf.setImage(with: url)
+        image.kf.setImage(with: url) { result in
+            switch result {
+            case .success(_):
+                self.spinner.stopAnimating()
+            case .failure(_):
+                self.spinner.stopAnimating()
+            }
+        }
     }
     
     func setupViews() {
         contentView.addSubview(image)
+        contentView.addSubview(spinner)
         makeConst()
     }
     
@@ -41,6 +58,10 @@ class DetailVisitsCell: UICollectionViewCell {
             make.height.equalTo(249)
             make.width.equalTo(390)
             make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        spinner.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 }

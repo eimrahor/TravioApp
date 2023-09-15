@@ -8,7 +8,6 @@
 import UIKit
 import MapKit
 import SnapKit
-import SwiftUI
 
 class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
@@ -40,9 +39,13 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         return cv
     }()
     
-    let vc = DetailVisitsVC()
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
+    var status: Bool? {
+        didSet {
+            reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +95,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     
     func initVM() {
         viewModel.delegate = self
+        viewModel.triggerDelegate = self
         viewModel.takeAllPlacesFromService()
         
         mapView.delegate = self
@@ -116,8 +120,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         
         collectionView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset( ((tabBarController?.tabBar.frame.size.height)! * -1) - 18)
-            make.leading.equalToSuperview().offset(18)
-            make.trailing.equalToSuperview().offset(-18)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(178)
         }
     }
@@ -125,7 +129,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
 extension MapVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.frame.width - 45, height: collectionView.frame.height)
+        let size = CGSize(width: 309, height: 178)
         return size
     }
     
@@ -133,10 +137,10 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
         self.mapView.setCenter(self.viewModel.placesLocation[indexPath.row].coordinate, animated: true)
         self.mapView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(5000))
     
-        DispatchQueue.main.async {
-            self.vc.configure(placeID: self.viewModel.getPlaceID(at: indexPath.row))
-            self.navigationController?.pushViewController(self.vc, animated: true)
-        }
+            
+        let vc = DetailVisitsVC()
+        vc.placeId = self.viewModel.getPlaceID(at: indexPath.row)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -149,12 +153,14 @@ extension MapVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapCell", for: indexPath) as? MapCollectionCell else { return UICollectionViewCell() }
         let model = viewModel.getPlace(index: indexPath.row)
         guard let model = model else { return UICollectionViewCell() }
-        cell.configure(place: model)
+        cell.spinner.startAnimating()
+        guard let status = status else { return cell }
+        cell.configure(place: model, status: status)
         return cell
     }
 }
 
-extension MapVC: sendAllPlacesToMapVC {
+extension MapVC: CollectionViewReloadData {
     func reloadData() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
@@ -186,5 +192,11 @@ extension MapVC: MKMapViewDelegate {
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             }
         }
+    }
+}
+
+extension MapVC: TriggerIndicatorProtocol {
+    func sendStatusIsLoading(status: Bool) {
+        self.status = status
     }
 }

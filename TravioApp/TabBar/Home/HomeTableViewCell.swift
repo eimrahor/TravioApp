@@ -14,6 +14,14 @@ class HomeTableViewCell: UITableViewCell {
     var visits = [Visit]()
     var places = [Place]()
     var cellPlaceType: ListedPlacesTypes?
+
+    var status: Bool? {
+        didSet {
+            reloadCollectionView()
+        }
+    }
+    
+    var dataTransferClosure: ((Bool?)->())?
     
     private lazy var titleLabel: UILabel = {
        let lbl = UILabel()
@@ -45,9 +53,22 @@ class HomeTableViewCell: UITableViewCell {
         return c
     }()
     
+    lazy var spinner: UIActivityIndicatorView = {
+       let s = UIActivityIndicatorView()
+        s.hidesWhenStopped = true
+        s.style = .large
+        s.color = .black
+        return s
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        
+        dataTransferClosure = { status in
+            guard let status = status else { return }
+            self.status = status
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -88,7 +109,6 @@ class HomeTableViewCell: UITableViewCell {
                 self.places.append(visit.place)
             }
         }
-        
         reloadCollectionView()
     }
     
@@ -146,7 +166,9 @@ extension HomeTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvCell", for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
         let place = self.places[indexPath.row]
-        cell.configure(place: place)
+        cell.spinner.startAnimating()
+        guard let status = status else { return cell }
+        cell.configure(place: place, status: status)
         return cell
     }
 }

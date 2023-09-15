@@ -120,15 +120,18 @@ class DetailVisitsVC: UIViewController {
     }()
     
     var viewModel: DetailVisitsViewModel?
+    var placeId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        guard let placeId = placeId else { return }
+        viewModel = DetailVisitsViewModel(placeId: placeId)
         mpKit.delegate = self
         
+        initVM()
         setupViews()
     }
-    
+
     override func viewDidLayoutSubviews() {
         let height = informationLabel.frame.origin.y + informationLabel.frame.height
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
@@ -137,9 +140,6 @@ class DetailVisitsVC: UIViewController {
     func configure(placeID: String) {
         viewModel = DetailVisitsViewModel(placeId: placeID)
         
-        DispatchQueue.main.async {
-            self.initVM()
-        }
     }
     
     func initVM() {
@@ -149,7 +149,14 @@ class DetailVisitsVC: UIViewController {
             let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
             self.addPinandZoomPlace(place: cllocation)
             self.titleLabel.text = place.title
-            self.dateLabel.text = place.created_at
+<<<<<<< HEAD
+            
+            let formattedDate = place.created_at.changeDateFormat()
+            self.dateLabel.text = formattedDate
+            
+=======
+            self.dateLabel.text = place.created_at.changeDateFormat()
+>>>>>>> sprint3/emirhan/indicator
             self.addedUserLabel.text = "added by @\(place.creator)"
             self.informationLabel.text = place.description
             self.viewModel?.checkVisitByPlaceID(complete: { result in
@@ -160,30 +167,15 @@ class DetailVisitsVC: UIViewController {
                 }
             })
         }
-<<<<<<< HEAD
-    }
-    
-//    func changeDateFormat(date: String) -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-//        let theDate = dateFormatter.date(from: date)!
-//        let newDateFormater = DateFormatter()
-//        newDateFormater.dateFormat = "dd MMMM yyyy"
-//        return newDateFormater.string(from: theDate)
-//    }
-=======
-        
         
         viewModel.getAllGalleryImages( complete: { () in
             DispatchQueue.main.async {
                 self.pageController.currentPage = 0
                 self.pageController.numberOfPages = viewModel.galleryImagesDataCount()
                 self.collectionView.reloadData()
-                
             }
         })
     }
->>>>>>> sprint3/emirhan/MapVC-fix
     
     func addPinandZoomPlace(place: CLLocation) {
         let pin = MKPointAnnotation()
@@ -196,33 +188,6 @@ class DetailVisitsVC: UIViewController {
     
     @objc func postOrDeleteVisit() {
         guard let viewModel = viewModel else { return }
-<<<<<<< HEAD
-        
-        viewModel.backDataTravelClosure = { [weak self] data in
-                self?.travelData = data
-                let cllocation = CLLocation(latitude: data.data.visit.place.latitude, longitude: data.data.visit.place.longitude)
-                self?.addPinandZoomPlace(place: cllocation)
-                
-                guard let travel = self!.travelData else { return }
-                
-                let titleText = travel.data.visit.place.place
-                self!.titleLabel.text = titleText.returnSpecialStringText()
-                
-                let changeDate = travel.data.visit.place.created_at
-                let date = changeDate.changeDateFormat()
-                self!.dateLabel.text = date
-                
-                self!.addedUserLabel.text = "added by @\(travel.data.visit.place.creator)"
-                
-                self!.informationLabel.text = travel.data.visit.place.description
-        }
-        
-        viewModel.backDataGalleryImagesClosure = { [weak self] data in
-            DispatchQueue.main.async {
-                self?.imagesData = data
-                self?.collectionView.reloadData()
-                self?.pageController.numberOfPages = (data.data.images.count)
-=======
         viewModel.checkVisitByPlaceID(complete: { result in
             if result {
                 viewModel.deleteAVisitByPlaceID()
@@ -230,7 +195,6 @@ class DetailVisitsVC: UIViewController {
             } else {
                 viewModel.postAVisit()
                 self.addButton.setImage(UIImage(named: "AddVisitFill"), for: .normal)
->>>>>>> sprint3/emirhan/MapVC-fix
             }
         })
     }
@@ -239,14 +203,14 @@ class DetailVisitsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func changeDateFormat(date: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-        let theDate = dateFormatter.date(from: date)!
-        let newDateFormater = DateFormatter()
-        newDateFormater.dateFormat = "dd MMMM yyyy"
-        return newDateFormater.string(from: theDate)
-    }
+//    func changeDateFormat(date: String) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+//        let theDate = dateFormatter.date(from: date)!
+//        let newDateFormater = DateFormatter()
+//        newDateFormater.dateFormat = "dd MMMM yyyy"
+//        return newDateFormater.string(from: theDate)
+//    }
     
     func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
@@ -371,10 +335,12 @@ extension DetailVisitsVC: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell, let viewModel = viewModel else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailVisitsCell else {
             return UICollectionViewCell()
         }
-        cell.configure(object: viewModel.returnGalleryImage(row: indexPath.row))
+        print(indexPath)
+        
+        cell.configure(object: viewModel!.returnGalleryImage(row: indexPath.row))
         return cell
     }
 }

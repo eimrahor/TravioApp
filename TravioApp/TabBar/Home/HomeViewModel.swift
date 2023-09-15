@@ -16,12 +16,17 @@ class HomeViewModel {
         "limit": "5"
     ]
     
+    weak var triggerDelegate: TriggerIndicatorProtocol?
+    
     func callPopularPlaces(complete: @escaping ([Place])->()) {
         DispatchQueue.global(qos: .utility).async {
             APIService.call.objectRequestJSON(request: Router.getPopularPlaces(params: self.params)) { (result:Result<PopularPlaces,Error>) in
                 switch result {
                 case .success(let data):
                     self.pPlaces = data
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.triggerDelegate?.sendStatusIsLoading(status: false)
+                    }
                     complete(data.data.places)
                 case .failure(let err):
                     print(err)
@@ -36,6 +41,9 @@ class HomeViewModel {
                 switch result {
                 case .success(let data):
                     self.nPlaces = data
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.triggerDelegate?.sendStatusIsLoading(status: false)
+                    }
                     complete(data.data.places)
                 case .failure(let err):
                     print(err)
@@ -50,6 +58,9 @@ class HomeViewModel {
                 switch result {
                 case .success(let data):
                     self .aVisits = data
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.triggerDelegate?.sendStatusIsLoading(status: false)
+                    }
                     complete(data.data.visits)
                 case .failure(let err):
                     print(err)
