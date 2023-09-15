@@ -39,7 +39,6 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         return cv
     }()
     
-    let vc = DetailVisitsVC()
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
     var status: Bool? {
@@ -138,10 +137,10 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
         self.mapView.setCenter(self.viewModel.placesLocation[indexPath.row].coordinate, animated: true)
         self.mapView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(5000))
     
-        DispatchQueue.main.async {
-            self.vc.configure(placeID: self.viewModel.getPlaceID(at: indexPath.row))
-            self.navigationController?.pushViewController(self.vc, animated: true)
-        }
+            
+        let vc = DetailVisitsVC()
+        vc.placeId = self.viewModel.getPlaceID(at: indexPath.row)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -11,11 +11,7 @@ import Alamofire
 class DetailVisitsViewModel {
     
     var placeId: String?
-    var imagesData: GetGalleryImages? {
-        didSet {
-            
-        }
-    }
+    var imagesData: GetGalleryImages?
     
     init(placeId: String) {
         self.placeId = placeId

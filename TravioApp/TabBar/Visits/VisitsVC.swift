@@ -39,7 +39,7 @@ class VisitsVC: UIViewController {
         //tableView.roundCorners([.topLeft], radius: 16)
     }
     
-    var vc = DetailVisitsVC()
+    
     let viewModel = VisitsVCViewModel()
     var status: Bool? {
         didSet {
@@ -107,8 +107,8 @@ extension VisitsVC: UITableViewDelegate {
         return 235
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        vc.configure(placeID: viewModel.visitsArr[indexPath.row].place_id )
+        let vc = DetailVisitsVC()
+        vc.placeId = viewModel.visitsArr[indexPath.row].place_id 
         navigationController?.pushViewController(vc, animated: false)
     }
 }

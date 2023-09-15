@@ -37,7 +37,7 @@ class MapVCViewModel {
             case .success(let result):
                     self.places = result
                     self.delegate?.reloadData()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.triggerDelegate?.sendStatusIsLoading(status: false)
                 }
             case .failure(let err):

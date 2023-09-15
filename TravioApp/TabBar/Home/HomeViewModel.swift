@@ -24,7 +24,7 @@ class HomeViewModel {
                 switch result {
                 case .success(let data):
                     self.pPlaces = data
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.triggerDelegate?.sendStatusIsLoading(status: false)
                     }
                     complete(data.data.places)
@@ -41,7 +41,7 @@ class HomeViewModel {
                 switch result {
                 case .success(let data):
                     self.nPlaces = data
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.triggerDelegate?.sendStatusIsLoading(status: false)
                     }
                     complete(data.data.places)
@@ -58,7 +58,7 @@ class HomeViewModel {
                 switch result {
                 case .success(let data):
                     self .aVisits = data
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.triggerDelegate?.sendStatusIsLoading(status: false)
                     }
                     complete(data.data.visits)
