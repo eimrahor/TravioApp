@@ -18,7 +18,7 @@ class MapCollectionCell: UICollectionViewCell {
         }
     }
     
-    private lazy var spinner: UIActivityIndicatorView = {
+    lazy var spinner: UIActivityIndicatorView = {
        let s = UIActivityIndicatorView()
         s.hidesWhenStopped = true
         s.style = .large

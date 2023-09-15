@@ -10,8 +10,6 @@ import SnapKit
 
 class VisitsVC: UIViewController {
 
-    let viewModel = VisitsVCViewModel()
-    
     private lazy var titleVisits: UILabel = {
        let lbl = UILabel()
         lbl.text = "My Visits"
@@ -42,6 +40,12 @@ class VisitsVC: UIViewController {
     }
     
     var vc = DetailVisitsVC()
+    let viewModel = VisitsVCViewModel()
+    var status: Bool? {
+        didSet {
+            reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +58,16 @@ class VisitsVC: UIViewController {
         initVM()
     }
     
+    func reloadData() {
+        DispatchQueue.main.async() {
+            self.tableView.reloadData()
+        }
+    }
+    
     func initVM() {
+        self.viewModel.triggerDelegate = self
         self.viewModel.callListTravels() { [weak self] in
-            DispatchQueue.main.async() {
-                self!.tableView.reloadData()
-            }
+            self!.reloadData()
         }
     }
     
@@ -113,7 +122,15 @@ extension VisitsVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "VisitsCell", for: indexPath) as? VisitsVCTableViewCell else { return UITableViewCell() }
         let object = viewModel.visitsArr[indexPath.row]
-        cell.configure(object: object)
+        cell.spinner.startAnimating()
+        guard let status = status else { return cell }
+        cell.configure(object: object, status: status)
         return cell
+    }
+}
+
+extension VisitsVC: TriggerIndicatorProtocol {
+    func sendStatusIsLoading(status: Bool) {
+        self.status = status
     }
 }

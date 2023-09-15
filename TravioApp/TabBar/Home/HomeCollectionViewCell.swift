@@ -15,7 +15,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
     private lazy var image: UIImageView = {
        let img = UIImageView()
         img.contentMode = .scaleToFill
-        img.image = UIImage(named: "pinkfloyd")
         return img
     }()
     
@@ -25,7 +24,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         lbl.textColor = .white
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byWordWrapping
-        lbl.text = "nab"
         return lbl
     }()
     
@@ -33,7 +31,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
        let lbl = UILabel()
         lbl.font = UIFont(name: "Poppins-Light", size: 14)
         lbl.textColor = .white
-        lbl.text = "nab"
         return lbl
     }()
     
@@ -43,6 +40,14 @@ class HomeCollectionViewCell: UICollectionViewCell {
         img.tintColor = .white
         img.frame.size = CGSize(width: 9, height: 12)
         return img
+    }()
+    
+    lazy var spinner: UIActivityIndicatorView = {
+       let s = UIActivityIndicatorView()
+        s.hidesWhenStopped = true
+        s.style = .large
+        s.color = .black
+        return s
     }()
     
     override init(frame: CGRect) {
@@ -55,12 +60,15 @@ class HomeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(place: Place) {
+    func configure(place: Place, status: Bool) {
         holdingPlace = place
         let url = URL(string: place.cover_image_url)
         image.kf.setImage(with: url)
         labelTitle.text = place.title
         labelDesc.text = place.place.returnSpecialStringText()
+        if !status {
+            spinner.stopAnimating()
+        }
     }
     
     func setupViews() {
@@ -72,6 +80,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(labelTitle)
         contentView.addSubview(labelDesc)
         contentView.addSubview(locationImage)
+        contentView.addSubview(spinner)
         makeConst()
     }
     
@@ -96,6 +105,10 @@ class HomeCollectionViewCell: UICollectionViewCell {
         labelDesc.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-8)
             make.leading.equalToSuperview().offset(37)
+        }
+        
+        spinner.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 }

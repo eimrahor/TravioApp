@@ -42,7 +42,11 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     let vc = DetailVisitsVC()
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
-    var status: Bool?
+    var status: Bool? {
+        didSet {
+            reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,8 +121,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         
         collectionView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset( ((tabBarController?.tabBar.frame.size.height)! * -1) - 18)
-            make.leading.equalToSuperview().offset(18)
-            make.trailing.equalToSuperview().offset(-18)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(178)
         }
     }
@@ -126,7 +130,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
 extension MapVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.frame.width - 45, height: collectionView.frame.height)
+        let size = CGSize(width: 309, height: 178)
         return size
     }
     
@@ -150,7 +154,8 @@ extension MapVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapCell", for: indexPath) as? MapCollectionCell else { return UICollectionViewCell() }
         let model = viewModel.getPlace(index: indexPath.row)
         guard let model = model else { return UICollectionViewCell() }
-        guard let status = status else { return UICollectionViewCell() }
+        cell.spinner.startAnimating()
+        guard let status = status else { return cell }
         cell.configure(place: model, status: status)
         return cell
     }

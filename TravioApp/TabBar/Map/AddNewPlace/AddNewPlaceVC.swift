@@ -72,6 +72,14 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         return btn
     }()
     
+    private lazy var spinner: UIActivityIndicatorView = {
+       let s = UIActivityIndicatorView()
+        s.hidesWhenStopped = true
+        s.style = .large
+        s.color = .black
+        return s
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -163,6 +171,10 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         btnAddPlace.topToBottom(of:collectionViewGallery,offset:16)
         btnAddPlace.edgesToSuperview(excluding: [.top,.bottom] , insets: .left(24) + .right(24))
         btnAddPlace.height(54)
+        
+        spinner.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
     
     func addSubviews(){
@@ -171,6 +183,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         self.view.addSubview(countryView)
         self.view.addSubview(collectionViewGallery)
         self.view.addSubview(btnAddPlace)
+        self.view.addSubview(spinner)
     }
     
     func fillLocationDatas(){
@@ -201,7 +214,11 @@ extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        spinner.startAnimating()
         selectedCellIndex = indexPath
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.spinner.stopAnimating()
+        }
         self.present(imagePicker,animated: true)
     }
 }

@@ -35,9 +35,11 @@ class MapVCViewModel {
         APIService.call.objectRequestJSON(request: Router.getAllPlaces) { (result: Result<GetAllPlaces,Error>) in
             switch result {
             case .success(let result):
-                self.places = result
-                self.delegate?.reloadData()
-                self.triggerDelegate?.sendStatusIsLoading(status: false)
+                    self.places = result
+                    self.delegate?.reloadData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    self.triggerDelegate?.sendStatusIsLoading(status: false)
+                }
             case .failure(let err):
                 print(err)
             }
