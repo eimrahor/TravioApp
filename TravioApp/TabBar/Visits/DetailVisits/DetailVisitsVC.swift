@@ -149,7 +149,10 @@ class DetailVisitsVC: UIViewController {
             let cllocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
             self.addPinandZoomPlace(place: cllocation)
             self.titleLabel.text = place.title
-            self.dateLabel.text = place.created_at
+            
+            let formattedDate = place.created_at.changeDateFormat()
+            self.dateLabel.text = formattedDate
+            
             self.addedUserLabel.text = "added by @\(place.creator)"
             self.informationLabel.text = place.description
             self.viewModel?.checkVisitByPlaceID(complete: { result in
@@ -161,13 +164,11 @@ class DetailVisitsVC: UIViewController {
             })
         }
         
-        
         viewModel.getAllGalleryImages( complete: { () in
             DispatchQueue.main.async {
                 self.pageController.currentPage = 0
                 self.pageController.numberOfPages = viewModel.galleryImagesDataCount()
                 self.collectionView.reloadData()
-                
             }
         })
     }
@@ -198,14 +199,14 @@ class DetailVisitsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func changeDateFormat(date: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-        let theDate = dateFormatter.date(from: date)!
-        let newDateFormater = DateFormatter()
-        newDateFormater.dateFormat = "dd MMMM yyyy"
-        return newDateFormater.string(from: theDate)
-    }
+//    func changeDateFormat(date: String) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+//        let theDate = dateFormatter.date(from: date)!
+//        let newDateFormater = DateFormatter()
+//        newDateFormater.dateFormat = "dd MMMM yyyy"
+//        return newDateFormater.string(from: theDate)
+//    }
     
     func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)

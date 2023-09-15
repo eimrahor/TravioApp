@@ -771,6 +771,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permission to access your location is required to use the location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
@@ -802,6 +803,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permission to access your location is required to use the location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Permission to access your gallery is required to use the photo selection function.";

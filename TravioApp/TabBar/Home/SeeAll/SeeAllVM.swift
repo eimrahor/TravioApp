@@ -66,12 +66,13 @@ class SeeAllVM{
         
         guard var placesToBeList = placesToBeList else {return}
         
+        
         switch sortType {
         case .AtoZ:
-            placesToBeList.sort(by: { $0.title <  $1.title})
+            placesToBeList.sort(by: { $0.title.localizedCaseInsensitiveCompare( $1.title) == .orderedAscending })
             self.placesToBeList = placesToBeList
         case .ZtoA:
-            placesToBeList.sort(by: { $0.title >  $1.title})
+            placesToBeList.sort(by: { $0.title.localizedCaseInsensitiveCompare( $1.title) == .orderedDescending })
             self.placesToBeList = placesToBeList
         }
     }

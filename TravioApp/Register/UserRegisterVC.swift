@@ -130,8 +130,7 @@ class UserRegisterVC: UIViewController {
     
     private lazy var registerButton: UIButton = {
        let bt = UIButton()
-        bt.backgroundColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        bt.tintColor = .white
+        bt.backgroundColor = CustomColor.TravioLightGray.color
         bt.addTarget(self, action: #selector(actButton), for: .touchUpInside)
         bt.setTitle("Register", for: .normal)
         bt.titleLabel?.font = UIFont(name: "Poppins-SemiBold", size: 16)

@@ -16,6 +16,7 @@ class SeeAllCell: UICollectionViewCell {
     
     private lazy var imgPlace: UIImageView = {
         let img = UIImageView()
+        img.contentMode = .scaleToFill
         img.image = UIImage(named: "pinkfloyd")
         return img
     }()
