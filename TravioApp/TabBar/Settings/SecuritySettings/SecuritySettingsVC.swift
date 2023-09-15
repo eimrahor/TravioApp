@@ -69,6 +69,7 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         tv.showsVerticalScrollIndicator = false
         tv.register(ChangePasswordSettingsCell.self, forCellReuseIdentifier: "PasswordSettings")
         tv.register(PrivacySettingsCell.self, forCellReuseIdentifier: "PrivacySettings")
+        tv.separatorStyle = .none
         return tv
     }()
     

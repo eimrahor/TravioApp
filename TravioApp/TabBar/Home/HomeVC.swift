@@ -15,6 +15,7 @@ enum ListedPlacesTypes{
 }
 protocol CellDataDelegate{
     func sendSeeAllVC(placesType: ListedPlacesTypes)
+    func sendDetailVC(placeID:String)
 }
 class HomeVC: UIViewController, CellDataDelegate{
 
@@ -178,4 +179,10 @@ extension HomeVC {
         targetVC.listedPlacesType = placesType
         self.navigationController?.pushViewController(targetVC, animated: true)
     }
+    func sendDetailVC(placeID: String) {
+        let targetVC = DetailVisitsVC()
+        targetVC.configure(placeID: placeID)
+        self.navigationController?.pushViewController(targetVC, animated: true)
+    }
+    
 }

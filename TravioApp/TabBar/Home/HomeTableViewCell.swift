@@ -113,7 +113,6 @@ class HomeTableViewCell: UITableViewCell {
             make.height.equalTo(21)
             make.width.equalTo(47)
         }
-        
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(2)
             make.leading.trailing.equalToSuperview()
@@ -130,12 +129,12 @@ extension HomeTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? HomeCollectionViewCell else{return}
-        cell.holdingPlace
+        guard let holdingPlace = cell.holdingPlace else{return}
+        goToDetailPage(placeID: holdingPlace.id)
     }
     
-    func goToDetailPage(place:Place){
-        let detailVC = DetailVisitsVC()
-      //  detailVC.
+    func goToDetailPage(placeID:String){
+        delegate?.sendDetailVC(placeID: placeID)
     }
 }
 

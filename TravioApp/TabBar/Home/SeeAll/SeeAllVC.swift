@@ -152,6 +152,17 @@ extension SeeAllVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width - 48, height: 89)
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? SeeAllCell else{return}
+        guard let holdingPlace = cell.currentPlace else{return}
+        goToDetailPage(placeID: holdingPlace.id)
+    }
+    
+    func goToDetailPage(placeID:String){
+       let targetVC = DetailVisitsVC()
+       targetVC.configure(placeID: placeID)
+       self.navigationController?.pushViewController(targetVC, animated: true)
+    }
 }
 
 extension SeeAllVC: UICollectionViewDataSource {

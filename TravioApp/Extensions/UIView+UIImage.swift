@@ -15,7 +15,7 @@ extension UICollectionViewCell {
         let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), byRoundingCorners: corners, cornerRadii: CGSize(width: 16, height: 16))
         rectanglePath.close()
         
-        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowColor = CustomColor.TravioBlack.color.cgColor
         layer.shadowOpacity = 0.2
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = 4
@@ -51,10 +51,10 @@ extension UIView {
                     layer.mask = mask
                 }
             
-            self.layer.shadowColor = UIColor.black.cgColor
+            self.layer.shadowColor = CustomColor.TravioBlack.color.cgColor
             self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-            self.layer.shadowOpacity = 0.5
-            self.layer.shadowRadius = 2
+            self.layer.shadowOpacity = 0.2
+            self.layer.shadowRadius = 4
             self.layer.masksToBounds = false
             }
     

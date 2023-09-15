@@ -48,7 +48,8 @@ class CustomComponentTextView: UIView {
     }
     
     override func layoutSubviews() {
-        self.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
+        //self.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
+        self.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
     }
     
     func addSubviews() {

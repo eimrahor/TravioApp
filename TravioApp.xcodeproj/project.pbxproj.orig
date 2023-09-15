@@ -49,14 +49,20 @@
 		7AB4FB6A2AA711440011AA25 /* SeeAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB692AA711440011AA25 /* SeeAllVC.swift */; };
 		7AB4FB6C2AA7157C0011AA25 /* SeeAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB6B2AA7157C0011AA25 /* SeeAllCell.swift */; };
 		7ADDC1D22AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADDC1D12AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift */; };
+<<<<<<< HEAD
+=======
 		7AECA5AE2AB0810900C63B40 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AECA5AD2AB0810900C63B40 /* WebViewController.swift */; };
+>>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
 		86227F872AADDF7E000D6396 /* PermissionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F862AADDF7E000D6396 /* PermissionsHelper.swift */; };
 		86227F8A2AAE3549000D6396 /* EditProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F892AAE3549000D6396 /* EditProfileVM.swift */; };
 		86227F8C2AAE355B000D6396 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F8B2AAE355B000D6396 /* EditProfileVC.swift */; };
 		86227F902AAE5EB8000D6396 /* ProfilleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F8F2AAE5EB8000D6396 /* ProfilleModel.swift */; };
 		86227F922AAF48D3000D6396 /* ChangePasswordResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F912AAF48D3000D6396 /* ChangePasswordResponseModel.swift */; };
+<<<<<<< HEAD
 		86227FD02AB1AAE4000D6396 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FCF2AB1AAE4000D6396 /* CameraVC.swift */; };
 		86227FD32AB2F809000D6396 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86227FD22AB2F809000D6396 /* IQKeyboardManagerSwift */; };
+=======
+>>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
 		865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomComponentTextField.swift */; };
 		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
 		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
@@ -133,13 +139,19 @@
 		7AB4FB692AA711440011AA25 /* SeeAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllVC.swift; sourceTree = "<group>"; };
 		7AB4FB6B2AA7157C0011AA25 /* SeeAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllCell.swift; sourceTree = "<group>"; };
 		7ADDC1D12AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportCollectionViewCell.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
 		7AECA5AD2AB0810900C63B40 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+>>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
 		86227F862AADDF7E000D6396 /* PermissionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelper.swift; sourceTree = "<group>"; };
 		86227F892AAE3549000D6396 /* EditProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVM.swift; sourceTree = "<group>"; };
 		86227F8B2AAE355B000D6396 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		86227F8F2AAE5EB8000D6396 /* ProfilleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilleModel.swift; sourceTree = "<group>"; };
 		86227F912AAF48D3000D6396 /* ChangePasswordResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordResponseModel.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		86227FCF2AB1AAE4000D6396 /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+=======
+>>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
 		865F62752A9D326900B84578 /* CustomComponentTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentTextField.swift; sourceTree = "<group>"; };
 		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
@@ -771,7 +783,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permission to access your location is required to use the location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
@@ -803,7 +814,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permission to access your location is required to use the location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Permission to access your gallery is required to use the photo selection function.";

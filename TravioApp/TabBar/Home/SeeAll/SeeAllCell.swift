@@ -16,6 +16,7 @@ class SeeAllCell: UICollectionViewCell {
     
     private lazy var imgPlace: UIImageView = {
         let img = UIImageView()
+        img.contentMode = .scaleToFill
         img.image = UIImage(named: "pinkfloyd")
         return img
     }()
@@ -87,6 +88,7 @@ class SeeAllCell: UICollectionViewCell {
     }
     
     func configureCell(place:Place){
+        
         
         let url = URL(string: place.cover_image_url)
         imgPlace.kf.setImage(with: url)

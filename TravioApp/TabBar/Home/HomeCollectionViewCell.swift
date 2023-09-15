@@ -14,7 +14,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     private lazy var image: UIImageView = {
        let img = UIImageView()
-        img.contentMode = .scaleToFill
+        img.contentMode = .scaleAspectFill
         img.image = UIImage(named: "pinkfloyd")
         return img
     }()
@@ -47,7 +47,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupViews()
     }
     

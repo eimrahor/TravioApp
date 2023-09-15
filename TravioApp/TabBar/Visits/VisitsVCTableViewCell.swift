@@ -13,7 +13,7 @@ class VisitsVCTableViewCell: UITableViewCell {
     
     private lazy var img: UIImageView = {
        let img = UIImageView()
-        img.contentMode = .scaleToFill
+        img.contentMode = .scaleAspectFill
         return img
     }()
     
