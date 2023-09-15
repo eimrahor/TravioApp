@@ -159,9 +159,9 @@ extension SeeAllVC: UICollectionViewDelegateFlowLayout {
     }
     
     func goToDetailPage(placeID:String){
-       let targetVC = DetailVisitsVC()
-       targetVC.configure(placeID: placeID)
-       self.navigationController?.pushViewController(targetVC, animated: true)
+        let targetVC = DetailVisitsVC()
+        targetVC.placeId = placeID
+        self.navigationController?.pushViewController(targetVC, animated: true)
     }
 }
 

@@ -13,10 +13,12 @@ enum ListedPlacesTypes{
     case newPlaces
     case myAddedPlaces
 }
+
 protocol CellDataDelegate{
     func sendSeeAllVC(placesType: ListedPlacesTypes)
     func sendDetailVC(placeID:String)
 }
+
 class HomeVC: UIViewController, CellDataDelegate{
 
     private lazy var secondView: UIView = {
@@ -67,7 +69,7 @@ class HomeVC: UIViewController, CellDataDelegate{
     
     var status: Bool? {
         didSet {
-        reloadTableView()
+            reloadTableView()
         }
     }
     var statusCv: Bool?
@@ -81,7 +83,7 @@ class HomeVC: UIViewController, CellDataDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        prepareDataWithDispatch()
+       // prepareDataWithDispatch()
     }
     
     override func viewDidLayoutSubviews() {
@@ -114,7 +116,7 @@ class HomeVC: UIViewController, CellDataDelegate{
         
         dGroup.notify(queue: .main) {
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.reloadTableView()
             }
         }
         
@@ -221,7 +223,7 @@ extension HomeVC {
     }
     func sendDetailVC(placeID: String) {
         let targetVC = DetailVisitsVC()
-        targetVC.configure(placeID: placeID)
+        targetVC.placeId = placeID
         self.navigationController?.pushViewController(targetVC, animated: true)
     }
     
