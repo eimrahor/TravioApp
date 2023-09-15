@@ -15,7 +15,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
     private lazy var image: UIImageView = {
        let img = UIImageView()
         img.contentMode = .scaleAspectFill
-        img.image = UIImage(named: "pinkfloyd")
         return img
     }()
     
