@@ -9,6 +9,7 @@ import Foundation
 
 class UserLoginVM {
     
+    var showAlert:((ErrorTypes)->())?
     var user = User(full_name: "asdfgrgt", email: "747172@gmail.com", password: "123123123")
     var takeUsersArr: ((User)->Void)?
     
@@ -27,8 +28,12 @@ class UserLoginVM {
                 self.prepareKeyChain()
                 callback()
             case .failure(let err):
+                guard let showAlert = self.showAlert else {return}
+                showAlert(.APIError(err))
                 print(err)
             }
         }
     }
+    
+    
 }

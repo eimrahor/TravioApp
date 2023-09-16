@@ -59,6 +59,7 @@
 		86227FD32AB2F809000D6396 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86227FD22AB2F809000D6396 /* IQKeyboardManagerSwift */; };
 		86227FD72AB52D59000D6396 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FD62AB52D59000D6396 /* RegisterVC.swift */; };
 		86227FD92AB588CE000D6396 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FD82AB588CE000D6396 /* LoginVC.swift */; };
+		86227FDD2AB60415000D6396 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FDC2AB60415000D6396 /* CustomAlert.swift */; };
 		865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomComponentTextField.swift */; };
 		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
 		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
@@ -144,6 +145,7 @@
 		86227FCF2AB1AAE4000D6396 /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		86227FD62AB52D59000D6396 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		86227FD82AB588CE000D6396 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		86227FDC2AB60415000D6396 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		865F62752A9D326900B84578 /* CustomComponentTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentTextField.swift; sourceTree = "<group>"; };
 		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			children = (
 				7A7A8F252A9C9F52000681F6 /* KeyChainHelper.swift */,
 				86227F862AADDF7E000D6396 /* PermissionsHelper.swift */,
+				86227FDC2AB60415000D6396 /* CustomAlert.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				86227FD92AB588CE000D6396 /* LoginVC.swift in Sources */,
 				86C477852AACAE5800566549 /* HelpAndSupportVC.swift in Sources */,
 				7A7A8F012A9C9E5F000681F6 /* VisitsVC.swift in Sources */,
+				86227FDD2AB60415000D6396 /* CustomAlert.swift in Sources */,
 				86C4778B2AACAE8600566549 /* AboutVM.swift in Sources */,
 				7A7A8EBF2A9C9B78000681F6 /* SceneDelegate.swift in Sources */,
 				86C4776A2AA90F1300566549 /* SeeAllVM.swift in Sources */,

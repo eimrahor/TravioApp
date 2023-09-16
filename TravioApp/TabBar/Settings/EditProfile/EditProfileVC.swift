@@ -162,7 +162,6 @@ class EditProfileVC: MainViewController {
         let maskLayer = CAShapeLayer()
         maskLayer.path = maskPath.cgPath
         imgProfile.layer.mask = maskLayer
-        
     }
     
     override func setupLayout() {
@@ -214,30 +213,28 @@ class EditProfileVC: MainViewController {
     @objc func goPopView(){
         self.navigationController?.popViewController(animated: true)
     }
+    
     @objc func changePhoto(){
         PermissionsHelper.shared.requestCameraPermission()
         let cameraVC = CameraVC()
         cameraVC.CameraTrandferDataDelegate = self
         cameraVC.modalPresentationStyle = .fullScreen
         present(cameraVC, animated: true)
-        
-       // navigationController?.pushViewController(cameraVC, animated: true)
     }
+    
     @objc func saveChanges(){
-        
         sendUserDataToVM()
         sendImageToServer()
         lblName.text = viewFullName.txtField.text
-       
     }
-    func sendUserDataToVM()
-    {
+    
+    func sendUserDataToVM(){
         guard let full_name = viewFullName.txtField.text , let email = viewEmail.txtField.text else {return}
         let user:UserProfile = UserProfile(full_name: full_name, email: email)
         editProfileVM.userProfile = user
     }
+    
     func sendImageToServer(){
-        
         guard let img = imgProfile.image else {return}
         editProfileVM.sendImagesToServer(image: [img]) { result in
             switch result {
@@ -248,6 +245,7 @@ class EditProfileVC: MainViewController {
             }
         }
     }
+    
     func updateProfileResult() {
         editProfileVM.updateProfile() { result in
             switch result {
@@ -265,9 +263,9 @@ class EditProfileVC: MainViewController {
         
         let url = URL(string: stringURL)
         self.imgProfile.kf.setImage(with: url)
+        
         if user.pp_url == "" {
-            self.imgProfile.image = UIImage(systemName: "person.circle.fill")
-        }
+            self.imgProfile.image = UIImage(systemName: "person.circle.fill")}
         
         lblName.text = fullName
         viewFullName.txtField.text = fullName

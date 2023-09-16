@@ -30,7 +30,7 @@ class LoginVC: MainViewController {
     private lazy var viewEmail: CustomComponentTextField = {
        let view = CustomComponentTextField()
        view.lbl.text = "Email"
-        view.txtField.text = "Elif@mail.com"
+       view.txtField.text = "Elif@mail.com"
        view.placeHolderConfig(placeHolderText: "developer@bilgeadam.com")
         return view
     }()
@@ -38,8 +38,8 @@ class LoginVC: MainViewController {
     private lazy var viewPassword: CustomComponentTextField = {
        let view = CustomComponentTextField()
        view.lbl.text = "Password"
+       view.txtField.text = "123456"
        view.placeHolderConfig(placeHolderText: "*********")
-        view.txtField.text = "123456"
        view.txtField.isSecureTextEntry = true
         return view
     }()
@@ -72,6 +72,9 @@ class LoginVC: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        viewModel.showAlert = { errorType in
+            AlertHelper.shared.showAlert(currentVC: self, errorType: errorType)
+        }
     }
     override func setupLayout() {
         
@@ -140,6 +143,9 @@ class LoginVC: MainViewController {
     
     @objc func actLoginButton() {
         guard let email = viewEmail.txtField.text, let pass = viewPassword.txtField.text else { return }
+        
+        if !checkCanBeLogin(email: email, pass: pass) {return}
+        
         let param = [
             "email": email,
             "password": pass
@@ -152,6 +158,14 @@ class LoginVC: MainViewController {
     @objc func actRegisterButton() {
         let vc = RegisterVC()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func checkCanBeLogin(email:String,pass:String)->Bool{
+        if email == "" || pass == "" {
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .emailOrPasswordEmpty)
+            return false
+        }
+        return true
     }
 
 

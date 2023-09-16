@@ -20,7 +20,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         tv.lbl.text = "Place Name"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
         tv.placeHolderConfig(placeHolderText: "Please write a place name")
-        tv.txtField.addTarget(self, action: #selector(buttonCheckActivate), for: UIControl.Event.editingChanged)
         return tv
     }()
     
@@ -37,7 +36,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         tv.lbl.text = "Country, City"
         tv.lbl.textColor = #colorLiteral(red: 0.3058650196, green: 0.30586496, blue: 0.3058649898, alpha: 1)
         tv.placeHolderConfig(placeHolderText: "France,Paris")
-        tv.txtField.addTarget(self, action: #selector(buttonCheckActivate), for: UIControl.Event.editingChanged)
         return tv
     }()
     
@@ -68,7 +66,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     private lazy var btnAddPlace: UICustomButton = {
         let btn = UICustomButton(title: "Add New Place")
         btn.addTarget(self, action: #selector(addNewPlace), for: .touchUpInside)
-        btn.isEnabled = false
         return btn
     }()
     
@@ -82,45 +79,49 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupLayout()
         addNewPlaceVM.requesVMToUpdatePlace = { [weak self] () in
-            guard let placeName = self!.placeNameView.txtField.text
-                ,let desc = self!.visitDescriptionView.txtView.text, let countryCity = self!.countryView.txtField.text else {return}
+            guard let placeName = self!.placeNameView.txtField.text,
+                  let desc = self!.visitDescriptionView.txtView.text,
+                  let countryCity = self!.countryView.txtField.text else {return}
+            
             self!.addNewPlaceVM.updateVMPlaceData(placeName: placeName, placeDescription: desc, placeCountryCity: countryCity)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        placeNameView.txtField.text = ""
-        visitDescriptionView.txtView.text = ""
-        fillLocationDatas()
-        imagesToUpload = []
-        collectionViewGallery.reloadData()
-        
+        resetView()
     }
     
-    @objc func addNewPlace()
-    {
-        addNewPlaceVM.sendImagesToServer(selectedImages: imagesToUpload) { result in
-            switch result {
-            case .failure(let error):
-                self.showAlert(title: "Error: While upload images to server", err: error.localizedDescription)
-            case .success(_):
-                self.addNewPlaceToServerResult()
-            }
+    @objc func addNewPlace(){
+        
+        guard let placeName = placeNameView.txtField.text,
+              let countryCity = countryView.txtField.text else {return}
+        
+        if !checkCanBeAdd(name: placeName, countryCity: countryCity){return}
+        
+        if imagesToUpload.isEmpty{
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .galleryEmpty)
+            return
         }
+            addNewPlaceVM.sendImagesToServer(selectedImages: imagesToUpload) { result in
+                switch result {
+                case .failure(let error):
+                    AlertHelper.shared.showAlert(currentVC: self, errorType: .uploadImagesError(error))
+                case .success(_):
+                    self.addNewPlaceToServerResult()
+                }}
+        
     }
     
     func addNewPlaceToServerResult() {
         addNewPlaceVM.addNewPlaceToServer() { result in
             switch result {
-            case .failure(let err):
-                self.showAlert(title: "Error: While add new place to server", err: err.localizedDescription)
+            case .failure(let error):
+                AlertHelper.shared.showAlert(currentVC: self, errorType: .APIError(error))
             case .success(_):
                 self.addGalleryImagesServerResult()
-                
             }
         }
     }
@@ -128,8 +129,8 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     func addGalleryImagesServerResult() {
         addNewPlaceVM.addGalleryImagesNewAddedPlace() { result in
             switch result {
-            case .failure(let err):
-                self.showAlert(title: "Error: While add images to gallery", err: err.localizedDescription)
+            case .failure(let error):
+                AlertHelper.shared.showAlert(currentVC: self, errorType: .APIError(error))
             case .success(_):
                 self.reloadClosureWhenAddNewData?()
                 self.dismiss(animated: true)
@@ -137,18 +138,30 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         }
     }
     
-    func showAlert(title: String, err: String) {
-        let alert = UIAlertController(title: title, message: err, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "Try again", style: .default)
-        let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            self.dismiss(animated: true)}
-        alert.addAction(alertAction)
-        alert.addAction(alertActionCancel)
-        alert.present(self, animated: true)
+    func checkCanBeAdd(name:String,countryCity:String)->Bool {
+        if name.isEmpty || countryCity.isEmpty
+        { AlertHelper.shared.showAlert(currentVC: self, errorType: .placeNameOrCountryIsEmpty)
+            return false
+        }
+        return true
+    }
+    func fillLocationDatas(){
+        guard let place = addNewPlaceVM.place else {return}
+        guard let countryCity = place.place else {return}
+
+        countryView.txtField.text = countryCity
+        countryView.txtField.textColor = CustomColor.TravioBlack.color
+    }
+    
+    func resetView(){
+        placeNameView.txtField.text = ""
+        visitDescriptionView.txtView.text = ""
+        fillLocationDatas()
+        imagesToUpload = []
+        collectionViewGallery.reloadData()
     }
     
     func setupLayout(){
-        
         self.view.backgroundColor = CustomColor.TravioWhite.color
         addSubviews()
         
@@ -185,24 +198,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         self.view.addSubview(btnAddPlace)
         self.view.addSubview(spinner)
     }
-    
-    func fillLocationDatas(){
-        
-        guard let place = addNewPlaceVM.place else {return}
-        guard let countryCity = place.place else {return}
-
-        countryView.txtField.text = countryCity
-        countryView.txtField.textColor = CustomColor.TravioBlack.color
-    }
-    
-    @objc func buttonCheckActivate() {
-        
-        guard let name = placeNameView.txtField.text, let countryCity = countryView.txtField.text  else { return }
-
-        if name.isEmpty || countryCity.isEmpty
-        { btnAddPlace.isEnabled = false }
-        else{ btnAddPlace.isEnabled = true }
-    }
+  
 }
 extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
     

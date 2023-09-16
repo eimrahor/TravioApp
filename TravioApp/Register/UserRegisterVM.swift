@@ -10,7 +10,7 @@ import Alamofire
 
 class UserRegisterVM {
     
-   // var showAlert:(()->())?
+    var showAlert:((ErrorTypes)->(Void))?
     func postForRegisterData(params: [String:Any]) {
         
         APIService.call.objectRequestJSON(request: Router.register(params: params)) { (result:Result<UserRegisterResponse,Error>) in
@@ -24,19 +24,21 @@ class UserRegisterVM {
     }
     func checkCanSignUp(name:String,email:String,password:String,passwordConfirm:String)->Bool{
        
+        guard let showAlert = showAlert else {return false}
+        
         if name == "" || email == "" {
             //show alert
-          //  showAlert(title: "eror2", err: "blabla")
+            showAlert(.nameOrMailEmpty)
             return false}
         
         if password != passwordConfirm{
             //Show alert
-         //   showAlert(title: "eror3", err: "blabla")
+            showAlert(.passwordsDoesntMatch)
             return false }
         
         if password.count < 6 {
             //show alert
-          //  showAlert(title: "eror4", err: "blabla")
+            showAlert(.passwordsLessThanRequiredChar)
             return false}
         
         return true

@@ -72,6 +72,9 @@ class RegisterVC: MainViewController {
      override func viewDidLoad() {
          super.viewDidLoad()
          setupLayout()
+         viewModel.showAlert = { errorType in
+             AlertHelper.shared.showAlert(currentVC: self, errorType: errorType)
+         }
      }
 
      override func setupLayout() {
@@ -126,6 +129,7 @@ class RegisterVC: MainViewController {
          super.addSubviews()
          view.addSubviews(svNavigationBar,viewName,viewEmail,viewPassword,viewPasswordConfirm,registerButton)
      }
+    
      @objc func actBack() {
          self.navigationController?.popViewController(animated: true)
      }
@@ -137,7 +141,7 @@ class RegisterVC: MainViewController {
                let password = viewPassword.txtField.text,
                let passwordConfirm = viewPasswordConfirm.txtField.text
          else {
-             //show alert
+             AlertHelper.shared.showAlert(currentVC: self, errorType: .valuesNil)
              return }
          
          if !viewModel.checkCanSignUp(name: fullname, email: email, password: password, passwordConfirm: passwordConfirm){return}
@@ -150,41 +154,5 @@ class RegisterVC: MainViewController {
          user = User(full_name: fullname, email: email, password: password)
          self.navigationController?.popViewController(animated: true)
      }
-     
-//     func checkCanSignUp()->Bool{
-//
-//         guard let fullname = viewName.txtField.text,
-//               let email = viewEmail.txtField.text,
-//               let password = viewPassword.txtField.text,
-//               let passwordConfirm = viewPasswordConfirm.txtField.text else {
-//             //show alert
-//             showAlert(title: "eror1", err: "blabla")
-//             return false }
-//
-//         if fullname == "" || email == "" {
-//             //show alert
-//             showAlert(title: "eror2", err: "blabla")
-//             return false}
-//
-//         if password != passwordConfirm{
-//             //Show alert
-//             showAlert(title: "eror3", err: "blabla")
-//             return false }
-//
-//         if password.count < 6 {
-//             //show alert
-//             showAlert(title: "eror4", err: "blabla")
-//             return false}
-//
-//         return true
-//     }
-    func showAlert(title: String, err: String) {
-        let alert = UIAlertController(title: title, message: err, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "Try again", style: .default)
-        let alertActionCancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            self.dismiss(animated: true)}
-        alert.addAction(alertAction)
-        alert.addAction(alertActionCancel)
-        self.present(alert, animated: true)
-    }
+
  }
