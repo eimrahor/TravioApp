@@ -16,6 +16,7 @@ enum CustomLabelTypes{
     case standardBlackLabel(text:String = "")
     case customTextViewDescription(text: String = "")
     case customGreenHeaderOfCollectionView(text: String = "")
+    case customBlackSemiBold14(text: String = "")
 }
 
 class UICustomLabel: UILabel {
@@ -80,11 +81,11 @@ class UICustomLabel: UILabel {
             self.textAlignment = .left
             self.font = CustomFont.PoppinsSemiBold(24).font
             
-        default:
-            self.textColor = CustomColor.Black.color
+        case .customBlackSemiBold14(let text):
+            self.textColor = CustomColor.TravioBlack.color
             self.text = text
-            self.textAlignment = .center
-            self.font = CustomFont.PoppinsRegular(24).font
+            self.textAlignment = .right
+            self.font = CustomFont.PoppinsSemiBold(14).font
         }
        
     }

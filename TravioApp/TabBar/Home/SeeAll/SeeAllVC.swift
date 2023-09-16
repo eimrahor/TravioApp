@@ -77,9 +77,9 @@ class SeeAllVC: MainViewController {
         seeAllVM.reloadData = { self.cvPlaces.reloadData() }
     }
     
-    override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
+    override func setupLayout() {
         
-        super.setupLayout(backGroundMultiplier: backGroundMultiplier)
+        super.setupLayout()
 
         self.navigationController?.isNavigationBarHidden = true
         addSubviews()

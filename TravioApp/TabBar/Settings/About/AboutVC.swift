@@ -56,8 +56,8 @@ class AboutVC: MainViewController {
         webController.didMove(toParent: self)
     }
     
-    override func setupLayout(backGroundMultiplier: CGFloat = 0.82) {
-        super.setupLayout(backGroundMultiplier: backGroundMultiplier)
+    override func setupLayout() {
+        super.setupLayout()
         self.navigationController?.isNavigationBarHidden = true
         
         addSubviews()

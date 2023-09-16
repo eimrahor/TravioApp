@@ -11,25 +11,19 @@ import TinyConstraints
 class MainViewController: UIViewController {
 
     var background = BackgroundView()
-//    var backGroundMultiplier:Float = 0.82{
-//        didSet{
-//            setupLayout()
-//        }
-//    }
-//    private var backGroundMultiplier:Float = 0.82 -ver2
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = CustomColor.TravioGreen.color
         setupLayout()
     }
     
-    func setupLayout(backGroundMultiplier: CGFloat = 0.82){
+    func setupLayout(){
         
-        self.view.backgroundColor = CustomColor.TravioGreen.color
         addSubviews()
         
         background.bottomToSuperview()
-        background.height(to: self.view,multiplier: backGroundMultiplier)
+        background.height(to: self.view,multiplier: 0.82)
         background.width(to: self.view)
         background.centerXToSuperview()
     }
@@ -37,9 +31,5 @@ class MainViewController: UIViewController {
     func addSubviews(){
         self.view.addSubview(background)
     }
-//  - ver2
-//    func changeBackgroundMultiplier(to Value: Float ){
-//        backGroundMultiplier = Value
-//        setupLayout()
-//    }
+
 }

@@ -119,7 +119,6 @@ class UserLoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
     }
     
@@ -143,7 +142,7 @@ class UserLoginVC: UIViewController {
     }
     
     @objc func actRegisterButton() {
-        let vc = UserRegisterVC()
+        let vc = RegisterVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
