@@ -74,19 +74,24 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
             let geoCoder = CLGeocoder()
             let location = CLLocation(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
             
-            geoCoder.reverseGeocodeLocation(location) { placemarks, error in
-                if let error = error {
-                    print("Reverse geocoding error: \(error.localizedDescription)")
-                    return
+            let locationRegion = LocationManager(coordinate: location)
+            locationRegion.closure = { isIn in
+                if isIn {
+                    geoCoder.reverseGeocodeLocation(location) { placemarks, error in
+                    if let error = error {
+                        print("Reverse geocoding error: \(error.localizedDescription)")
+                        return
+                    }
+                    guard let placeMark = placemarks?.first else {return}
+                    guard let state = placeMark.administrativeArea, let country = placeMark.country  else {return}
+                    let countryCity = "\(country), \(state)"
+                    let place = PlaceToMap(place: countryCity, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+                    self.addNewPlaceVC.addNewPlaceVM.initVM(place: place)
+                    
+                    self.present(self.addNewPlaceVC, animated: true, completion: nil)
+                       
+                    }
                 }
-                guard let placeMark = placemarks?.first else {return}
-                guard let state = placeMark.administrativeArea, let country = placeMark.country  else {return}
-                let countryCity = "\(country), \(state)"
-                let place = PlaceToMap(place: countryCity, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
-                self.addNewPlaceVC.addNewPlaceVM.initVM(place: place)
-                
-                self.present(self.addNewPlaceVC, animated: true, completion: nil)
-               
             }
             
         }
