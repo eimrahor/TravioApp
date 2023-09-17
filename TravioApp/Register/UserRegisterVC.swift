@@ -157,15 +157,15 @@ class UserRegisterVC: UIViewController {
     }
     
     @objc func actButton() {
-        guard let fullname = fullNameText.text, let email = emailText.text, let password = passwordText.text else { return }
-        viewModel.postForRegisterData(params: [
-            "full_name":fullname,
-            "email":email,
-            "password":password
-        ])
-        
-        user = User(full_name: fullname, email: email, password: password)
-        self.navigationController?.popViewController(animated: true)
+        guard let fullname = fullNameText.text, let email = emailText.text, let password = passwordText.text, let passwordConfirm = passwordConfirmText.text else { return }
+        if !passwordConfirm.isEmpty && !password.isEmpty && password == passwordConfirm && password.count >= 6 {
+            viewModel.postForRegisterData(params: [
+                "full_name":fullname,
+                "email":email,
+                "password":password
+            ])
+            self.navigationController?.popViewController(animated: true)
+        }
     }
         
         func setupViews() {
