@@ -13,25 +13,27 @@ import Photos
 class PermissionsHelper{
     static let shared = PermissionsHelper()
     
-    func requestCameraPermission() {
+    func requestCameraPermission( complete: @escaping (Bool)->(Void)) {
         AVCaptureDevice.requestAccess(for: .video) { granted in
             if granted {
-                // Kullanıcı izni verdi, kamera işlemlerinizi burada gerçekleştirin
+               complete(true)
             } else {
-                // Kullanıcı izin vermedi, gerekli işlemleri yapabilirsiniz
+               complete(false)
             }
         }
     }
     
-    func requestPhotoLibraryPermission() {
+    func requestPhotoLibraryPermission(complete: @escaping (Bool)->(Void)) {
         PHPhotoLibrary.requestAuthorization { status in
             switch status {
-            case .authorized: break
-                // Kullanıcı izni verdi, galeri işlemlerinizi burada gerçekleştirin
-            case .denied, .restricted: break
-                // Kullanıcı izni reddetti veya kısıtlı, kullanıcıyı izinleri ayarlamak için yönlendirin
+            case .authorized:
+                complete(true)
+                break
+            case .denied, .restricted:
+                complete(false)
+                break
             case .notDetermined:
-                // Kullanıcı daha önce izin vermemiş, izin isteği gösterebilirsiniz
+                complete(false)
                 break
             default:
                 break

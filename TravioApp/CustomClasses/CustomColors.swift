@@ -20,6 +20,7 @@ enum CustomColor
     case TravioGreen
     case TravioBlack
     case TravioLightGray
+    case TravioWhiteHalfAlpha
     
     case Transparent
     
@@ -47,6 +48,8 @@ enum CustomColor
             return #colorLiteral(red: 0.662745098, green: 0.6588235294, blue: 0.6588235294, alpha: 1)
         case .Transparent:
             return #colorLiteral(red: 0.662745098, green: 0.6588235294, blue: 0.6588235294, alpha: 0)
+        case .TravioWhiteHalfAlpha:
+            return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.3501655629)
         }
     }
 }

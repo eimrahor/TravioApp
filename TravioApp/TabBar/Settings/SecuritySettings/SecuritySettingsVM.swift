@@ -75,9 +75,31 @@ class SecuritySettingsVM {
     }
 
     //MARK: first request for using camera, library, location.
-    func requestPermissions(){
-        PermissionsHelper.shared.requestCameraPermission()
-        PermissionsHelper.shared.requestPhotoLibraryPermission()
+    func requestFirstPermissions(){
+        
+        PermissionsHelper.shared.requestCameraPermission(complete: { userResponse in
+            switch userResponse {
+            case true:
+                self.privacySettingsDatas[0].switchState = true
+                self.reloadClosure?()
+            case false:
+                self.privacySettingsDatas[0].switchState = false
+                self.reloadClosure?()
+            }
+            
+        })
+        
+        PermissionsHelper.shared.requestPhotoLibraryPermission(complete: { userResponse in
+            switch userResponse {
+            case true:
+                self.privacySettingsDatas[1].switchState = true
+                self.reloadClosure?()
+            case false:
+                self.privacySettingsDatas[1].switchState = false
+                self.reloadClosure?()
+            }
+        })
+        
         PermissionsHelper.shared.requestLocationPermission()
     }
     

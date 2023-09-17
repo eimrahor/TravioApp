@@ -13,7 +13,7 @@ class GalleryToUploadCell: UICollectionViewCell {
     
     lazy var image: UIImageView = {
         let img = UIImageView()
-        img.contentMode = .scaleAspectFit
+        img.contentMode = .scaleAspectFill
         return img
     }()
     

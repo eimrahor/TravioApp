@@ -10,8 +10,6 @@ import TinyConstraints
 
 class ChangePasswordSettingsCell: UITableViewCell {
     
-    var textDidChangedClosure:(()->())?
-    
     private lazy var view: CustomComponentTextField = {
         let view = CustomComponentTextField()
         view.backgroundColor = CustomColor.White.color
@@ -53,6 +51,5 @@ class ChangePasswordSettingsCell: UITableViewCell {
 }
 extension ChangePasswordSettingsCell: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        textDidChangedClosure?()
     }
 }

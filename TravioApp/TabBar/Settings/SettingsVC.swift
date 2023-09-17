@@ -123,13 +123,7 @@ class SettingsVC: UIViewController {
     }
     
     func setupViews() {
-        view.addSubview(secondView)
-        view.addSubview(titleLabel)
-        view.addSubview(logoutBtn)
-        view.addSubview(image)
-        view.addSubview(nameLabel)
-        view.addSubview(editButton)
-        view.addSubview(collectionView)
+        view.addSubviews(secondView,titleLabel,logoutBtn,image,nameLabel,editButton,collectionView)
         makeConst()
     }
     

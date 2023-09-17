@@ -215,7 +215,20 @@ extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.spinner.stopAnimating()
         }
-        self.present(imagePicker,animated: true)
+        tryToOpenPhotoLibrary()
+    }
+    
+    func tryToOpenPhotoLibrary(){
+        PermissionsHelper.shared.requestPhotoLibraryPermission(complete: { userResponse in
+            DispatchQueue.main.async {
+                switch userResponse {
+                case true:
+                    self.present(self.imagePicker,animated: true)
+                case false:
+                    AlertHelper.shared.showAlert(currentVC: self, errorType: .photoLibraryPermissionNorGranted)
+                }
+            }
+        })
     }
 }
 extension AddNewPlaceVC: UICollectionViewDataSource {

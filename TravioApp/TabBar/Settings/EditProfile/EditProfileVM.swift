@@ -35,6 +35,7 @@ class EditProfileVM{
             }
         }
     }
+    
     func convertUIImagesToData(images:[UIImage]) -> [Data] {
         
         var imageDatas = [Data]()
@@ -46,6 +47,7 @@ class EditProfileVM{
         }
         return imageDatas
     }
+    
     func extractImageURLsToArray(response:UploadImageResponse){
         imageUrls = [String]()
         let urls = response.urls

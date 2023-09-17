@@ -17,6 +17,8 @@ enum ErrorTypes{
     case uploadImagesError(Error)
     case placeNameOrCountryIsEmpty
     case galleryEmpty
+    case cameraPermissionNotGranted
+    case photoLibraryPermissionNorGranted
 }
 
 class AlertHelper {
@@ -77,6 +79,16 @@ class AlertHelper {
         case .galleryEmpty:
             title = "Gallery Required"
             message = "Please add three images from your travel."
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertActions.append(action)
+        case .cameraPermissionNotGranted:
+            title = "Camera Permission Required"
+            message = "Change your camera permission preference by going to settings."
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertActions.append(action)
+        case .photoLibraryPermissionNorGranted:
+            title = "Photo Library Permission Required"
+            message = "Change your photo library permission preference by going to settings."
             let action = UIAlertAction(title: "OK", style: .default)
             alertActions.append(action)
         }

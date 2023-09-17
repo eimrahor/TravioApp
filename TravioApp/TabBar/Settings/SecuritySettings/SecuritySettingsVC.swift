@@ -76,7 +76,6 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     private var btnSave: UICustomButton = {
         let btn = UICustomButton(title: "Save")
         btn.addTarget(self, action: #selector(saveSettings), for: .touchUpInside)
-        btn.isEnabled = false
         return btn
     }()
 
@@ -86,14 +85,15 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         setupLayout()
         
         PermissionsHelper.shared.locationManager.delegate = self
-        
-        securitySettingsVM.requestPermissions()
         securitySettingsVM.addObserver()
         securitySettingsVM.updateSettings()
         
         securitySettingsVM.reloadClosure = {
-            self.tvSecuritySettings.reloadData()
+            self.reloadData()
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        securitySettingsVM.requestFirstPermissions()
     }
    
     override func setupLayout() {
@@ -124,6 +124,7 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     
     @objc func saveSettings(){
         
+        if !checkCanSaveSettings() {return}
         let passwordPath = IndexPath(row: 0, section: 0)
         guard let cellPassword = tvSecuritySettings.cellForRow(at: passwordPath) as? ChangePasswordSettingsCell else {return}
         let newPassword = cellPassword.getPasswordText()
@@ -137,24 +138,36 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func checkButtonActive(){
+    func checkCanSaveSettings()->Bool{
         
         let passwordPath = IndexPath(row: 0, section: 0)
         let confirmPasswordPath = IndexPath(row: 1, section: 0)
         
         guard let cellPassword = tvSecuritySettings.cellForRow(at: passwordPath) as? ChangePasswordSettingsCell ,
               let cellConfirmPassword = tvSecuritySettings.cellForRow(at: confirmPasswordPath) as? ChangePasswordSettingsCell
-        else { btnSave.isEnabled = false
-            return }
+        else { AlertHelper.shared.showAlert(currentVC: self, errorType: .valuesNil)
+            return false }
         
         let passwordTxt = cellPassword.getPasswordText()
         let confirmTxt = cellConfirmPassword.getPasswordText()
         
-        if passwordTxt == confirmTxt && passwordTxt.count >= 6 {
-            btnSave.isEnabled = true
+        if passwordTxt != confirmTxt {
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .passwordsDoesntMatch)
+            return false
         }
-        else{btnSave.isEnabled = false}
+        if passwordTxt.count < 6 {
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .passwordsLessThanRequiredChar)
+            return false
+        }
+        return true
     }
+    
+    func reloadData(){
+        DispatchQueue.main.async {
+            self.tvSecuritySettings.reloadData()
+        }
+    }
+    
     
 }
 extension SecuritySettingsVC:UITableViewDelegate {
@@ -200,9 +213,6 @@ extension SecuritySettingsVC:UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordSettings", for: indexPath) as? ChangePasswordSettingsCell else { return UITableViewCell() }
             let object = securitySettingsVM.passwordSettingsDatas[indexPath.row]
             cell.configureCell(cellData: object)
-            cell.textDidChangedClosure = {
-                self.checkButtonActive()
-            }
             return cell
             
         case 1:
@@ -243,10 +253,7 @@ extension SecuritySettingsVC: CLLocationManagerDelegate {
         default:
             break
         }
-        
-        securitySettingsVM.reloadClosure = {
-            self.tvSecuritySettings.reloadData()
-        }
+        reloadData()
     }
 }
 

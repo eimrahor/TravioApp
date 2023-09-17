@@ -157,13 +157,9 @@ class EditProfileVC: MainViewController {
     override func viewDidLayoutSubviews() {
         viewRegisterDate.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
         viewRole.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
-        
-        let maskPath = UIBezierPath(roundedRect: imgProfile.bounds, cornerRadius: 60)
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = maskPath.cgPath
-        imgProfile.layer.mask = maskLayer
+        maskProfileImg()
+       
     }
-    
     override func setupLayout() {
         super.setupLayout()
         self.navigationController?.isNavigationBarHidden = true
@@ -215,11 +211,20 @@ class EditProfileVC: MainViewController {
     }
     
     @objc func changePhoto(){
-        PermissionsHelper.shared.requestCameraPermission()
-        let cameraVC = CameraVC()
-        cameraVC.CameraTrandferDataDelegate = self
-        cameraVC.modalPresentationStyle = .fullScreen
-        present(cameraVC, animated: true)
+        PermissionsHelper.shared.requestCameraPermission(complete: { userResponse in
+            DispatchQueue.main.async {
+                switch userResponse {
+                case true:
+                    let cameraVC = CameraVC()
+                    cameraVC.CameraTrandferDataDelegate = self
+                    cameraVC.modalPresentationStyle = .fullScreen
+                    self.present(cameraVC, animated: true)
+                case false:
+                    AlertHelper.shared.showAlert(currentVC: self, errorType: .cameraPermissionNotGranted)
+                }
+            }
+        })
+      
     }
     
     @objc func saveChanges(){
@@ -230,6 +235,12 @@ class EditProfileVC: MainViewController {
     
     func sendUserDataToVM(){
         guard let full_name = viewFullName.txtField.text , let email = viewEmail.txtField.text else {return}
+        
+        if full_name == "" || email == "" {
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .nameOrMailEmpty)
+            return
+        }
+        
         let user:UserProfile = UserProfile(full_name: full_name, email: email)
         editProfileVM.userProfile = user
     }
@@ -238,7 +249,8 @@ class EditProfileVC: MainViewController {
         guard let img = imgProfile.image else {return}
         editProfileVM.sendImagesToServer(image: [img]) { result in
             switch result {
-            case .failure(_):
+            case .failure(let err):
+                AlertHelper.shared.showAlert(currentVC: self, errorType: .APIError(err))
                 return
             case .success(_):
                 self.updateProfileResult()
@@ -250,6 +262,7 @@ class EditProfileVC: MainViewController {
         editProfileVM.updateProfile() { result in
             switch result {
             case .failure(let err):
+                AlertHelper.shared.showAlert(currentVC: self, errorType: .APIError(err))
                 return
             case .success(let response):
                 print(response)
@@ -274,8 +287,13 @@ class EditProfileVC: MainViewController {
         lblRole.text = role
         let formattedDate = date.changeDateFormat()
         lblDate.text = formattedDate
-        
-        
+    }
+    
+    func maskProfileImg(){
+        let maskPath = UIBezierPath(roundedRect: imgProfile.bounds, cornerRadius: 60)
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = maskPath.cgPath
+        imgProfile.layer.mask = maskLayer
     }
 }
 extension EditProfileVC:CameraTransferData
