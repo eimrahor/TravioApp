@@ -158,7 +158,12 @@ class UserRegisterVC: UIViewController {
     
     @objc func actButton() {
         guard let fullname = fullNameText.text, let email = emailText.text, let password = passwordText.text, let passwordConfirm = passwordConfirmText.text else { return }
-        if !passwordConfirm.isEmpty && !password.isEmpty && password == passwordConfirm && password.count >= 6 {
+        
+        let passwordRegex = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$"
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        let isPasswordValid = passwordTest.evaluate(with: password)
+        
+        if !passwordConfirm.isEmpty && !password.isEmpty && password == passwordConfirm && isPasswordValid {
             viewModel.postForRegisterData(params: [
                 "full_name":fullname,
                 "email":email,
