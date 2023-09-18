@@ -164,7 +164,7 @@ class UserRegisterVC: UIViewController {
             "password":password
         ])
         
-        user = User(full_name: fullname, email: email, password: password)
+        user = User(email: email, password: password)
         self.navigationController?.popViewController(animated: true)
     }
         

@@ -9,7 +9,7 @@ import Foundation
 
 class UserLoginVM {
     
-    var user = User(full_name: "asdfgrgt", email: "747172@gmail.com", password: "123123123")
+    var user = User(email: "747172@gmail.com", password: "123123123")
     var takeUsersArr: ((User)->Void)?
     
     
