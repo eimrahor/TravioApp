@@ -134,15 +134,17 @@ class CameraVC: UIViewController {
         showCamera()
         setupLayout()
     }
+    
     override func viewDidLayoutSubviews() {
         svCameraButtons.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
         svAddDismissButtons.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
     }
+    
     @objc func goBack(){
         dismiss(animated: true)
     }
+    
     @objc func flashOnOff(){
-        
         if let device = AVCaptureDevice.default(for: .video) {
             do {
                 try device.lockForConfiguration()
@@ -159,7 +161,6 @@ class CameraVC: UIViewController {
     }
     
     @objc func changeCamera(){
-        
         if currentCamera == frontCamera { currentCamera = backCamera }
         else { currentCamera = frontCamera }
         setupInputOutput()
@@ -207,7 +208,6 @@ class CameraVC: UIViewController {
     }
     
     func setupLayout(){
-        
         self.view.backgroundColor = CustomColor.TravioGreen.color
         addSubviews()
         
@@ -229,9 +229,8 @@ class CameraVC: UIViewController {
         svAddDismissButtons.height(60)
         btnDismiss.centerYToSuperview()
         btnChoose.centerYToSuperview()
-        
-
     }
+    
     func addSubviews(){
         self.view.addSubviews(btnBack,svCameraButtons,svAddDismissButtons,imgPreview)
     }
@@ -250,7 +249,6 @@ class CameraVC: UIViewController {
     
     func setupDevice() {
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
-        
         let devices = deviceDiscoverySession.devices
         
         for device in devices {
@@ -265,7 +263,6 @@ class CameraVC: UIViewController {
     
     func setupInputOutput() {
             do {
-                
                 if let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput {
                     captureSession.removeInput(currentInput)
                 }
@@ -317,8 +314,6 @@ extension CameraVC:AVCapturePhotoCaptureDelegate{
         if let capturedImage = UIImage(data: photoData) {
             imgPreview.image = capturedImage
         }
-        
-
     }
 }
 
