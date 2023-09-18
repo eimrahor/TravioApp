@@ -8,7 +8,6 @@
 import Foundation
 
 struct User {
-    var full_name: String
     var email: String
     var password: String
     var accessToken: String?

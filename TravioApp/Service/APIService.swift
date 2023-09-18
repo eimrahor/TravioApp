@@ -9,36 +9,36 @@ import Foundation
 import Alamofire
 import UIKit
 
-enum Endpoint {
-    static let baseUrl = "https://api.iosclass.live"
-    
-    case register
-    case userLogin
-    case refreshToken
-    case getUserProfile
-    case listTravel
-    case getTravelByID
-    case getAllGalleryImages
-    
-    var apiurl : String {
-        switch self {
-        case .register:
-            return Endpoint.baseUrl + "/v1/auth/register"
-        case .userLogin:
-            return Endpoint.baseUrl + "/v1/auth/login"
-        case .refreshToken:
-            return Endpoint.baseUrl + "/v1/auth/refresh"
-        case .getUserProfile:
-            return Endpoint.baseUrl + "/v1/me"
-        case .listTravel:
-            return Endpoint.baseUrl + "/v1/travels?page=1&limit=10"
-        case .getTravelByID:
-            return Endpoint.baseUrl + "/v1/travels/"
-        case .getAllGalleryImages:
-            return Endpoint.baseUrl + "/v1/galleries/"
-        }
-    }
-}
+//enum Endpoint {
+//    static let baseUrl = "https://api.iosclass.live"
+//
+//    case register
+//    case userLogin
+//    case refreshToken
+//    case getUserProfile
+//    case listTravel
+//    case getTravelByID
+//    case getAllGalleryImages
+//
+//    var apiurl : String {
+//        switch self {
+//        case .register:
+//            return Endpoint.baseUrl + "/v1/auth/register"
+//        case .userLogin:
+//            return Endpoint.baseUrl + "/v1/auth/login"
+//        case .refreshToken:
+//            return Endpoint.baseUrl + "/v1/auth/refresh"
+//        case .getUserProfile:
+//            return Endpoint.baseUrl + "/v1/me"
+//        case .listTravel:
+//            return Endpoint.baseUrl + "/v1/travels?page=1&limit=10"
+//        case .getTravelByID:
+//            return Endpoint.baseUrl + "/v1/travels/"
+//        case .getAllGalleryImages:
+//            return Endpoint.baseUrl + "/v1/galleries/"
+//        }
+//    }
+//}
 
 class APIService {
     static let call = APIService()
@@ -81,7 +81,10 @@ class APIService {
 //    }
     
     func objectRequestJSON<T:Codable>(request: URLRequestConvertible, complete: @escaping (Result<T,Error>)->Void) {
-            AF.request(request).responseJSON { response in
+        
+        let responseInterceptor = AccessTokenInterceptor()
+        
+            AF.request(request, interceptor: responseInterceptor).responseJSON { response in
                 switch response.result {
                 case .success(let data):
                     do {

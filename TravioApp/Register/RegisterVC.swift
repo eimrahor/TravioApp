@@ -147,11 +147,10 @@ class RegisterVC: MainViewController {
          if !viewModel.checkCanSignUp(name: fullname, email: email, password: password, passwordConfirm: passwordConfirm){return}
          
          viewModel.postForRegisterData(params: [
-             "full_name":fullname,
              "email":email,
              "password":password
          ])
-         user = User(full_name: fullname, email: email, password: password)
+         user = User(email: email, password: password)
          self.navigationController?.popViewController(animated: true)
      }
 

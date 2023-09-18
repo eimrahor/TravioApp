@@ -10,21 +10,28 @@ import Foundation
 class UserLoginVM {
     
     var showAlert:((ErrorTypes)->())?
-    var user = User(full_name: "asdfgrgt", email: "747172@gmail.com", password: "123123123")
+    var user: User?
     var takeUsersArr: ((User)->Void)?
     
     
     func prepareKeyChain() {
-            let data = Data((self.user.accessToken!.utf8))
-            KeyChainHelper.shared.saveKey(data, service: "access-token-0", account: "ios")
+        guard let accessToken = user?.accessToken, let refreshToken = user?.refreshToken else { return }
+        let dataAccess = Data((accessToken.utf8))
+        let dataRefresh = Data((refreshToken.utf8))
+        user = nil
+        KeyChainHelper.shared.saveKey(dataAccess, service: "access-token-0", account: "ios")
+        KeyChainHelper.shared.saveKey(dataRefresh, service: "refresh-token-0", account: "ios")
     }
     
     func postForUserLogin(params: [String:Any], callback: @escaping ()->Void) {
+        guard let email = params["email"] as? String, let password = params["password"] as? String else { return }
+        user = User(email: email, password: password, accessToken: "", refreshToken: "")
         
-        APIService.call.objectRequestJSON(request: Router.userLogin(params: params)) { (result:Result<UserLoginResponse,Error>) in
+        APIService.call.objectRequestJSON(request: Router.userLogin(params: params)) { [self] (result:Result<UserLoginResponse,Error>) in
             switch result {
             case .success(let data):
-                self.user.accessToken = data.accessToken
+                user?.accessToken = data.accessToken
+                user?.refreshToken = data.refreshToken
                 self.prepareKeyChain()
                 callback()
             case .failure(let err):
