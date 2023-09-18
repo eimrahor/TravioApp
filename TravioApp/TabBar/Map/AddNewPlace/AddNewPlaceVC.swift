@@ -212,7 +212,7 @@ extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         spinner.startAnimating()
         selectedCellIndex = indexPath
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
             self.spinner.stopAnimating()
         }
         tryToOpenPhotoLibrary()

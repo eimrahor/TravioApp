@@ -33,7 +33,6 @@ class SettingsVC: UIViewController {
     
     private lazy var image: UIImageView = {
        let img = UIImageView()
-        img.image = UIImage(systemName: "person")
         img.contentMode = .scaleAspectFill
         img.tintColor = CustomColor.TravioGreen.color
         return img
@@ -87,6 +86,7 @@ class SettingsVC: UIViewController {
                 return}
             
             let url = URL(string: stringURL)
+            self.image.kf.indicatorType = .activity
             self.image.kf.setImage(with: url)
             if user.pp_url == "" {
                 self.image.image = UIImage(systemName: "person.circle.fill")
