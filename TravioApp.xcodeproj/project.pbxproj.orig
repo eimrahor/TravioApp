@@ -49,20 +49,17 @@
 		7AB4FB6A2AA711440011AA25 /* SeeAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB692AA711440011AA25 /* SeeAllVC.swift */; };
 		7AB4FB6C2AA7157C0011AA25 /* SeeAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4FB6B2AA7157C0011AA25 /* SeeAllCell.swift */; };
 		7ADDC1D22AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADDC1D12AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift */; };
-<<<<<<< HEAD
-=======
 		7AECA5AE2AB0810900C63B40 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AECA5AD2AB0810900C63B40 /* WebViewController.swift */; };
->>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
 		86227F872AADDF7E000D6396 /* PermissionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F862AADDF7E000D6396 /* PermissionsHelper.swift */; };
 		86227F8A2AAE3549000D6396 /* EditProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F892AAE3549000D6396 /* EditProfileVM.swift */; };
 		86227F8C2AAE355B000D6396 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F8B2AAE355B000D6396 /* EditProfileVC.swift */; };
 		86227F902AAE5EB8000D6396 /* ProfilleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F8F2AAE5EB8000D6396 /* ProfilleModel.swift */; };
 		86227F922AAF48D3000D6396 /* ChangePasswordResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227F912AAF48D3000D6396 /* ChangePasswordResponseModel.swift */; };
-<<<<<<< HEAD
 		86227FD02AB1AAE4000D6396 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FCF2AB1AAE4000D6396 /* CameraVC.swift */; };
 		86227FD32AB2F809000D6396 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86227FD22AB2F809000D6396 /* IQKeyboardManagerSwift */; };
-=======
->>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
+		86227FD72AB52D59000D6396 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FD62AB52D59000D6396 /* RegisterVC.swift */; };
+		86227FD92AB588CE000D6396 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FD82AB588CE000D6396 /* LoginVC.swift */; };
+		86227FDD2AB60415000D6396 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86227FDC2AB60415000D6396 /* AlertHelper.swift */; };
 		865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62752A9D326900B84578 /* CustomComponentTextField.swift */; };
 		865F627D2A9D326900B84578 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62762A9D326900B84578 /* CustomColors.swift */; };
 		865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F62772A9D326900B84578 /* UICustomButton.swift */; };
@@ -87,6 +84,11 @@
 		86C4778B2AACAE8600566549 /* AboutVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4778A2AACAE8600566549 /* AboutVM.swift */; };
 		86C4778D2AACAE9A00566549 /* TermsOfUseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4778C2AACAE9A00566549 /* TermsOfUseVC.swift */; };
 		86C4778F2AACAEA500566549 /* TermsOfUseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4778E2AACAEA500566549 /* TermsOfUseVM.swift */; };
+		E57CF4AC2AB5F05A007255C9 /* AccessTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CF4AB2AB5F05A007255C9 /* AccessTokenInterceptor.swift */; };
+		E57CF4BC2AB8DF20007255C9 /* RegisterResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CF4BB2AB8DF20007255C9 /* RegisterResponseModel.swift */; };
+		E57CF4BE2AB8DF4D007255C9 /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CF4BD2AB8DF4D007255C9 /* LoginResponseModel.swift */; };
+		E57CF4C02AB8DFE3007255C9 /* VisitsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CF4BF2AB8DFE3007255C9 /* VisitsResponseModel.swift */; };
+		E57CF4C42AB8E107007255C9 /* MapResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CF4C32AB8E107007255C9 /* MapResponseModel.swift */; };
 		E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */; };
 		E5C0ED932A9F443200CFEEBC /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */; };
 		E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */; };
@@ -139,19 +141,16 @@
 		7AB4FB692AA711440011AA25 /* SeeAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllVC.swift; sourceTree = "<group>"; };
 		7AB4FB6B2AA7157C0011AA25 /* SeeAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllCell.swift; sourceTree = "<group>"; };
 		7ADDC1D12AAF2E8C00C00EF0 /* HelpAndSupportCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndSupportCollectionViewCell.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
 		7AECA5AD2AB0810900C63B40 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
->>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
 		86227F862AADDF7E000D6396 /* PermissionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsHelper.swift; sourceTree = "<group>"; };
 		86227F892AAE3549000D6396 /* EditProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVM.swift; sourceTree = "<group>"; };
 		86227F8B2AAE355B000D6396 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		86227F8F2AAE5EB8000D6396 /* ProfilleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilleModel.swift; sourceTree = "<group>"; };
 		86227F912AAF48D3000D6396 /* ChangePasswordResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordResponseModel.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		86227FCF2AB1AAE4000D6396 /* CameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
-=======
->>>>>>> sprint3/emirhan/AboutAndTermsOfUse-Pages
+		86227FD62AB52D59000D6396 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		86227FD82AB588CE000D6396 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		86227FDC2AB60415000D6396 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		865F62752A9D326900B84578 /* CustomComponentTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomComponentTextField.swift; sourceTree = "<group>"; };
 		865F62762A9D326900B84578 /* CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		865F62772A9D326900B84578 /* UICustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomButton.swift; sourceTree = "<group>"; };
@@ -176,6 +175,11 @@
 		86C4778A2AACAE8600566549 /* AboutVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVM.swift; sourceTree = "<group>"; };
 		86C4778C2AACAE9A00566549 /* TermsOfUseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseVC.swift; sourceTree = "<group>"; };
 		86C4778E2AACAEA500566549 /* TermsOfUseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseVM.swift; sourceTree = "<group>"; };
+		E57CF4AB2AB5F05A007255C9 /* AccessTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenInterceptor.swift; sourceTree = "<group>"; };
+		E57CF4BB2AB8DF20007255C9 /* RegisterResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponseModel.swift; sourceTree = "<group>"; };
+		E57CF4BD2AB8DF4D007255C9 /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
+		E57CF4BF2AB8DFE3007255C9 /* VisitsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitsResponseModel.swift; sourceTree = "<group>"; };
+		E57CF4C32AB8E107007255C9 /* MapResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapResponseModel.swift; sourceTree = "<group>"; };
 		E5C0ED902A9F43CE00CFEEBC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E5C0ED922A9F443200CFEEBC /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		E5C0ED942A9F484E00CFEEBC /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 			children = (
 				7A7A8EF42A9C9DD4000681F6 /* UserLoginVC.swift */,
 				7A7A8F142A9C9F00000681F6 /* UserLoginVM.swift */,
+				86227FD82AB588CE000D6396 /* LoginVC.swift */,
+				E57CF4BD2AB8DF4D007255C9 /* LoginResponseModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -290,6 +296,7 @@
 			children = (
 				7A7A8F202A9C9F39000681F6 /* APIService.swift */,
 				7A7A8F212A9C9F39000681F6 /* Router.swift */,
+				E57CF4AB2AB5F05A007255C9 /* AccessTokenInterceptor.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -299,6 +306,7 @@
 			children = (
 				7A7A8F252A9C9F52000681F6 /* KeyChainHelper.swift */,
 				86227F862AADDF7E000D6396 /* PermissionsHelper.swift */,
+				86227FDC2AB60415000D6396 /* AlertHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -332,6 +340,7 @@
 				7A7A8F112A9C9EDE000681F6 /* VisitsVCTableViewCell.swift */,
 				7A7A8EF92A9C9E5F000681F6 /* VisitsVC.swift */,
 				7A7A8EF82A9C9E5F000681F6 /* VisitsVCViewModel.swift */,
+				E57CF4BF2AB8DFE3007255C9 /* VisitsResponseModel.swift */,
 			);
 			path = Visits;
 			sourceTree = "<group>";
@@ -343,6 +352,7 @@
 				7A7A8F0E2A9C9EC9000681F6 /* MapCollectionCell.swift */,
 				7A7A8EFA2A9C9E5F000681F6 /* MapVC.swift */,
 				7A7A8EFD2A9C9E5F000681F6 /* MapVCViewModel.swift */,
+				E57CF4C32AB8E107007255C9 /* MapResponseModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -379,6 +389,8 @@
 			children = (
 				7A7A8EF32A9C9DD4000681F6 /* UserRegisterVC.swift */,
 				7A7A8F152A9C9F00000681F6 /* UserRegisterVM.swift */,
+				86227FD62AB52D59000D6396 /* RegisterVC.swift */,
+				E57CF4BB2AB8DF20007255C9 /* RegisterResponseModel.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -571,11 +583,13 @@
 			files = (
 				865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */,
 				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
+				E57CF4BC2AB8DF20007255C9 /* RegisterResponseModel.swift in Sources */,
 				86227F8A2AAE3549000D6396 /* EditProfileVM.swift in Sources */,
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,
 				86C477832AACAE4300566549 /* AppDefaultVM.swift in Sources */,
 				7A7A8F1D2A9C9F18000681F6 /* MapKit.swift in Sources */,
 				86C477812AACAE3100566549 /* AppDefaultVC.swift in Sources */,
+				E57CF4C02AB8DFE3007255C9 /* VisitsResponseModel.swift in Sources */,
 				86C477592AA3CEB300566549 /* MainViewController.swift in Sources */,
 				E5C0ED952A9F484E00CFEEBC /* HomeCollectionViewCell.swift in Sources */,
 				86227F8C2AAE355B000D6396 /* EditProfileVC.swift in Sources */,
@@ -588,6 +602,7 @@
 				7A32C5E82AA2002400C85F55 /* SecuritySettingsVM.swift in Sources */,
 				7A7A8F0C2A9C9EAB000681F6 /* DetailVisitsCell.swift in Sources */,
 				86227FD02AB1AAE4000D6396 /* CameraVC.swift in Sources */,
+				E57CF4C42AB8E107007255C9 /* MapResponseModel.swift in Sources */,
 				7A7A8F172A9C9F00000681F6 /* UserLoginVM.swift in Sources */,
 				7AB4FB6C2AA7157C0011AA25 /* SeeAllCell.swift in Sources */,
 				E5C0ED912A9F43CE00CFEEBC /* HomeViewModel.swift in Sources */,
@@ -600,6 +615,7 @@
 				E5C0ED9F2AA5126900CFEEBC /* HomeModel.swift in Sources */,
 				7A1A22C22AA202C0000265B7 /* PostGalleryImageResponseModel.swift in Sources */,
 				86C477602AA4980900566549 /* PrivacySettingsCell.swift in Sources */,
+				E57CF4BE2AB8DF4D007255C9 /* LoginResponseModel.swift in Sources */,
 				865F62822A9D326900B84578 /* UICustomTextField.swift in Sources */,
 				86C4775B2AA467C600566549 /* ChangePasswordSettingsCell.swift in Sources */,
 				7A7A8F1E2A9C9F18000681F6 /* User.swift in Sources */,
@@ -614,6 +630,7 @@
 				7A7A8F032A9C9E5F000681F6 /* SettingsVC.swift in Sources */,
 				7A7A8F232A9C9F39000681F6 /* Router.swift in Sources */,
 				865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */,
+				E57CF4AC2AB5F05A007255C9 /* AccessTokenInterceptor.swift in Sources */,
 				7A32C5EA2AA2004B00C85F55 /* SecuritySettingsVC.swift in Sources */,
 				7A7A8F182A9C9F00000681F6 /* UserRegisterVM.swift in Sources */,
 				7A7A8F0F2A9C9EC9000681F6 /* MapCollectionCell.swift in Sources */,
@@ -629,11 +646,14 @@
 				7A84AE3D2A9CCB5C00397420 /* AddNewPlaceVM.swift in Sources */,
 				E5C0ED992AA110DF00CFEEBC /* SettingsCollectionViewCell.swift in Sources */,
 				7A7A8F262A9C9F52000681F6 /* KeyChainHelper.swift in Sources */,
+				86227FD92AB588CE000D6396 /* LoginVC.swift in Sources */,
 				86C477852AACAE5800566549 /* HelpAndSupportVC.swift in Sources */,
 				7A7A8F012A9C9E5F000681F6 /* VisitsVC.swift in Sources */,
+				86227FDD2AB60415000D6396 /* AlertHelper.swift in Sources */,
 				86C4778B2AACAE8600566549 /* AboutVM.swift in Sources */,
 				7A7A8EBF2A9C9B78000681F6 /* SceneDelegate.swift in Sources */,
 				86C4776A2AA90F1300566549 /* SeeAllVM.swift in Sources */,
+				86227FD72AB52D59000D6396 /* RegisterVC.swift in Sources */,
 				86C4778D2AACAE9A00566549 /* TermsOfUseVC.swift in Sources */,
 				7A84AE3F2A9CCB9F00397420 /* AddNewPlaceVC.swift in Sources */,
 				86C4778F2AACAEA500566549 /* TermsOfUseVM.swift in Sources */,
@@ -777,12 +797,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KC8H2C7U9K;
+<<<<<<< HEAD
+				DEVELOPMENT_TEAM = "";
+=======
+				DEVELOPMENT_TEAM = MC4CR4RX5U;
+>>>>>>> sprint3/emirhan/notmerged/LocationPinWhenInRadiusRange
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permission to access your location is required to use the location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
@@ -808,12 +834,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KC8H2C7U9K;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permission to access your location is required to use the location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permission to access your gallery is required to use the photo selection function.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Permission to access your gallery is required to use the photo selection function.";

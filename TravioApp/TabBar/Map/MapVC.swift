@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import SnapKit
 
-class MapVC: UIViewController, UIGestureRecognizerDelegate {
+class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
 
     private lazy var mapView: MKMapView = {
         let mp = MKMapView()
@@ -28,6 +28,15 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         return longPressGesture
     }()
     
+    private lazy var locationManager: CLLocationManager = {
+        var lm = CLLocationManager()
+        lm.delegate = self
+        lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        lm.requestWhenInUseAuthorization()
+        return lm
+        }()
+
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 15
@@ -40,8 +49,19 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         cv.dataSource = self
         cv.register(MapCollectionCell.self, forCellWithReuseIdentifier: "MapCell")
         cv.backgroundColor = .clear
+        cv.contentInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 0)
         return cv
     }()
+    
+    private var clRegion: CLCircularRegion?
+    private var location: CLLocationCoordinate2D? {
+        didSet {
+            guard let location = location else { return }
+            clRegion = CLCircularRegion(center: location, radius: 5_000, identifier: "BilgeAdam")
+            guard let clRegion = clRegion else { return }
+            locationManager.startMonitoring(for: clRegion)
+        }
+    }
     
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
@@ -53,6 +73,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         addNewPlaceVC.reloadClosureWhenAddNewData = { () in
             self.initVM()
         }
@@ -62,7 +83,14 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        locationManager.startUpdatingLocation()
         initVM()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.mapView.showsUserLocation = true
+        self.mapView.userTrackingMode = .follow
     }
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -79,18 +107,21 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
             let location = CLLocation(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
             
             geoCoder.reverseGeocodeLocation(location) { placemarks, error in
-                if let error = error {
-                    print("Reverse geocoding error: \(error.localizedDescription)")
-                    return
+            if let error = error {
+                print("Reverse geocoding error: \(error.localizedDescription)")
+                return
+            }
+                let clLocation = CLLocationCoordinate2D(latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+                guard let clRegion = self.clRegion else { return }
+                if clRegion.contains(clLocation) == true {
+                    guard let placeMark = placemarks?.first else {return}
+                    guard let state = placeMark.administrativeArea, let country = placeMark.country  else {return}
+                    let countryCity = "\(country), \(state)"
+                    let place = PlaceToMap(place: countryCity, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
+                    self.addNewPlaceVC.addNewPlaceVM.initVM(place: place)
+                    
+                    self.present(self.addNewPlaceVC, animated: true, completion: nil)
                 }
-                guard let placeMark = placemarks?.first else {return}
-                guard let state = placeMark.administrativeArea, let country = placeMark.country  else {return}
-                let countryCity = "\(country), \(state)"
-                let place = PlaceToMap(place: countryCity, latitude: touchMapCoordinate.latitude, longitude: touchMapCoordinate.longitude)
-                self.addNewPlaceVC.addNewPlaceVM.initVM(place: place)
-                
-                self.present(self.addNewPlaceVC, animated: true, completion: nil)
-               
             }
             
         }
@@ -175,13 +206,23 @@ extension MapVC: CollectionViewReloadData {
 
 extension MapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "travel")
-        annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "travel")
-        guard let annotationView = annotationView else { return MKAnnotationView()}
-        annotationView.image = UIImage(named: "locationImage")
-        annotationView.frame.size = CGSize(width: 29.93, height: 40)
         
-        return annotationView
+        guard let location = location else {
+            let turkeyClLocation = CLLocationCoordinate2D(latitude: 38.5, longitude: 34.5)
+            location = turkeyClLocation
+            return MKAnnotationView()
+        }
+        if annotation.coordinate.latitude != location.latitude && annotation.coordinate.longitude != location.longitude {
+            
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "travel")
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "travel")
+            guard let annotationView = annotationView else { return MKAnnotationView()}
+            annotationView.image = UIImage(named: "locationImage")
+            annotationView.frame.size = CGSize(width: 29.93, height: 40)
+            
+            return annotationView
+        }
+        return nil
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -203,5 +244,21 @@ extension MapVC: MKMapViewDelegate {
 extension MapVC: TriggerIndicatorProtocol {
     func sendStatusIsLoading(status: Bool) {
         self.status = status
+    }
+}
+
+extension MapVC {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let userLocation = locations.last {
+            
+            self.location = userLocation.coordinate
+            guard let location = location else { return }
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 1_000_000, longitudinalMeters: 1_000_000)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Konum alınamadı. Hata: \(error.localizedDescription)")
     }
 }
