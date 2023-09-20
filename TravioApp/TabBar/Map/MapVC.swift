@@ -13,6 +13,10 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
     private lazy var mapView: MKMapView = {
         let mp = MKMapView()
+        let europeCoordinates = CLLocationCoordinate2D(latitude: 39, longitude: 35)
+        let zoomLevel: CLLocationDistance = 2_000_000
+        let region = MKCoordinateRegion(center: europeCoordinates, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+        mp.setRegion(region, animated: true)
         return mp
     }()
     
@@ -134,9 +138,10 @@ extension MapVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.mapView.setCenter(self.viewModel.placesLocation[indexPath.row].coordinate, animated: true)
-        self.mapView.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(5000))
-    
+        let coordinate = self.viewModel.placesLocation[indexPath.row].coordinate
+        let zoomLevel: CLLocationDistance = 5_000
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: zoomLevel, longitudinalMeters: zoomLevel)
+        mapView.setRegion(region, animated: true)
             
         let vc = DetailVisitsVC()
         vc.placeId = self.viewModel.getPlaceID(at: indexPath.row)
