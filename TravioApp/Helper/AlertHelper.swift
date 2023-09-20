@@ -8,17 +8,32 @@
 import UIKit
 
 enum ErrorTypes{
+    
+    //MARK: nil Value error
     case valuesNil
+    
+    //MARK: empty value errors
     case nameOrMailEmpty
+    case emailOrPasswordEmpty
+    case galleryEmpty
+    case placeNameOrCountryIsEmpty
+    
+    //MARK: password errors
     case passwordsDoesntMatch
     case passwordsLessThanRequiredChar
-    case emailOrPasswordEmpty
+   
+    //MARK: server errors
     case APIError(Error)
     case uploadImagesError(Error)
-    case placeNameOrCountryIsEmpty
-    case galleryEmpty
+    
+    //MARK: permission errors
     case cameraPermissionNotGranted
     case photoLibraryPermissionNorGranted
+    
+    //MARK: camera errors
+    case flashCanNotUseFrontCamera
+    case takingPhotoError(Error)
+    case cantAccesTakenPhotoData
 }
 
 class AlertHelper {
@@ -52,8 +67,8 @@ class AlertHelper {
             let action = UIAlertAction(title: "OK", style: .default)
             alertActions.append(action)
         case .passwordsLessThanRequiredChar:
-            title = "Insufficient Password Characters"
-            message = "Password cannot be less than 6 characters."
+            title = "Insufficient Password"
+            message = "Password must contain at least one uppercase letter, one lowercase letter and one number."
             let action = UIAlertAction(title: "OK", style: .default)
             alertActions.append(action)
         case .emailOrPasswordEmpty:
@@ -89,6 +104,21 @@ class AlertHelper {
         case .photoLibraryPermissionNorGranted:
             title = "Photo Library Permission Required"
             message = "Change your photo library permission preference by going to settings."
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertActions.append(action)
+        case .flashCanNotUseFrontCamera:
+            title = "Flash Can Not Use in Front Camera"
+            message = "Switch to back camera to use flash"
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertActions.append(action)
+        case .takingPhotoError(let err):
+            title = "An Error Occurred While Taking a Photo "
+            message = err.localizedDescription
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertActions.append(action)
+        case .cantAccesTakenPhotoData:
+            title = "Photo Data Not Found"
+            message = "Can't Access Taken Photo"
             let action = UIAlertAction(title: "OK", style: .default)
             alertActions.append(action)
         }

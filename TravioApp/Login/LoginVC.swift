@@ -54,12 +54,14 @@ class LoginVC: MainViewController {
         let lbl = UICustomLabel(labelType: .customBlackSemiBold14(text: "Don't have any account?"))
         return lbl
     }()
+    
     private lazy var registerButton: UICustomButton = {
        let bt = UICustomButton()
         bt.buttonSetAttributedTitle(Title: "Sign Up",underLineStyle: .single)
         bt.addTarget(self, action: #selector(actRegisterButton), for: .touchUpInside)
         return bt
     }()
+    
     private lazy var registerStack: UIStackView = {
        let sv = UIStackView()
         sv.axis = .horizontal
@@ -76,8 +78,8 @@ class LoginVC: MainViewController {
             AlertHelper.shared.showAlert(currentVC: self, errorType: errorType)
         }
     }
+    
     override func setupLayout() {
-        
         addSubviews()
        
         background.bottomToSuperview()
@@ -134,18 +136,20 @@ class LoginVC: MainViewController {
     
     override func addSubviews() {
         super.addSubviews()
-        
         registerStack.addArrangedSubview(registerLabel)
         registerStack.addArrangedSubview(registerButton)
         self.view.addSubviews(background,logoImage,welcomeLabel,viewEmail,viewPassword,loginButton,registerStack)
-        
+    }
+    
+    @objc func actRegisterButton() {
+        let vc = RegisterVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func actLoginButton() {
         guard let email = viewEmail.txtField.text, let pass = viewPassword.txtField.text else { return }
         
-        if !checkCanBeLogin(email: email, pass: pass) {return}
-        
+        if !checkCanLogin(email: email, pass: pass) {return}
         let param = [
             "email": email,
             "password": pass
@@ -155,12 +159,8 @@ class LoginVC: MainViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    @objc func actRegisterButton() {
-        let vc = RegisterVC()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
-    func checkCanBeLogin(email:String,pass:String)->Bool{
+    func checkCanLogin(email:String,pass:String)->Bool{
         if email == "" || pass == "" {
             AlertHelper.shared.showAlert(currentVC: self, errorType: .emailOrPasswordEmpty)
             return false

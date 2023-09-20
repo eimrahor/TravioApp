@@ -21,7 +21,6 @@ class MainViewController: UIViewController {
     func setupLayout(){
         
         addSubviews()
-        
         background.bottomToSuperview()
         background.height(to: self.view,multiplier: 0.82)
         background.width(to: self.view)

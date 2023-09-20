@@ -22,6 +22,7 @@ class UICustomButton: UIButton {
         self.setTitleColor(CustomColor.White.color, for: .normal)
         self.roundCorners( [.bottomLeft,.topRight,.topLeft], radius: 16)
     }
+    
     init(title: String = "Button")
     {
         super.init(frame: .zero)
@@ -36,13 +37,11 @@ class UICustomButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func buttonSetAttributedTitle(Title:String = "Empty" , Color: CustomColor = CustomColor.TravioBlack, Font: CustomFont = CustomFont.PoppinsSemiBold(14),underLineStyle:NSUnderlineStyle)
     {
         self.height(21)
         self.backgroundColor = .clear
         let attrString = NSAttributedString(string: Title , attributes: [NSAttributedString.Key.underlineStyle: underLineStyle, NSAttributedString.Key.foregroundColor : Color.color,NSAttributedString.Key.font : Font.font])
-   
         self.setAttributedTitle(attrString, for: .normal)
     }
 

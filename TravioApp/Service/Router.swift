@@ -96,7 +96,6 @@ public enum Router: URLRequestConvertible {
     var multiPartFormData:MultipartFormData{
         
         let multipartFormData = MultipartFormData()
-        
         switch self{
         case .upload(imageDatas: let data):
             for imageData in data {
@@ -124,7 +123,6 @@ public enum Router: URLRequestConvertible {
         request.headers = headers
         guard let encoding = encoding else { return try URLRequest(url: "", method: .get) }
         request = try (encoding.encode(request, with: params))
-        
         return request
     }
 }

@@ -10,14 +10,12 @@ import TinyConstraints
 
 class CustomComponentSwitch: UIView {
 
-    
     lazy var lbl: UICustomLabel = {
         let l = UICustomLabel(labelType: .customTextViewHeader())
         return l
     }()
     
-    lazy var switchControl:UISwitch =
-    {
+    lazy var switchControl:UISwitch = {
         let s = UISwitch()
         s.onTintColor = .green
         return s
@@ -34,7 +32,6 @@ class CustomComponentSwitch: UIView {
     }()
     
     override func layoutSubviews() {
-        //self.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
         self.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
     }
     
@@ -51,11 +48,10 @@ class CustomComponentSwitch: UIView {
     }
     
     func addSubviews() {
-        
         self.addSubview(stackView)
-        
         setLayout()
     }
+    
     func setLayout(){
         
         stackView.centerYToSuperview()
@@ -65,7 +61,6 @@ class CustomComponentSwitch: UIView {
         lbl.centerYToSuperview()
         lbl.edgesToSuperview(excluding: [.bottom,.top,.right],insets: .left(0))
         
-        // FIXME: delete SwitchControl.height and fix switch content alignment 
         switchControl.height(31)
         switchControl.width(70)
         switchControl.centerYToSuperview()

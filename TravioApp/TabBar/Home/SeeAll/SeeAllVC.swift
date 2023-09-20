@@ -78,9 +78,7 @@ class SeeAllVC: MainViewController {
     }
     
     override func setupLayout() {
-        
         super.setupLayout()
-
         self.navigationController?.isNavigationBarHidden = true
         addSubviews()
         
@@ -103,10 +101,7 @@ class SeeAllVC: MainViewController {
     
     override func addSubviews() {
         super.addSubviews()
-        view.addSubview(svNavigationBar)
-        view.addSubview(buttonSortAtoZ)
-        view.addSubview(buttonSortZtoA)
-        view.addSubview(cvPlaces)
+        view.addSubviews(svNavigationBar,buttonSortAtoZ,buttonSortZtoA,cvPlaces)
     }
     
     func configureVC(){
@@ -140,8 +135,8 @@ class SeeAllVC: MainViewController {
     @objc func sortAtoZ(){
         changeSortButton()
         seeAllVM.sortPlaces(by: .AtoZ)
-        
     }
+    
     @objc func sortZtoA(){
         changeSortButton()
         seeAllVM.sortPlaces(by: .ZtoA)

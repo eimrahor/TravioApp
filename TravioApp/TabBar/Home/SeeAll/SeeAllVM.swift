@@ -26,7 +26,6 @@ class SeeAllVM{
             
         case .popularPlaces:
             APIService.call.objectRequestJSON(request: Router.getAllPopularPlaces){ (result:Result<PopularPlaces,Error>) in
-                
                 switch result {
                 case .success(let places):
                     self.placesToBeList = places.data.places
@@ -36,7 +35,6 @@ class SeeAllVM{
             }
         case .newPlaces:
             APIService.call.objectRequestJSON(request: Router.getAllLastPlaces){ (result:Result<PopularPlaces,Error>) in
-                
                 switch result {
                 case .success(let places):
                     self.placesToBeList = places.data.places
@@ -46,7 +44,6 @@ class SeeAllVM{
             }
         case .myAddedPlaces:
             APIService.call.objectRequestJSON(request: Router.listVisits){ (result:Result<ListUserVisitsResponse,Error>) in
-                
                 switch result {
                 case .success(let visits):
                     var visitsToBeList = [Place]()
@@ -63,10 +60,7 @@ class SeeAllVM{
     }
     
     func sortPlaces(by sortType: PlacesSortType){
-        
         guard var placesToBeList = placesToBeList else {return}
-        
-        
         switch sortType {
         case .AtoZ:
             placesToBeList.sort(by: { $0.title.localizedCaseInsensitiveCompare( $1.title) == .orderedAscending })

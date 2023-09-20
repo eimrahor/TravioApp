@@ -40,7 +40,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     }()
     
     private lazy var collectionViewGallery:UICollectionView = {
-       
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
@@ -53,7 +52,6 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         cv.register(GalleryToUploadCell.self, forCellWithReuseIdentifier: "UploadCell")
         cv.backgroundColor = .clear
         return cv
-        
     }()
     
     private lazy var imagePicker: UIImagePickerController = {
@@ -80,13 +78,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        addNewPlaceVM.requesVMToUpdatePlace = { [weak self] () in
-            guard let placeName = self!.placeNameView.txtField.text,
-                  let desc = self!.visitDescriptionView.txtView.text,
-                  let countryCity = self!.countryView.txtField.text else {return}
-            
-            self!.addNewPlaceVM.updateVMPlaceData(placeName: placeName, placeDescription: desc, placeCountryCity: countryCity)
-        }
+        initVM()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,24 +87,34 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     }
     
     @objc func addNewPlace(){
-        
         guard let placeName = placeNameView.txtField.text,
               let countryCity = countryView.txtField.text else {return}
         
-        if !checkCanBeAdd(name: placeName, countryCity: countryCity){return}
-        
+        if !checkCanAdd(name: placeName, countryCity: countryCity){return}
+
         if imagesToUpload.isEmpty{
             AlertHelper.shared.showAlert(currentVC: self, errorType: .galleryEmpty)
-            return
-        }
-            addNewPlaceVM.sendImagesToServer(selectedImages: imagesToUpload) { result in
-                switch result {
-                case .failure(let error):
-                    AlertHelper.shared.showAlert(currentVC: self, errorType: .uploadImagesError(error))
-                case .success(_):
-                    self.addNewPlaceToServerResult()
-                }}
+            return }
         
+        addNewPlaceVM.sendImagesToServer(selectedImages: imagesToUpload) { result in
+            switch result {
+            case .failure(let error):
+                AlertHelper.shared.showAlert(currentVC: self, errorType: .uploadImagesError(error))
+            case .success(_):
+                self.addNewPlaceToServerResult()
+            }
+        }
+        
+    }
+    
+    func initVM(){
+        addNewPlaceVM.requesVMToUpdatePlace = { [weak self] () in
+            guard let placeName = self!.placeNameView.txtField.text,
+                  let desc = self!.visitDescriptionView.txtView.text,
+                  let countryCity = self!.countryView.txtField.text else {return}
+            
+            self!.addNewPlaceVM.updateVMPlaceData(placeName: placeName, placeDescription: desc, placeCountryCity: countryCity)
+        }
     }
     
     func addNewPlaceToServerResult() {
@@ -138,13 +140,14 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         }
     }
     
-    func checkCanBeAdd(name:String,countryCity:String)->Bool {
+    func checkCanAdd(name:String, countryCity:String) -> Bool {
         if name.isEmpty || countryCity.isEmpty
         { AlertHelper.shared.showAlert(currentVC: self, errorType: .placeNameOrCountryIsEmpty)
             return false
         }
         return true
     }
+    
     func fillLocationDatas(){
         guard let place = addNewPlaceVM.place else {return}
         guard let countryCity = place.place else {return}
@@ -159,6 +162,12 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         fillLocationDatas()
         imagesToUpload = []
         collectionViewGallery.reloadData()
+    }
+    
+    func stopSpinner(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
+            self.spinner.stopAnimating()
+        }
     }
     
     func setupLayout(){
@@ -191,30 +200,24 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     }
     
     func addSubviews(){
-        self.view.addSubview(placeNameView)
-        self.view.addSubview(visitDescriptionView)
-        self.view.addSubview(countryView)
-        self.view.addSubview(collectionViewGallery)
-        self.view.addSubview(btnAddPlace)
-        self.view.addSubview(spinner)
+        self.view.addSubviews(placeNameView,visitDescriptionView,countryView,collectionViewGallery,btnAddPlace,spinner)
     }
   
 }
 extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: collectionView.frame.height-5, height: collectionView.frame.height-5)
-        return size
+        return CGSize(width: collectionView.frame.height-5, height: collectionView.frame.height-5)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         spinner.startAnimating()
         selectedCellIndex = indexPath
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
-            self.spinner.stopAnimating()
-        }
+        stopSpinner()
         tryToOpenPhotoLibrary()
     }
     
@@ -232,13 +235,13 @@ extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
     }
 }
 extension AddNewPlaceVC: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadCell", for: indexPath) as? GalleryToUploadCell else { return UICollectionViewCell() }
-        
         if imagesToUpload.count > indexPath.row { cell.configureImage(image: imagesToUpload[indexPath.row])}
         return cell
     }

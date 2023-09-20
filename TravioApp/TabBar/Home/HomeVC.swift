@@ -83,7 +83,6 @@ class HomeVC: UIViewController, CellDataDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // prepareDataWithDispatch()
     }
     
     override func viewDidLayoutSubviews() {
@@ -173,8 +172,6 @@ class HomeVC: UIViewController, CellDataDelegate{
 extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 230
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
 

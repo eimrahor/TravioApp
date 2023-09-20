@@ -11,31 +11,26 @@ class UICustomTextField: UITextField {
 
     var insets:UIEdgeInsets
     
-    var LeftViewImageSystemName:String = "person.fill"
-    {
+    var LeftViewImageSystemName:String = "person.fill"{
         didSet{
             SetLeftView(SystemIconName: LeftViewImageSystemName,LeftView:true)
         }
     }
-    var LeftViewImageName:String = "person.fill"
-    {
+    var LeftViewImageName:String = "person.fill"{
         didSet{
             SetLeftView(IconName: LeftViewImageName, LeftView: true)
         }
     }
-    var RightViewImageSystemName:String = "person.fill"
-    {
+    var RightViewImageSystemName:String = "person.fill"{
         didSet{
             SetLeftView(SystemIconName: LeftViewImageSystemName,LeftView:false)
         }
     }
-    var RightViewImageName:String = "person.fill"
-    {
+    var RightViewImageName:String = "person.fill"{
         didSet{
             SetLeftView(IconName: LeftViewImageName, LeftView: false)
         }
     }
-    
     
     init(insets:UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 30))
     {
@@ -61,7 +56,6 @@ class UICustomTextField: UITextField {
         imageView.image = UIImage(named: IconName)
         imageView.tintColor = CustomColor.Blue.color
         
-        
         let View = UIView(frame: CGRect(x: 0, y: 2, width: 44, height: 44))
         View.addSubview(imageView)
         
@@ -75,7 +69,6 @@ class UICustomTextField: UITextField {
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: SystemIconName)
         imageView.tintColor = CustomColor.Blue.color
-        
         
         let View = UIView(frame: CGRect(x: 0, y: 2, width: 44, height: 44))
         View.addSubview(imageView)

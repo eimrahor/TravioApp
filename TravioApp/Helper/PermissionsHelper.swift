@@ -13,6 +13,8 @@ import Photos
 class PermissionsHelper{
     static let shared = PermissionsHelper()
     
+    let locationManager = CLLocationManager()
+    
     func requestCameraPermission( complete: @escaping (Bool)->(Void)) {
         AVCaptureDevice.requestAccess(for: .video) { granted in
             if granted {
@@ -40,13 +42,8 @@ class PermissionsHelper{
             }
         }
     }
-    
-    let locationManager = CLLocationManager()
 
     func requestLocationPermission() {
-        
-        PermissionsHelper.shared.locationManager.requestWhenInUseAuthorization() // Kullanıldığında konum izni için
-        // veya
-        // locationManager.requestAlwaysAuthorization() // Her zaman konum izni için
+        PermissionsHelper.shared.locationManager.requestWhenInUseAuthorization()
     }
 }

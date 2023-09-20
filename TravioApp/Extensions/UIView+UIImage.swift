@@ -11,7 +11,6 @@ import UIKit
 extension UICollectionViewCell {
     
     func radiusWithShadow(corners:UIRectCorner){
-        
         let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), byRoundingCorners: corners, cornerRadii: CGSize(width: 16, height: 16))
         rectanglePath.close()
         
@@ -56,7 +55,7 @@ extension UIView {
             self.layer.shadowOpacity = 0.2
             self.layer.shadowRadius = 4
             self.layer.masksToBounds = false
-            }
+    }
     
     func shadowAndRoundCorners(width: CGFloat, height: CGFloat) {
         
@@ -80,9 +79,6 @@ extension UIView {
             self.addSubview(v)
         })
     }
-    
-    
-    
 }
 
 extension UIImage {
@@ -99,12 +95,5 @@ extension UIImage {
         defer { UIGraphicsEndImageContext() }
         self.draw(in: CGRect(origin: .zero, size: size))
         return UIGraphicsGetImageFromCurrentImageContext()
-    }
-    
-
-}
-
-extension UITextView {
-    func changeColor() {
     }
 }

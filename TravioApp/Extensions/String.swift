@@ -9,10 +9,12 @@ import Foundation
 
 
 extension String {
+    
     func returnSpecialStringText() -> String {
         let array = self.components(separatedBy: ", ")
         return array[array.count - 1]
     }
+    
     func changeDateFormat() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"

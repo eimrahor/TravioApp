@@ -26,7 +26,6 @@ class UICustomLabel: UILabel {
         super.init(frame: .zero)
         
         switch labelType {
-            
         case .pageNameHeader(let text):
             self.textColor = CustomColor.White.color
             self.text = text
@@ -87,7 +86,6 @@ class UICustomLabel: UILabel {
             self.textAlignment = .right
             self.font = CustomFont.PoppinsSemiBold(14).font
         }
-       
     }
     
     required init?(coder: NSCoder) {

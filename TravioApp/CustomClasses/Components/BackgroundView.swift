@@ -20,7 +20,6 @@ class BackgroundView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
         self.roundCorners( [.topLeft], radius: 80)
     }
     

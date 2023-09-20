@@ -25,7 +25,6 @@ class CameraVC: UIViewController {
             changeStackButtons()
         }
     }
-    
     var CameraTrandferDataDelegate:CameraTransferData?
     
     private lazy var btnBack: UICustomButtonBack = {
@@ -33,6 +32,12 @@ class CameraVC: UIViewController {
         bt.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return bt
     }()
+    
+    private lazy var logoImage: UIImageView = {
+         let img = UIImageView()
+          img.image = UIImage(named: "travioLogo_horizontalTitle")
+          return img
+      }()
     
     private lazy var imgPreview:UIImageView = {
         let iv = UIImageView()
@@ -144,7 +149,13 @@ class CameraVC: UIViewController {
         dismiss(animated: true)
     }
     
+    //MARK: FLASH BUTTON
     @objc func flashOnOff(){
+        
+        if currentCamera != backCamera {
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .flashCanNotUseFrontCamera)
+            return
+        }
         if let device = AVCaptureDevice.default(for: .video) {
             do {
                 try device.lockForConfiguration()
@@ -160,23 +171,27 @@ class CameraVC: UIViewController {
         }
     }
     
+    //MARK: CHANGE CAM BUTTON
     @objc func changeCamera(){
         if currentCamera == frontCamera { currentCamera = backCamera }
         else { currentCamera = frontCamera }
         setupInputOutput()
     }
     
+    //MARK: DISMISS BUTTON
     @objc func throwAwayPhoto(){
         imgPreview.image = nil
         canTakePhoto = true
     }
     
+    //MARK: ADD PHOTO BUTTON
     @objc func choosePhoto(){
         guard let image = imgPreview.image else {return}
         CameraTrandferDataDelegate?.transferImage(image: image)
         dismiss(animated: true)
     }
     
+    //MARK: TAKE PHOTO BUTTON
     @objc func takeAPhoto(){
         
         guard canTakePhoto else {return}
@@ -196,6 +211,7 @@ class CameraVC: UIViewController {
         canTakePhoto = false
     }
     
+    //MARK: When photo captured change stackview shown
     func changeStackButtons(){
         if svCameraButtons.isHidden {
             svCameraButtons.isHidden = false
@@ -213,6 +229,8 @@ class CameraVC: UIViewController {
         
         btnBack.topToSuperview(offset: 19,usingSafeArea: true)
         btnBack.leadingToSuperview(offset: 20)
+        logoImage.centerXToSuperview()
+        logoImage.topToSuperview(offset:28,usingSafeArea: true)
         
         imgPreview.edgesToSuperview()
         
@@ -232,7 +250,7 @@ class CameraVC: UIViewController {
     }
     
     func addSubviews(){
-        self.view.addSubviews(btnBack,svCameraButtons,svAddDismissButtons,imgPreview)
+        self.view.addSubviews(btnBack,logoImage,svCameraButtons,svAddDismissButtons,imgPreview)
     }
     
     func showCamera() {
@@ -250,7 +268,6 @@ class CameraVC: UIViewController {
     func setupDevice() {
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
         let devices = deviceDiscoverySession.devices
-        
         for device in devices {
                 if device.position == .front {
                     frontCamera = device
@@ -269,6 +286,7 @@ class CameraVC: UIViewController {
                 let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
                 captureSession.addInput(captureDeviceInput)
                 
+                
                 if let currentOutput = captureSession.outputs.first as? AVCapturePhotoOutput {
                     captureSession.removeOutput(currentOutput)
                 }
@@ -279,9 +297,8 @@ class CameraVC: UIViewController {
                             photoOutputConnection.isVideoMirrored = true
                     }
                 }
-               
             } catch {
-                print(error)
+                print(error.localizedDescription)
             }
         }
 
@@ -296,21 +313,18 @@ class CameraVC: UIViewController {
         DispatchQueue.global().async {
             self.captureSession.startRunning()
         }
-        
     }
 }
 extension CameraVC:AVCapturePhotoCaptureDelegate{
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
-            print("Fotoğraf çekilirken hata oluştu: \(error.localizedDescription)")
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .takingPhotoError(error))
             return
         }
-
         guard let photoData = photo.fileDataRepresentation() else {
-            print("Fotoğraf verilerine erişilemiyor.")
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .cantAccesTakenPhotoData)
             return
         }
-        
         if let capturedImage = UIImage(data: photoData) {
             imgPreview.image = capturedImage
         }

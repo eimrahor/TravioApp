@@ -22,8 +22,7 @@ class CustomComponentTextView: UIView {
         return l
     }()
     
-    lazy var txtView:UITextView =
-    {
+    lazy var txtView:UITextView = {
         let tv = UITextView()
         tv.textColor = CustomColor.TravioLightGray.color
         tv.font = CustomFont.PoppinsRegular(12).font
@@ -48,19 +47,15 @@ class CustomComponentTextView: UIView {
     }
     
     override func layoutSubviews() {
-        //self.shadowAndRoundCorners(width: self.frame.width, height: self.frame.height)
         self.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
     }
     
     func addSubviews() {
-        
-        self.addSubview(lbl)
-        self.addSubview(txtView)
-        
-        setLayout()
+        self.addSubviews(lbl,txtView)
+        setUpLayout()
     }
-    func setLayout(){
-        
+    
+    func setUpLayout(){
         lbl.topToSuperview(offset:8)
         lbl.edgesToSuperview(excluding: [.bottom,.top,.right],insets: .left(12))
         
@@ -71,12 +66,21 @@ class CustomComponentTextView: UIView {
 extension CustomComponentTextView:UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        changeTextToNormalText(textView: textView)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        changeTextToPlaceHolder(textView: textView)
+    }
+    
+    func changeTextToNormalText(textView: UITextView){
         if textView.textColor == CustomColor.TravioLightGray.color {
         textView.text = ""
         textView.textColor = .black
         }
     }
-    func textViewDidEndEditing(_ textView: UITextView) {
+    
+    func changeTextToPlaceHolder(textView: UITextView){
         if textView.text.isEmpty {
             textView.text = placeHolderText
             textView.textColor = CustomColor.TravioLightGray.color

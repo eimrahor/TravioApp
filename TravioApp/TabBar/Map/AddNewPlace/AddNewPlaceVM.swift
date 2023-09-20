@@ -20,7 +20,6 @@ class AddNewPlaceVM{
    
     // MARK: get location,city,country data from MapVC annotation.
     func initVM(place:PlaceToMap){
-        
         self.place = PlaceToMap()
         if let cityCountryUnWrap = place.place { self.place?.place = cityCountryUnWrap}
         if let latitudeUnWrap = place.latitude { self.place?.latitude = latitudeUnWrap}
@@ -28,8 +27,7 @@ class AddNewPlaceVM{
     }
     
     // MARK: get name,description,place from AddNewPlaceVC.
-    func updateVMPlaceData(placeName:String,placeDescription:String?,placeCountryCity:String)
-    {
+    func updateVMPlaceData(placeName:String,placeDescription:String?,placeCountryCity:String){
         place?.title = placeName
         place?.description = placeDescription
         place?.place = placeCountryCity
@@ -37,20 +35,17 @@ class AddNewPlaceVM{
     
     // MARK: send imagesData to server.
     func sendImagesToServer(selectedImages:[UIImage]?, complete: @escaping (Result<String, Error>) -> ()){
-        
         guard let selectedImages = selectedImages else {return}
         
         let imageDatas = convertUIImagesToData(images: selectedImages)
         
         APIService.call.uploadImagesToServer(route: .upload(imageDatas: imageDatas)) { (result:Result<UploadImageResponse,Error>) in
             switch result {
-            case .success(let response):
                 
-                print("Response: \(response)")
+            case .success(let response):
                 self.extractImageURLsToArray(response: response)
                 guard let requestToUpdatePlace = self.requesVMToUpdatePlace else{return}
                 requestToUpdatePlace()
-
                 complete(.success("true"))
                 
             case .failure(let error):
@@ -61,7 +56,6 @@ class AddNewPlaceVM{
     
     // MARK: convert UIImages array to Data array.
     func convertUIImagesToData(images:[UIImage]) -> [Data] {
-        
         var imageDatas = [Data]()
         
         for image in images {
@@ -76,14 +70,13 @@ class AddNewPlaceVM{
     func extractImageURLsToArray(response:UploadImageResponse){
         imageUrls = [String]()
         let urls = response.urls
-        
+    
         for url in urls {
             imageUrls?.append(url)
         }
     }
     
     func addNewPlaceToServer(complete: @escaping (Result<String,Error>)->()){
-
         guard let place = place else { return }
         guard let placeCountryCity = place.place,
               let title = place.title,
@@ -93,14 +86,15 @@ class AddNewPlaceVM{
         else { return }
         
         let description = place.description
-        
         let params:Parameters = ["place":placeCountryCity,"title":title,"description":description,"cover_image_url":cover_image_url,"latitude":latitude,"longitude":longitude]
 
         APIService.call.objectRequestJSON(request: Router.addNewPlace(params: params )) { (result:Result<PostPlacesResponse,Error>) in
             switch result {
+                
             case .success(let response):
                 self.placeID = response.message
                 complete(.success("true"))
+                
             case .failure(let err):
                 complete(.failure(err))
             }
@@ -108,7 +102,6 @@ class AddNewPlaceVM{
     }
     
     func addGalleryImagesNewAddedPlace(complete: @escaping (Result<String,Error>)->()) {
-        
         guard let placeID = placeID else { return }
         guard let imageUrls = imageUrls else { return }
         
@@ -116,14 +109,16 @@ class AddNewPlaceVM{
             "place_id" : placeID,
             "image_url" : ""
         ]
-        
+
         for image in imageUrls {
             params["image_url"] = image
             
             APIService.call.objectRequestJSON(request: Router.postGalleryImage(params: params), complete: { (result:Result<PostGalleryImageResponseModel,Error>) in
                     switch result {
+                        
                     case .success(_):
                         complete(.success("true"))
+                        
                     case .failure(let err):
                         complete(.failure(err))
                 }
