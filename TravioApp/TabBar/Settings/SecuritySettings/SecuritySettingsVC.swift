@@ -155,7 +155,12 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
             AlertHelper.shared.showAlert(currentVC: self, errorType: .passwordsDoesntMatch)
             return false
         }
-        if passwordTxt.count < 6 {
+        
+        let passwordRegex = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=\\S+$).{6,}$"
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        let isPasswordValid = passwordTest.evaluate(with: passwordTxt)
+        
+        if !isPasswordValid {
             AlertHelper.shared.showAlert(currentVC: self, errorType: .passwordsLessThanRequiredChar)
             return false
         }

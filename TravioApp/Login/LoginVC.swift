@@ -74,6 +74,9 @@ class LoginVC: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+       
+    }
+    override func viewWillAppear(_ animated: Bool) {
         viewModel.showAlert = { errorType in
             AlertHelper.shared.showAlert(currentVC: self, errorType: errorType)
         }

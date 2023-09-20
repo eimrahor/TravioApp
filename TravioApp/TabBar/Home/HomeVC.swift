@@ -178,6 +178,10 @@ extension HomeVC: UITableViewDelegate {
 extension HomeVC: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
+        guard let addedPlaces = viewModel.aVisits else { return 0 }
+        if addedPlaces.data.count == 0 {
+            return 2
+        }
         return 3
     }
     
@@ -223,7 +227,6 @@ extension HomeVC {
         targetVC.placeId = placeID
         self.navigationController?.pushViewController(targetVC, animated: true)
     }
-    
 }
 
 extension HomeVC: TriggerIndicatorProtocol {

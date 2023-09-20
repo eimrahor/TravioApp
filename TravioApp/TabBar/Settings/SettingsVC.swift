@@ -108,9 +108,9 @@ class SettingsVC: UIViewController {
     @objc func actLogoutButton() {
         KeyChainHelper.shared.deleteKey(account: "ios")
         
-        let loginVC = UserLoginVC()
+        let loginVC = LoginVC()
         let navigationController = UINavigationController(rootViewController: loginVC)
-                
+
         let windowsSD = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window
         windowsSD?.rootViewController = navigationController
         windowsSD?.makeKeyAndVisible()

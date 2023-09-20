@@ -11,6 +11,7 @@ import Alamofire
 class UserRegisterVM {
     
     var showAlert:((ErrorTypes)->(Void))?
+    var showSuccesfullyRegisterAlert:((String)->(Void))?
     
     func postForRegisterData(user:User) {
         
@@ -21,14 +22,15 @@ class UserRegisterVM {
         ]
         APIService.call.objectRequestJSON(request: Router.register(params: params)) { (result:Result<UserRegisterResponse,Error>) in
             switch result {
-            case .success(_):
+            case .success(let response):
+                guard let succesAlert = self.showSuccesfullyRegisterAlert else {return}
+                succesAlert(response.message)
                 print("register gerçekleşti")
             case .failure(let err):
                 print(err)
             }
         }
     }
-    
     func checkCanSignUp(name:String,email:String,password:String,passwordConfirm:String)->Bool{
         
         let passwordRegex = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=\\S+$).{6,}$"

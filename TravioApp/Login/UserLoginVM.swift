@@ -38,6 +38,7 @@ class UserLoginVM {
                 guard let showAlert = self.showAlert else {return}
                 showAlert(.APIError(err))
                 print(err)
+                
             }
         }
     }

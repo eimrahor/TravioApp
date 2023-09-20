@@ -14,6 +14,7 @@ class ChangePasswordSettingsCell: UITableViewCell {
         let view = CustomComponentTextField()
         view.backgroundColor = CustomColor.White.color
         view.txtField.delegate = self
+        view.txtField.isSecureTextEntry = true
         return view
     }()
     

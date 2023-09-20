@@ -69,9 +69,8 @@ class RegisterVC: MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        viewModel.showAlert = { errorType in
-            AlertHelper.shared.showAlert(currentVC: self, errorType: errorType)
-        }
+        configureAlertClosures()
+      
     }
 
     override func setupLayout() {
@@ -145,8 +144,20 @@ class RegisterVC: MainViewController {
         let user = User(fullName: fullname, email: email, password: password)
         
         viewModel.postForRegisterData(user: user)
-      
-        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func configureAlertClosures(){
+        
+        viewModel.showAlert = { errorType in
+            AlertHelper.shared.showAlert(currentVC: self, errorType: errorType)
+        }
+        let action = UIAlertAction(title: "OK", style: .default){
+            handler in
+            self.navigationController?.popViewController(animated: true)
+        }
+        viewModel.showSuccesfullyRegisterAlert = { message in
+            AlertHelper.shared.showAlert(currentVC: self, errorType: .registerCompletedSuccessfully(action,message))
+        }
     }
 
  }

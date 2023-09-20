@@ -12,6 +12,12 @@ enum ErrorTypes{
     //MARK: nil Value error
     case valuesNil
     
+    //MARK: Login fail
+    case emailOrPasswordNotValid
+    
+    //MARK: Register Success
+    case registerCompletedSuccessfully(UIAlertAction,String)
+    
     //MARK: empty value errors
     case nameOrMailEmpty
     case emailOrPasswordEmpty
@@ -120,6 +126,15 @@ class AlertHelper {
             title = "Photo Data Not Found"
             message = "Can't Access Taken Photo"
             let action = UIAlertAction(title: "OK", style: .default)
+            alertActions.append(action)
+        case .emailOrPasswordNotValid:
+            title = "Login Failed"
+            message = "Email or password is not valid."
+            let action = UIAlertAction(title: "OK", style: .default)
+            alertActions.append(action)
+        case .registerCompletedSuccessfully(let action,let msg):
+            title = "Completed Succesfully"
+            message = msg
             alertActions.append(action)
         }
         

@@ -22,8 +22,6 @@
 		7A7A8EEB2A9C9C44000681F6 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 7A7A8EEA2A9C9C44000681F6 /* TinyConstraints */; };
 		7A7A8EEE2A9C9C55000681F6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A7A8EED2A9C9C55000681F6 /* SnapKit */; };
 		7A7A8EF12A9C9C8D000681F6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7A7A8EF02A9C9C8D000681F6 /* Kingfisher */; };
-		7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EF32A9C9DD4000681F6 /* UserRegisterVC.swift */; };
-		7A7A8EF62A9C9DD4000681F6 /* UserLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EF42A9C9DD4000681F6 /* UserLoginVC.swift */; };
 		7A7A8F002A9C9E5F000681F6 /* VisitsVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EF82A9C9E5F000681F6 /* VisitsVCViewModel.swift */; };
 		7A7A8F012A9C9E5F000681F6 /* VisitsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EF92A9C9E5F000681F6 /* VisitsVC.swift */; };
 		7A7A8F022A9C9E5F000681F6 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7A8EFA2A9C9E5F000681F6 /* MapVC.swift */; };
@@ -114,8 +112,6 @@
 		7A7A8EDF2A9C9BF0000681F6 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		7A7A8EE02A9C9BF1000681F6 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		7A7A8EE12A9C9BF1000681F6 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		7A7A8EF32A9C9DD4000681F6 /* UserRegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterVC.swift; sourceTree = "<group>"; };
-		7A7A8EF42A9C9DD4000681F6 /* UserLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginVC.swift; sourceTree = "<group>"; };
 		7A7A8EF82A9C9E5F000681F6 /* VisitsVCViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitsVCViewModel.swift; sourceTree = "<group>"; };
 		7A7A8EF92A9C9E5F000681F6 /* VisitsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitsVC.swift; sourceTree = "<group>"; };
 		7A7A8EFA2A9C9E5F000681F6 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -262,7 +258,6 @@
 		7A7A8EF22A9C9DB8000681F6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				7A7A8EF42A9C9DD4000681F6 /* UserLoginVC.swift */,
 				7A7A8F142A9C9F00000681F6 /* UserLoginVM.swift */,
 				86227FD82AB588CE000D6396 /* LoginVC.swift */,
 				E57CF4BD2AB8DF4D007255C9 /* LoginResponseModel.swift */,
@@ -387,7 +382,6 @@
 		7A84AE3A2A9CB4EF00397420 /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				7A7A8EF32A9C9DD4000681F6 /* UserRegisterVC.swift */,
 				7A7A8F152A9C9F00000681F6 /* UserRegisterVM.swift */,
 				86227FD62AB52D59000D6396 /* RegisterVC.swift */,
 				E57CF4BB2AB8DF20007255C9 /* RegisterResponseModel.swift */,
@@ -582,7 +576,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				865F627E2A9D326900B84578 /* UICustomButton.swift in Sources */,
-				7A7A8EF52A9C9DD4000681F6 /* UserRegisterVC.swift in Sources */,
 				E57CF4BC2AB8DF20007255C9 /* RegisterResponseModel.swift in Sources */,
 				86227F8A2AAE3549000D6396 /* EditProfileVM.swift in Sources */,
 				7A7A8F292A9C9F67000681F6 /* UIView+UIImage.swift in Sources */,
@@ -626,7 +619,6 @@
 				86227F872AADDF7E000D6396 /* PermissionsHelper.swift in Sources */,
 				86C477892AACAE7B00566549 /* AboutVC.swift in Sources */,
 				7A7A8EBD2A9C9B78000681F6 /* AppDelegate.swift in Sources */,
-				7A7A8EF62A9C9DD4000681F6 /* UserLoginVC.swift in Sources */,
 				7A7A8F032A9C9E5F000681F6 /* SettingsVC.swift in Sources */,
 				7A7A8F232A9C9F39000681F6 /* Router.swift in Sources */,
 				865F627C2A9D326900B84578 /* CustomComponentTextField.swift in Sources */,
@@ -800,7 +792,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KC8H2C7U9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
@@ -833,7 +825,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KC8H2C7U9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";

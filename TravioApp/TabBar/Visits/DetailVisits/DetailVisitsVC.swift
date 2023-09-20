@@ -199,15 +199,6 @@ class DetailVisitsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-//    func changeDateFormat(date: String) -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-//        let theDate = dateFormatter.date(from: date)!
-//        let newDateFormater = DateFormatter()
-//        newDateFormater.dateFormat = "dd MMMM yyyy"
-//        return newDateFormater.string(from: theDate)
-//    }
-    
     func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
         navigationController?.isNavigationBarHidden = true
@@ -303,12 +294,14 @@ class DetailVisitsVC: UIViewController {
             make.edges.equalToSuperview()
             make.width.equalTo(view.snp.width)
         }
+        
+        guard let tabBar = tabBarController else {return}
         scroll.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(tabBar.tabBar.frame.height * -1)
             make.width.equalTo(view.snp.width)
         }
-       //content.layoutSubviews()
     }
 }
 
