@@ -40,6 +40,9 @@ enum ErrorTypes{
     case flashCanNotUseFrontCamera
     case takingPhotoError(Error)
     case cantAccesTakenPhotoData
+    
+    //MARK: mapLongPressOutOfRange
+    case mapLongPressOutOfRange
 }
 
 class AlertHelper {
@@ -135,6 +138,11 @@ class AlertHelper {
         case .registerCompletedSuccessfully(let action,let msg):
             title = "Completed Succesfully"
             message = msg
+            alertActions.append(action)
+        case .mapLongPressOutOfRange:
+            title = "This area is not available for selection"
+            message = "The region you want to add must be close to your location."
+            let action = UIAlertAction(title: "OK", style: .default)
             alertActions.append(action)
         }
         

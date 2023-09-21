@@ -128,6 +128,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
                     
                     self.present(self.addNewPlaceVC, animated: true, completion: nil)
                 }
+                else{ AlertHelper.shared.showAlert(currentVC: self, errorType: .mapLongPressOutOfRange) }
             }
             
         }
