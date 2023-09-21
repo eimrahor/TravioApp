@@ -10,7 +10,12 @@ import MapKit
 import SnapKit
 
 class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
-
+    
+    private lazy var trackingButtonView: UIView = {
+        let v = UIView()
+        return v
+    }()
+    
     private lazy var mapView: MKMapView = {
         let mp = MKMapView()
         let europeCoordinates = CLLocationCoordinate2D(latitude: 39, longitude: 35)
@@ -63,6 +68,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
         }
     }
     
+    
     let addNewPlaceVC = AddNewPlaceVC()
     let viewModel = MapVCViewModel()
     var status: Bool? {
@@ -83,14 +89,14 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         locationManager.startUpdatingLocation()
         initVM()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.mapView.showsUserLocation = true
-        self.mapView.userTrackingMode = .follow
+        //self.mapView.userTrackingMode = .follow
+        
     }
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -143,12 +149,19 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
     
     func setupViews() {
         navigationController?.isNavigationBarHidden = true
+        
+        let trackingButton = MKUserTrackingButton(mapView: mapView)
+        mapView.addSubview(trackingButton)
+        trackingButton.frame.origin = CGPoint(x: 20, y: 50)
+        trackingButton.backgroundColor = CustomColor.LightGray.color
+        trackingButton.tintColor = CustomColor.TravioLightGray.color
         view.addSubview(mapView)
         view.addSubview(collectionView)
         makeConst()
     }
     
     func makeConst() {
+        
         mapView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
@@ -212,6 +225,7 @@ extension MapVC: MKMapViewDelegate {
             location = turkeyClLocation
             return MKAnnotationView()
         }
+        //locationManager.stopUpdatingLocation()
         if annotation.coordinate.latitude != location.latitude && annotation.coordinate.longitude != location.longitude {
             
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "travel")
@@ -239,6 +253,18 @@ extension MapVC: MKMapViewDelegate {
             }
         }
     }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let circleOverlay = overlay as? MKCircle {
+            let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
+            circleRenderer.fillColor = UIColor.blue.withAlphaComponent(0.05) // Dairenin iç rengi
+            circleRenderer.strokeColor = UIColor.blue.withAlphaComponent(0.5) // Dairenin kenar rengi
+            circleRenderer.lineWidth = 1 // Dairenin kenar kalınlığı
+            locationManager.stopUpdatingLocation()
+            return circleRenderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
+    }
 }
 
 extension MapVC: TriggerIndicatorProtocol {
@@ -253,8 +279,11 @@ extension MapVC {
             
             self.location = userLocation.coordinate
             guard let location = location else { return }
-            let region = MKCoordinateRegion(center: location, latitudinalMeters: 1_000_000, longitudinalMeters: 1_000_000)
-            mapView.setRegion(region, animated: true)
+            let circleRadius = 5_000.0
+            let circle = MKCircle(center: location, radius: circleRadius)
+            mapView.addOverlay(circle)
+            //let region = MKCoordinateRegion(center: location, latitudinalMeters: 1_000_000, longitudinalMeters: 1_000_000)
+            //mapView.setRegion(region, animated: true)
         }
     }
     

@@ -792,7 +792,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KC8H2C7U9K;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";
@@ -825,7 +825,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KC8H2C7U9K;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravioApp/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Permission to access your camera is required to use the photo capture function.";

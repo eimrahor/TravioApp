@@ -38,7 +38,7 @@ class LoginVC: MainViewController {
     private lazy var viewPassword: CustomComponentTextField = {
        let view = CustomComponentTextField()
        view.lbl.text = "Password"
-       view.txtField.text = "123456"
+       view.txtField.text = "1234De"
        view.placeHolderConfig(placeHolderText: "*********")
        view.txtField.isSecureTextEntry = true
         return view
