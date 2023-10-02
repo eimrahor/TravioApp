@@ -32,7 +32,7 @@ class LoginVC: MainViewController {
     private lazy var viewEmail: CustomComponentTextField = {
        let view = CustomComponentTextField()
        view.lbl.text = "Email"
-       view.txtField.text = "Elif@mail.com"
+       view.txtField.text = "E@e.com"
        view.placeHolderConfig(placeHolderText: "developer@bilgeadam.com")
         return view
     }()
