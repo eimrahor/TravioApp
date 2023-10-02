@@ -21,6 +21,7 @@ then run "TravioApp.xcodeproj" file with XCode
 ## Screenshots
 
 <p align="center">
+  <img src="./images/0.png" height="500" title="ss">
   <img src="./images/1.png" height="500" title="ss">
   <img src="./images/2.png" height="500" title="ss">
   <img src="./images/3.png" height="500" title="ss">
