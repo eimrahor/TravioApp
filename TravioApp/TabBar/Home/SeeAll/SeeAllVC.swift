@@ -19,6 +19,8 @@ class SeeAllVC: MainViewController {
     let seeAllVM = SeeAllVM()
     var listedPlacesType: ListedPlacesTypes?
     
+    // MARK: - Properties
+    
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "None"))
         return lbl
@@ -69,13 +71,57 @@ class SeeAllVC: MainViewController {
         return cv
     }()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLayout()
         configureVC()
+        setupLayout()
         seeAllVM.getPlaces(placesType: listedPlacesType!)
         seeAllVM.reloadData = { self.cvPlaces.reloadData() }
     }
+    
+    func configureVC(){
+        switch listedPlacesType {
+        case .popularPlaces:
+            lblPageTitle.text = "Popular Places"
+        case .newPlaces:
+            lblPageTitle.text = "New Places"
+        case .myAddedPlaces:
+            lblPageTitle.text = "My Added Places"
+        case .none:
+            return
+        }
+    }
+    
+    // MARK: - Selectors
+    
+    @objc func goPopView(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func sortAtoZ(){
+        changeSortButton()
+        seeAllVM.sortPlaces(by: .AtoZ)
+    }
+    
+    @objc func sortZtoA(){
+        changeSortButton()
+        seeAllVM.sortPlaces(by: .ZtoA)
+    }
+    
+    func changeSortButton(){
+        if buttonSortAtoZ.isHidden {
+            buttonSortAtoZ.isHidden = false
+            buttonSortZtoA.isHidden = true
+        }
+        else {
+            buttonSortAtoZ.isHidden = true
+            buttonSortZtoA.isHidden = false
+        }
+    }
+    
+    // MARK: - Helpers
     
     override func setupLayout() {
         super.setupLayout()
@@ -103,45 +149,9 @@ class SeeAllVC: MainViewController {
         super.addSubviews()
         view.addSubviews(svNavigationBar,buttonSortAtoZ,buttonSortZtoA,cvPlaces)
     }
-    
-    func configureVC(){
-        switch listedPlacesType {
-        case .popularPlaces:
-            lblPageTitle.text = "Popular Places"
-        case .newPlaces:
-            lblPageTitle.text = "New Places"
-        case .myAddedPlaces:
-            lblPageTitle.text = "My Added Places"
-        case .none:
-            return
-        }
-    }
-    
-    func changeSortButton(){
-        if buttonSortAtoZ.isHidden {
-            buttonSortAtoZ.isHidden = false
-            buttonSortZtoA.isHidden = true
-        }
-        else {
-            buttonSortAtoZ.isHidden = true
-            buttonSortZtoA.isHidden = false
-        }
-    }
-    
-    @objc func goPopView(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func sortAtoZ(){
-        changeSortButton()
-        seeAllVM.sortPlaces(by: .AtoZ)
-    }
-    
-    @objc func sortZtoA(){
-        changeSortButton()
-        seeAllVM.sortPlaces(by: .ZtoA)
-    }
 }
+
+// MARK: - CollectionView Specs
 
 extension SeeAllVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

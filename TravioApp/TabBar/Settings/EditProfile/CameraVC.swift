@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import TinyConstraints
+
 protocol CameraTransferData{
     func transferImage(image:UIImage)
 }
@@ -26,6 +27,8 @@ class CameraVC: UIViewController {
         }
     }
     var CameraTrandferDataDelegate:CameraTransferData?
+    
+    // MARK: - Properties
     
     private lazy var btnBack: UICustomButtonBack = {
         let bt = UICustomButtonBack()
@@ -134,6 +137,8 @@ class CameraVC: UIViewController {
         return sv
     }()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showCamera()
@@ -144,6 +149,8 @@ class CameraVC: UIViewController {
         svCameraButtons.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
         svAddDismissButtons.roundCornersWithShadow([.bottomLeft,.topLeft,.topRight], radius: 18)
     }
+    
+    // MARK: - Selectors
     
     @objc func goBack(){
         dismiss(animated: true)
@@ -222,6 +229,8 @@ class CameraVC: UIViewController {
             svAddDismissButtons.isHidden = false
         }
     }
+    
+    // MARK: - Helpers
     
     func setupLayout(){
         self.view.backgroundColor = CustomColor.TravioGreen.color

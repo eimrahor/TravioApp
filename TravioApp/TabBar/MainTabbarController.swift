@@ -9,6 +9,8 @@ import UIKit
 
 class MainTabbarController: UITabBarController {
 
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -18,6 +20,8 @@ class MainTabbarController: UITabBarController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    
+    // MARK: - Helpers
     
     func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.258569181, green: 0.7276339531, blue: 0.7204007506, alpha: 1)
@@ -63,6 +67,4 @@ class MainTabbarController: UITabBarController {
         self.viewControllers = [nav1,nav2,nav3,nav4]
         self.selectedIndex = 1
     }
-    
-
 }

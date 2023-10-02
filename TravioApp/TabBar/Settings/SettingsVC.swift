@@ -10,6 +10,8 @@ import SnapKit
 
 class SettingsVC: UIViewController {
 
+    // MARK: - Properties
+    
     private lazy var secondView: UIView = {
        let v = UIView()
         v.backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.9725490196, blue: 0.9725490196, alpha: 1)
@@ -70,6 +72,8 @@ class SettingsVC: UIViewController {
     
     let viewModel = SettingsViewModel()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -105,6 +109,8 @@ class SettingsVC: UIViewController {
         image.layer.mask = maskLayer
     }
     
+    // MARK: - Selectors
+    
     @objc func actLogoutButton() {
         KeyChainHelper.shared.deleteKey(account: "ios")
         
@@ -121,6 +127,8 @@ class SettingsVC: UIViewController {
         targetVC.editProfileVM.userProfile = viewModel.user
         self.navigationController?.pushViewController(targetVC, animated: true)
     }
+    
+    // MARK: - Helpers
     
     func setupViews() {
         view.addSubviews(secondView,titleLabel,logoutBtn,image,nameLabel,editButton,collectionView)
@@ -172,6 +180,8 @@ class SettingsVC: UIViewController {
         }
     }
 }
+
+// MARK: - CollectionView Specs
 
 extension SettingsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

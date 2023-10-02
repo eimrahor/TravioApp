@@ -11,15 +11,19 @@ import TinyConstraints
 
 class RegisterVC: MainViewController {
      
+    // MARK: - Properties
+    
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Sign Up"))
         return lbl
     }()
+    
     private lazy var btnBack : UICustomButtonBack = {
         let btn = UICustomButtonBack()
         btn.addTarget(self, action: #selector(actBack), for: .touchUpInside)
         return btn
     }()
+    
     private lazy var svNavigationBar: UIStackView = {
         let sv = UIStackView()
         sv.addArrangedSubview(btnBack)
@@ -29,6 +33,7 @@ class RegisterVC: MainViewController {
         sv.axis = .horizontal
         return sv
     }()
+    
     private lazy var viewName: CustomComponentTextField = {
         let view = CustomComponentTextField()
         view.lbl.text = "Username"
@@ -42,6 +47,7 @@ class RegisterVC: MainViewController {
         view.placeHolderConfig(placeHolderText: "developer@bilgeadam.com")
         return view
     }()
+    
     private lazy var viewPassword: CustomComponentTextField = {
         let view = CustomComponentTextField()
         view.lbl.text = "Password"
@@ -49,6 +55,7 @@ class RegisterVC: MainViewController {
         view.txtField.isSecureTextEntry = true
         return view
     }()
+    
     private lazy var viewPasswordConfirm: CustomComponentTextField = {
         let view = CustomComponentTextField()
         view.lbl.text = "Password Confirm"
@@ -66,13 +73,39 @@ class RegisterVC: MainViewController {
     var viewModel = UserRegisterVM()
     var sendUsersArr: ((User)->Void)?
 
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         configureAlertClosures()
       
     }
+    
+    // MARK: - Selectors
+    
+    @objc func actBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func signUp(){
+        
+        guard let fullname = viewName.txtField.text,
+              let email = viewEmail.txtField.text,
+              let password = viewPassword.txtField.text,
+              let passwordConfirm = viewPasswordConfirm.txtField.text
+            else { AlertHelper.shared.showAlert(currentVC: self, errorType: .valuesNil)
+            return }
+        
+        if !viewModel.checkCanSignUp(name: fullname, email: email, password: password, passwordConfirm: passwordConfirm){return}
+        
+        let user = User(fullName: fullname, email: email, password: password)
+        
+        viewModel.postForRegisterData(user: user)
+    }
 
+    // MARK: - Helpers
+    
     override func setupLayout() {
         super.setupLayout()
         self.navigationController?.navigationBar.isHidden = true
@@ -124,26 +157,6 @@ class RegisterVC: MainViewController {
     override func addSubviews() {
         super.addSubviews()
         view.addSubviews(svNavigationBar,viewName,viewEmail,viewPassword,viewPasswordConfirm,registerButton)
-    }
-    
-    @objc func actBack() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func signUp(){
-        
-        guard let fullname = viewName.txtField.text,
-              let email = viewEmail.txtField.text,
-              let password = viewPassword.txtField.text,
-              let passwordConfirm = viewPasswordConfirm.txtField.text
-            else { AlertHelper.shared.showAlert(currentVC: self, errorType: .valuesNil)
-            return }
-        
-        if !viewModel.checkCanSignUp(name: fullname, email: email, password: password, passwordConfirm: passwordConfirm){return}
-        
-        let user = User(fullName: fullname, email: email, password: password)
-        
-        viewModel.postForRegisterData(user: user)
     }
     
     func configureAlertClosures(){
