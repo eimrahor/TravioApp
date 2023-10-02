@@ -10,6 +10,8 @@ import SnapKit
 
 class VisitsVC: UIViewController {
 
+    // MARK: - Properties
+    
     private lazy var titleVisits: UILabel = {
        let lbl = UILabel()
         lbl.text = "My Visits"
@@ -34,12 +36,6 @@ class VisitsVC: UIViewController {
         return tv
     }()
     
-    override func viewDidLayoutSubviews() {
-        secondView.roundCorners([.topLeft], radius: 80)
-        //tableView.roundCorners([.topLeft], radius: 16)
-    }
-    
-    
     let viewModel = VisitsVCViewModel()
     var status: Bool? {
         didSet {
@@ -47,10 +43,11 @@ class VisitsVC: UIViewController {
         }
     }
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        initVM()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,10 +55,8 @@ class VisitsVC: UIViewController {
         initVM()
     }
     
-    func reloadData() {
-        DispatchQueue.main.async() {
-            self.tableView.reloadData()
-        }
+    override func viewDidLayoutSubviews() {
+        secondView.roundCorners([.topLeft], radius: 80)
     }
     
     func initVM() {
@@ -70,6 +65,14 @@ class VisitsVC: UIViewController {
             self!.reloadData()
         }
     }
+    
+    func reloadData() {
+        DispatchQueue.main.async() {
+            self.tableView.reloadData()
+        }
+    }
+    
+    // MARK: - Helpers
     
     func setupViews() {
         navigationController?.navigationBar.isHidden = true
@@ -102,6 +105,8 @@ class VisitsVC: UIViewController {
     }
 }
 
+// MARK: - TableView Specs
+
 extension VisitsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 235
@@ -128,6 +133,8 @@ extension VisitsVC: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: Indicator
 
 extension VisitsVC: TriggerIndicatorProtocol {
     func sendStatusIsLoading(status: Bool) {

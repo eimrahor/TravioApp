@@ -13,6 +13,8 @@ class AboutVC: MainViewController {
 
     let aboutVM = AboutVM()
     
+    // MARK: - Properties
+    
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "About Us"))
         lbl.textAlignment = .left
@@ -43,6 +45,8 @@ class AboutVC: MainViewController {
     let webController = WebViewController()
     
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +59,8 @@ class AboutVC: MainViewController {
         wView.addSubview(childView)
         webController.didMove(toParent: self)
     }
+    
+    // MARK: - Helpers
     
     override func setupLayout() {
         super.setupLayout()

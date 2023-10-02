@@ -10,8 +10,8 @@ import TinyConstraints
 import SnapKit
 
 class TermsOfUseVC: MainViewController {
-
-    let termsOfUseVM = TermsOfUseVM()
+    
+    // MARK: - Properties
     
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Terms Of Use"))
@@ -40,7 +40,10 @@ class TermsOfUseVC: MainViewController {
         return v
     }()
     
+    let termsOfUseVM = TermsOfUseVM()
     let webController = WebViewController()
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +57,8 @@ class TermsOfUseVC: MainViewController {
         wView.addSubview(childView)
         webController.didMove(toParent: self)
     }
+    
+    // MARK: - Helpers
     
     override func setupLayout() {
         super.setupLayout()

@@ -11,6 +11,8 @@ import SnapKit
 
 class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     
+    // MARK: - Properties
+    
     private lazy var trackingButtonView: UIView = {
         let v = UIView()
         return v
@@ -39,8 +41,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
         lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         lm.requestWhenInUseAuthorization()
         return lm
-        }()
-
+    }()
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -77,6 +78,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
         }
     }
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -98,6 +101,21 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
         //self.mapView.userTrackingMode = .follow
         
     }
+    
+    func initVM() {
+        viewModel.delegate = self
+        viewModel.triggerDelegate = self
+        viewModel.takeAllPlacesFromService()
+        
+        mapView.delegate = self
+        viewModel.getAllCLLocationsLocation = { _ in
+            self.viewModel.addPins(places: self.viewModel.placesLocation, mapView: self.mapView)
+        }
+        self.mapView.addGestureRecognizer(longPressRecognizer)
+        
+    }
+    
+    // MARK: - Selectors
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .ended {
@@ -135,18 +153,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
         
     }
     
-    func initVM() {
-        viewModel.delegate = self
-        viewModel.triggerDelegate = self
-        viewModel.takeAllPlacesFromService()
-        
-        mapView.delegate = self
-        viewModel.getAllCLLocationsLocation = { _ in
-            self.viewModel.addPins(places: self.viewModel.placesLocation, mapView: self.mapView)
-        }
-        self.mapView.addGestureRecognizer(longPressRecognizer)
-        
-    }
+    // MARK: - Helpers
     
     func setupViews() {
         navigationController?.isNavigationBarHidden = true
@@ -175,6 +182,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDel
         }
     }
 }
+
+// MARK: CollectionView Specs
 
 extension MapVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -218,6 +227,8 @@ extension MapVC: CollectionViewReloadData {
     }
 }
 
+// Add annotationViews to all user places in map
+
 extension MapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -240,6 +251,8 @@ extension MapVC: MKMapViewDelegate {
         return nil
     }
     
+    // annotationView click then scroll CollectionView
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         let allLocationsAnnotation = viewModel.locationsOrderingMKPointAnnotation
@@ -255,6 +268,8 @@ extension MapVC: MKMapViewDelegate {
         }
     }
     
+    // Create location range, updated via user location
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let circleOverlay = overlay as? MKCircle {
             let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
@@ -268,11 +283,7 @@ extension MapVC: MKMapViewDelegate {
     }
 }
 
-extension MapVC: TriggerIndicatorProtocol {
-    func sendStatusIsLoading(status: Bool) {
-        self.status = status
-    }
-}
+// take user location
 
 extension MapVC {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -290,5 +301,13 @@ extension MapVC {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Konum alınamadı. Hata: \(error.localizedDescription)")
+    }
+}
+
+// MARK: Indicator
+
+extension MapVC: TriggerIndicatorProtocol {
+    func sendStatusIsLoading(status: Bool) {
+        self.status = status
     }
 }

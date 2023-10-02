@@ -11,6 +11,8 @@ import TinyConstraints
 
 class LoginVC: MainViewController {
 
+    // MARK: - Properties
+    
     private lazy var logoImage: UIImageView = {
        let img = UIImageView()
         img.image = #imageLiteral(resourceName: "travio-logo 1")
@@ -71,6 +73,8 @@ class LoginVC: MainViewController {
     
     let viewModel = UserLoginVM()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -81,6 +85,29 @@ class LoginVC: MainViewController {
             AlertHelper.shared.showAlert(currentVC: self, errorType: errorType)
         }
     }
+    
+    // MARK: - Selectors
+    
+    @objc func actRegisterButton() {
+        let vc = RegisterVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func actLoginButton() {
+        guard let email = viewEmail.txtField.text, let pass = viewPassword.txtField.text else { return }
+        
+        if !checkCanLogin(email: email, pass: pass) {return}
+        let param = [
+            "email": email,
+            "password": pass
+        ]
+        viewModel.postForUserLogin(params: param) {
+                let vc = MainTabbarController()
+                self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    // MARK: - Helpers
     
     override func setupLayout() {
         addSubviews()
@@ -144,25 +171,6 @@ class LoginVC: MainViewController {
         self.view.addSubviews(background,logoImage,welcomeLabel,viewEmail,viewPassword,loginButton,registerStack)
     }
     
-    @objc func actRegisterButton() {
-        let vc = RegisterVC()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func actLoginButton() {
-        guard let email = viewEmail.txtField.text, let pass = viewPassword.txtField.text else { return }
-        
-        if !checkCanLogin(email: email, pass: pass) {return}
-        let param = [
-            "email": email,
-            "password": pass
-        ]
-        viewModel.postForUserLogin(params: param) {
-                let vc = MainTabbarController()
-                self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
     func checkCanLogin(email:String,pass:String)->Bool{
         if email == "" || pass == "" {
             AlertHelper.shared.showAlert(currentVC: self, errorType: .emailOrPasswordEmpty)
@@ -170,6 +178,4 @@ class LoginVC: MainViewController {
         }
         return true
     }
-
-
 }

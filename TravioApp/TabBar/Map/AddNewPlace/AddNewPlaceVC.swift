@@ -15,6 +15,8 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     var selectedCellIndex:IndexPath?
     var imagesToUpload:[UIImage] = []
     
+    // MARK: - Properties
+    
     private lazy var placeNameView: CustomComponentTextField = {
        let tv = CustomComponentTextField()
         tv.lbl.text = "Place Name"
@@ -75,6 +77,8 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         return s
     }()
     
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -85,6 +89,34 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         super.viewWillAppear(animated)
         resetView()
     }
+    
+    func initVM(){
+        addNewPlaceVM.requesVMToUpdatePlace = { [weak self] () in
+            guard let placeName = self!.placeNameView.txtField.text,
+                  let desc = self!.visitDescriptionView.txtView.text,
+                  let countryCity = self!.countryView.txtField.text else {return}
+            
+            self!.addNewPlaceVM.updateVMPlaceData(placeName: placeName, placeDescription: desc, placeCountryCity: countryCity)
+        }
+    }
+    
+    func resetView(){
+        placeNameView.txtField.text = ""
+        visitDescriptionView.txtView.text = ""
+        fillLocationDatas()
+        imagesToUpload = []
+        collectionViewGallery.reloadData()
+    }
+    
+    func fillLocationDatas(){
+        guard let place = addNewPlaceVM.place else {return}
+        guard let countryCity = place.place else {return}
+
+        countryView.txtField.text = countryCity
+        countryView.txtField.textColor = CustomColor.TravioBlack.color
+    }
+    
+    // MARK: Selectors
     
     @objc func addNewPlace(){
         guard let placeName = placeNameView.txtField.text,
@@ -107,14 +139,12 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         
     }
     
-    func initVM(){
-        addNewPlaceVM.requesVMToUpdatePlace = { [weak self] () in
-            guard let placeName = self!.placeNameView.txtField.text,
-                  let desc = self!.visitDescriptionView.txtView.text,
-                  let countryCity = self!.countryView.txtField.text else {return}
-            
-            self!.addNewPlaceVM.updateVMPlaceData(placeName: placeName, placeDescription: desc, placeCountryCity: countryCity)
+    func checkCanAdd(name:String, countryCity:String) -> Bool {
+        if name.isEmpty || countryCity.isEmpty
+        { AlertHelper.shared.showAlert(currentVC: self, errorType: .placeNameOrCountryIsEmpty)
+            return false
         }
+        return true
     }
     
     func addNewPlaceToServerResult() {
@@ -140,35 +170,7 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
         }
     }
     
-    func checkCanAdd(name:String, countryCity:String) -> Bool {
-        if name.isEmpty || countryCity.isEmpty
-        { AlertHelper.shared.showAlert(currentVC: self, errorType: .placeNameOrCountryIsEmpty)
-            return false
-        }
-        return true
-    }
-    
-    func fillLocationDatas(){
-        guard let place = addNewPlaceVM.place else {return}
-        guard let countryCity = place.place else {return}
-
-        countryView.txtField.text = countryCity
-        countryView.txtField.textColor = CustomColor.TravioBlack.color
-    }
-    
-    func resetView(){
-        placeNameView.txtField.text = ""
-        visitDescriptionView.txtView.text = ""
-        fillLocationDatas()
-        imagesToUpload = []
-        collectionViewGallery.reloadData()
-    }
-    
-    func stopSpinner(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
-            self.spinner.stopAnimating()
-        }
-    }
+    // MARK: - Helpers
     
     func setupLayout(){
         self.view.backgroundColor = CustomColor.TravioWhite.color
@@ -204,6 +206,9 @@ class AddNewPlaceVC: UIViewController, UINavigationControllerDelegate {
     }
   
 }
+
+// MARK: - CollectionView Specs
+
 extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -219,6 +224,12 @@ extension AddNewPlaceVC: UICollectionViewDelegateFlowLayout {
         selectedCellIndex = indexPath
         stopSpinner()
         tryToOpenPhotoLibrary()
+    }
+    
+    func stopSpinner(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
+            self.spinner.stopAnimating()
+        }
     }
     
     func tryToOpenPhotoLibrary(){

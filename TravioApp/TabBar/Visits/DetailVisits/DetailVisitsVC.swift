@@ -12,6 +12,8 @@ import MapKit
 
 class DetailVisitsVC: UIViewController {
     
+    // MARK: - Properties
+    
     private lazy var backButton: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(named: "placeDetailBackButton"),for: .normal)  //?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -122,6 +124,8 @@ class DetailVisitsVC: UIViewController {
     var viewModel: DetailVisitsViewModel?
     var placeId: String?
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let placeId = placeId else { return }
@@ -131,15 +135,10 @@ class DetailVisitsVC: UIViewController {
         initVM()
         setupViews()
     }
-
+    
     override func viewDidLayoutSubviews() {
         let height = informationLabel.frame.origin.y + informationLabel.frame.height
         scroll.contentSize = CGSize(width: self.view.frame.width, height: height)
-    }
-    
-    func configure(placeID: String) {
-        viewModel = DetailVisitsViewModel(placeId: placeID)
-        
     }
     
     func initVM() {
@@ -173,6 +172,11 @@ class DetailVisitsVC: UIViewController {
         })
     }
     
+    func configure(placeID: String) {
+        viewModel = DetailVisitsViewModel(placeId: placeID)
+        
+    }
+    
     func addPinandZoomPlace(place: CLLocation) {
         let pin = MKPointAnnotation()
         pin.title = ""
@@ -181,6 +185,8 @@ class DetailVisitsVC: UIViewController {
         mpKit.setCenter(place.coordinate, animated: true)
         mpKit.cameraZoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(3000))
     }
+    
+    // MARK: - Selectors
     
     @objc func postOrDeleteVisit() {
         guard let viewModel = viewModel else { return }
@@ -198,6 +204,8 @@ class DetailVisitsVC: UIViewController {
     @objc func backVisitVC() {
         navigationController?.popViewController(animated: true)
     }
+    
+    // MARK: Helpers
     
     func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.9782040715, green: 0.9782040715, blue: 0.9782039523, alpha: 1)
@@ -305,6 +313,8 @@ class DetailVisitsVC: UIViewController {
     }
 }
 
+// MARK: - CollectionView Specs
+
 extension DetailVisitsVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = collectionView.frame.size
@@ -333,6 +343,8 @@ extension DetailVisitsVC: UICollectionViewDataSource{
         return cell
     }
 }
+
+// MARK: - Set annotationView
 
 extension DetailVisitsVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

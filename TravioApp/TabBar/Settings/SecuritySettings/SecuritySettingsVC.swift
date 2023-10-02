@@ -38,6 +38,8 @@ enum SecuritySettingsCellType{
 
 class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     
+    // MARK: - Properties
+    
     let securitySettingsVM = SecuritySettingsVM()
     
     private lazy var lblPageTitle: UICustomLabel = {
@@ -79,6 +81,8 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         return btn
     }()
 
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,32 +99,14 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         securitySettingsVM.requestFirstPermissions()
     }
-   
-    override func setupLayout() {
-        
-        super.setupLayout()
-        self.view.backgroundColor = CustomColor.TravioGreen.color
-        self.navigationController?.isNavigationBarHidden = true
-        
-        addSubviews()
-        
-        svNavigationBar.topToSuperview(offset: 19,usingSafeArea: true)
-        svNavigationBar.edgesToSuperview(excluding: [.top,.bottom],insets: .left(20) + .right(20))
-        
-        tvSecuritySettings.top(to: background,offset: 44)
-        tvSecuritySettings.edgesToSuperview(excluding: .top,insets: .bottom(70) + .left(20) + .right(20))
-        tvSecuritySettings.centerXToSuperview()
-        
-        btnSave.bottomToSuperview(offset:-18,usingSafeArea: true)
-        btnSave.edgesToSuperview(excluding: [.top,.bottom],insets: .left(24) + .right(24))
+    
+    func reloadData(){
+        DispatchQueue.main.async {
+            self.tvSecuritySettings.reloadData()
+        }
     }
     
-    override func addSubviews(){
-        super.addSubviews()
-        self.view.addSubview(svNavigationBar)
-        self.view.addSubview(tvSecuritySettings)
-        self.view.addSubview(btnSave)
-    }
+    // MARK: Selectors
     
     @objc func saveSettings(){
         
@@ -166,15 +152,38 @@ class SecuritySettingsVC: MainViewController, UICollectionViewDelegate {
         }
         return true
     }
+   
+    // MARK: - Helpers
     
-    func reloadData(){
-        DispatchQueue.main.async {
-            self.tvSecuritySettings.reloadData()
-        }
+    override func setupLayout() {
+        
+        super.setupLayout()
+        self.view.backgroundColor = CustomColor.TravioGreen.color
+        self.navigationController?.isNavigationBarHidden = true
+        
+        addSubviews()
+        
+        svNavigationBar.topToSuperview(offset: 19,usingSafeArea: true)
+        svNavigationBar.edgesToSuperview(excluding: [.top,.bottom],insets: .left(20) + .right(20))
+        
+        tvSecuritySettings.top(to: background,offset: 44)
+        tvSecuritySettings.edgesToSuperview(excluding: .top,insets: .bottom(70) + .left(20) + .right(20))
+        tvSecuritySettings.centerXToSuperview()
+        
+        btnSave.bottomToSuperview(offset:-18,usingSafeArea: true)
+        btnSave.edgesToSuperview(excluding: [.top,.bottom],insets: .left(24) + .right(24))
     }
     
-    
+    override func addSubviews(){
+        super.addSubviews()
+        self.view.addSubview(svNavigationBar)
+        self.view.addSubview(tvSecuritySettings)
+        self.view.addSubview(btnSave)
+    }
 }
+
+// MARK: - TableView Specs
+
 extension SecuritySettingsVC:UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

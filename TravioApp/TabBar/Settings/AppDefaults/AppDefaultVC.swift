@@ -12,6 +12,8 @@ class AppDefaultVC: MainViewController {
 
     let appDefaultVM = AppDefaultVM()
     
+    // MARK: - Properties
+    
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "App Default"))
         lbl.textAlignment = .left
@@ -34,9 +36,13 @@ class AppDefaultVC: MainViewController {
         return sv
     }()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    // MARK: - Helpers
     
     override func setupLayout() {
         super.setupLayout()

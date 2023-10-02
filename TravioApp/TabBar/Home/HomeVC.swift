@@ -21,6 +21,8 @@ protocol CellDataDelegate{
 
 class HomeVC: UIViewController, CellDataDelegate{
 
+    // MARK: - Properties
+    
     private lazy var secondView: UIView = {
        let v = UIView()
         v.backgroundColor = CustomColor.TravioWhite.color
@@ -74,6 +76,8 @@ class HomeVC: UIViewController, CellDataDelegate{
     }
     var statusCv: Bool?
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,6 +93,9 @@ class HomeVC: UIViewController, CellDataDelegate{
         secondView.roundCorners([.topLeft], radius: 80)
         tableView.roundCorners([.topLeft], radius: 16)
     }
+    
+    // MARK: - Grand Central Dispatch
+    
     func prepareDataWithDispatch() {
         viewModel.triggerDelegate = self
         
@@ -126,6 +133,8 @@ class HomeVC: UIViewController, CellDataDelegate{
             self.tableView.reloadData()
         }
     }
+    
+    // MARK: - Helpers
     
     func setupViews() {
         view.addSubview(secondView)
@@ -168,6 +177,8 @@ class HomeVC: UIViewController, CellDataDelegate{
     }
     
 }
+
+// MARK: - TableView Specs
 
 extension HomeVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -216,6 +227,9 @@ extension HomeVC: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: - Protocol Funcs
+
 extension HomeVC {
     func sendSeeAllVC(placesType: ListedPlacesTypes) {
         let targetVC = SeeAllVC()
@@ -228,6 +242,8 @@ extension HomeVC {
         self.navigationController?.pushViewController(targetVC, animated: true)
     }
 }
+
+// MARK: Indicator
 
 extension HomeVC: TriggerIndicatorProtocol {
     func sendStatusIsLoading(status: Bool) {

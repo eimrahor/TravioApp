@@ -11,6 +11,8 @@ import TinyConstraints
 
 class HelpAndSupportVC: MainViewController {
     
+    // MARK: - Properties
+    
     private lazy var lblPageTitle: UICustomLabel = {
         let lbl = UICustomLabel(labelType: .pageNameHeader(text: "Help&Support"))
         lbl.textAlignment = .left
@@ -57,6 +59,8 @@ class HelpAndSupportVC: MainViewController {
     var heightForRow: CGFloat = 73
     var value: IndexPath?
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,6 +73,8 @@ class HelpAndSupportVC: MainViewController {
         }
         helpAndSupportVM.takeArray()
     }
+    
+    // MARK: - Helpers
     
     override func setupLayout() {
         super.setupLayout()
@@ -103,6 +109,8 @@ class HelpAndSupportVC: MainViewController {
         self.navigationController?.popViewController(animated: true)
     }
 }
+
+// MARK: CollectionView Specs
 
 extension HelpAndSupportVC: UICollectionViewDelegateFlowLayout {
     
